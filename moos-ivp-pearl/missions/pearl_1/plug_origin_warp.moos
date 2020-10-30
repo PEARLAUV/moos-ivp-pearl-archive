@@ -1,9 +1,9 @@
 MOOSTimeWarp = $(WARP)
 
-#ifdef REGION pavlab
-// MIT Sailing Pavilion (PavLab)
-LatOrigin = 42.358436
-LongOrigin = -71.087448
+#ifdef REGION deeppond
+// Deep Pond
+LatOrigin = 41.623704
+LongOrigin = -70.578045
 #else
 // Forest Lake Maine
 LatOrigin  = 43.825300 
