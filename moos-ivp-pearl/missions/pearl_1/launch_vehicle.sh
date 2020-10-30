@@ -10,13 +10,13 @@ TIME_WARP=1
 JUST_MAKE="no"
 AUTO=""
 IP_ADDR="localhost"
-VNAME="abe"
+VNAME="pearl"
 INDEX="1"
 SHORE=""
 START_POS="0,0"  
 SHORE="localhost:9300"
 PSHARE_PORT=""
-REGION="forest_lake"
+REGION="deep_pond"
 
 #--------------------------------------------------------------
 #  Part 2: Check for and handle command-line arguments
