@@ -76,8 +76,8 @@ ProcessConfig = pMarineViewer
   AppTick    = 4
   CommsTick  = 4
 
-#ifdef REGION pavlab
-  tiff_file            = MIT_SP.tif
+#ifdef REGION deep_pond
+  tiff_file            = deep_pond_sat.tif
 #else
   tiff_file            = forrest19.tif
 #endif
