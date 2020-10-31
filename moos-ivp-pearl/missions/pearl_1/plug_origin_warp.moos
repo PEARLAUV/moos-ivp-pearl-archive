@@ -1,6 +1,6 @@
 MOOSTimeWarp = $(WARP)
 
-#ifdef REGION deeppond
+#ifdef REGION deep_pond
 // Deep Pond
 LatOrigin = 41.623704
 LongOrigin = -70.578045
