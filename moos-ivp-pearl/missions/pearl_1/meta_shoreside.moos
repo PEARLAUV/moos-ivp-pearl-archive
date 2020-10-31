@@ -76,11 +76,8 @@ ProcessConfig = pMarineViewer
   AppTick    = 4
   CommsTick  = 4
 
-#ifdef REGION deep_pond
-  tiff_file            = deep_pond_sat.tif
-#else
-  tiff_file            = forrest19.tif
-#endif
+  tiff_file     = deep_pond_sat.tif
+  tiff_file_b   = deep_pond_map.tif
   set_pan_x            = -90
   set_pan_y            = -280
   zoom                 = 1
