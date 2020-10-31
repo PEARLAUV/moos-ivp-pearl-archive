@@ -11,7 +11,7 @@ JUST_MAKE="no"
 AUTO=""
 IP_ADDR="localhost"
 PSHARE_PORT="9300"
-REGION="forest_lake"
+REGION="deep_pond"
 
 #--------------------------------------------------------------
 #  Part 2: Check for and handle command-line arguments
@@ -64,9 +64,9 @@ fi
 #--------------------------------------------------------------
 #  Part 4: Launch the processes
 #--------------------------------------------------------------
-echo "Launching $VNAME MOOS Community WARP:" $TIME_WARP
+echo "Launching Shoreside MOOS Community WARP:" $TIME_WARP
 pAntler targ_shoreside.moos >& /dev/null &
-echo "Done launnching shoreside"
+echo "Done launching shoreside"
 
 #-------------------------------------------------------------- 
 #  Part 5: Unless auto-launched, launch uMAC until mission quit          
