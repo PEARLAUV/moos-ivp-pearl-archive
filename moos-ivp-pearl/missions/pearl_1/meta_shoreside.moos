@@ -78,9 +78,9 @@ ProcessConfig = pMarineViewer
 
   tiff_file     = deep_pond_sat.tiff
   tiff_file_b   = deep_pond_map.tiff
-  set_pan_x            = -90
-  set_pan_y            = -160
-  zoom                 = 1
+  set_pan_x            = 0
+  set_pan_y            = 0
+  zoom                 = 2
   vehicles_shape_scale = 1.5
   vehicles_name_mode   = names+shortmode
 
