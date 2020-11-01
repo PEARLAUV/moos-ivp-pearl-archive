@@ -7,10 +7,7 @@ ServerPort = $(VPORT)
 // Community name IS the vehicle name
 Community  = $(VNAME)
 
-//#include plug_origin_warp.moos
-MOOSTimeWarp = 1
-LatOrigin    = 41.739191
-LongOrigin   = -69.992287
+#include plug_origin_warp.moos
   
 //------------------------------------------------------------
 Processconfig = ANTLER
