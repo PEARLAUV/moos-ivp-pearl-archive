@@ -103,5 +103,5 @@ ProcessConfig = pMarineViewer
   button_one = RETURN_ALL=false
   button_two = RETURN  # RETURN_ALL=true
   
-  left_context[view_point]  = VIEW_POINT = x=$(XPOS),y=$(YPOS),label=hello
+  //left_context[view_point]  = VIEW_POINT = x=$(XPOS),y=$(YPOS),label=hello
 }
