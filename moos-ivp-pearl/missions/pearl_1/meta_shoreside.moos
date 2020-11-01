@@ -102,4 +102,6 @@ ProcessConfig = pMarineViewer
   button_one = MOOS_MANUAL_OVERRIDE_ALL=false 
   button_one = RETURN_ALL=false
   button_two = RETURN  # RETURN_ALL=true
+  
+  left_context[view_point]  = VIEW_POINT = x=$(XPOS),y=$(YPOS),label=hello
 }
