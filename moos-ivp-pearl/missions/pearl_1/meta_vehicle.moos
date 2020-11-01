@@ -9,8 +9,8 @@ Community  = $(VNAME)
 
 //#include plug_origin_warp.moos
 MOOSTimeWarp = 1
-LatOrigin    = 41.73917
-LongOrigin   = -69.99383
+LatOrigin    = 41.739191
+LongOrigin   = -69.992287
   
 //------------------------------------------------------------
 Processconfig = ANTLER
