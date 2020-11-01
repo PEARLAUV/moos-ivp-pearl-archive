@@ -21,7 +21,7 @@ Behavior = BHV_Waypoint
     capture_line = true
   capture_radius = 5.0
      slip_radius = 15.0
-          repeat = 1
+          repeat = 0
    //       points = 40,40 : 40,-40 : 80,0
    points        = 60,20 : 0,0 : -20,30 : 0,0 : -60,-50 : 0,0 : 30,-30 : 0,0
 	
