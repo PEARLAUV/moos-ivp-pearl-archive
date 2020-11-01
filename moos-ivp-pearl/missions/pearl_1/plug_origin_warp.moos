@@ -2,8 +2,8 @@ MOOSTimeWarp = $(WARP)
 
 #ifdef REGION deep_pond
 // Deep Pond
-LatOrigin = 41.623704
-LongOrigin = -70.578045
+LatOrigin = 41.73917
+LongOrigin = -69.99231
 #else
 // Forest Lake Maine
 LatOrigin  = 43.825300 
