@@ -11,5 +11,5 @@ ProcessConfig = pHelmIvP
   Behaviors    = targ_$(VNAME).bhv  
   Verbose      = false
   Domain       = course:0:359:360
-  Domain       = speed:0:1:11
+  Domain       = speed:0:2:21
 }
