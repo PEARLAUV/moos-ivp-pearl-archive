@@ -5,10 +5,7 @@ ServerHost = localhost
 ServerPort = 9000
 Community  = shoreside
 
-//#include plug_origin_warp.moos
-MOOSTimeWarp = 1
-LatOrigin    = 41.739191
-LongOrigin   = -69.992287
+#include plug_origin_warp.moos
   
 //--------------------------------------------------------
 Processconfig = ANTLER
