@@ -1,0 +1,15 @@
+ProcessConfig = uMissionTester
+{
+
+    AppTick       = 2
+    CommsTick     = 2
+    THIS_IS_SHORE = false
+
+    TIMEOUT       = 5000 min
+    VERBOSE       = true
+
+//  START_FLAGS      = DUMMY_FLAG = true
+//  START_DELAY      = 3 seconds
+ 
+ END_CONDITION    = DB_UPTIME > 11000
+}

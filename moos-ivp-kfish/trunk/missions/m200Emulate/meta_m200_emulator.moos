@@ -1,0 +1,117 @@
+//-------------------------------------------------
+// NAME: Alon Yaari, MIT CSAIL
+// DATE: October 2014
+// FILE: m200Emulate.moos
+//-------------------------------------------------
+
+ServerHost   = localhost  
+ServerPort   = 8999
+Community    = m200Emulator
+MOOSTimeWarp = 1
+
+// MIT Sailing Pavilion
+LatOrigin  = 42.358456 
+LongOrigin = -71.087589
+
+ProcessConfig = ANTLER
+{
+  MSBetweenLaunches = 200
+
+    Run = MOOSDB          @ NewConsole = false
+    Run = uSimM200        @ NewConsole = false
+    Run = uSimMarine      @ NewConsole = false
+    Run = uProcessWatch   @ NewConsole = false
+$(VISUALS) Run = pMarineViewer   @ NewConsole = false
+$(VISUALS) Run = pNodeReporter   @ NewConsole = false
+}
+
+ProcessConfig = uSimM200                                                      
+{                                                                             
+  AppTick           = 10                                                      
+  CommsTick         = 10                                                      
+  PORT_NUMBER       = 29500   // Port number on localhost to publish out to
+                              // Defaults to Cleapath M200 port of 29500
+} 
+
+ProcessConfig = uProcessWatch
+{
+  AppTick           = 4
+  CommsTick         = 4
+  summary_wait      = 5
+  nowatch           = uXMS*
+  nowatch           = uMAC*
+  nowatch           = uMS*
+  nowatch           = uPokeDB*
+  nowatch           = uTermCommand*
+  watch_all         = true
+}
+
+ProcessConfig = uSimMarine
+{
+  AppTick           = 4
+  CommsTick         = 4
+  start_x           = 0
+  start_y           = -20
+  start_heading     = 180
+  start_speed       = 0
+  prefix            = NAV
+  turn_rate         = 40
+  thrust_map        = 0:0, 20:0.3, 40:0.6, 60:1.0, 80:1.4, 100:1.75
+}
+
+ProcessConfig = pLogger
+{
+  AppTick              = 8
+  CommsTick            = 8
+  AsyncLog             = true
+  LogAuxSrc            = true
+  WildCardLogging      = true
+  WildCardOmitPattern  = *_STATUS
+  WildCardOmitPattern  = DB_VARSUMMARY
+  WildCardOmitPattern  = DB_RWSUMMARY
+  WildCardExclusionLog = true
+
+  // For variables that are published in a bundle on their first post,
+  // explicitly declare their logging request
+  Log                  = IVPHELM_LIFE_EVENT @ 0 NOSYNC
+}
+
+ProcessConfig = pMarineViewer
+{
+  AppTick                       = 4
+  CommsTick                     = 4
+  set_pan_x                     = 0
+  set_pan_y                     = 0
+  zoom                          = 1.8
+  vehicles_shape_scale          = 1.5
+	vehicles_name_mode            = names
+  hash_delta                    = 50
+  hash_shade                    = 0.4
+  hash_viewable                 = true
+  trails_point_size             = 1
+	center_view                   = active 
+  // Appcast configuration
+  appcast_height                = 75
+  appcast_width                 = 40
+  appcast_viewable              = true
+  appcast_color_scheme          = indigo
+  nodes_font_size               = medium
+  procs_font_size               = medium
+  appcast_font_size             = small
+  
+  //button_one = DEPLOY # DEPLOY=true
+  //button_one = MOOS_MANUAL_OVERIDE=false # RETURN=false
+  //button_two = RETURN # RETURN=true
+  //button_three = CONTINUE # CONTINUE=true
+}
+
+ProcessConfig = pNodeReporter
+{
+  AppTick    = 2
+  CommsTick  = 2
+
+  platform_type   = KAYAK
+  platform_length = 4
+}
+
+

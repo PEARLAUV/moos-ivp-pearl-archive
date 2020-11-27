@@ -1,0 +1,10 @@
+
+ProcessConfig = iuModemMP
+{
+  AppTick    = 10
+  CommsTick  = 10
+  Port       = /dev/tty.usbserial-FT9ZORIJ
+  Baudrate   = 19200
+  SRC_ID     = 1
+  Soundspeed = 1465
+}

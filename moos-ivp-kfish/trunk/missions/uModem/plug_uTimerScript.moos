@@ -1,0 +1,13 @@
+
+ProcessConfig = uTimerScript
+{
+   AppTick          = 10
+   CommsTick        = 10
+   paused           = $(NO_RANGE_PING)
+
+   event            = var=UMODEM_CMD, val=dst=$(PING_TO_ID),  time=5.0
+
+   reset_max        = nolimit
+   reset_time       = all-posted                                                                         
+} 
+

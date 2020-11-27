@@ -1,0 +1,18 @@
+//--------------------------------------------------------
+// iActuationKFAC Configuration Block (Created from Plugin)
+
+ProcessConfig = iActuationKFAC
+{
+  AppTick                    = 10
+  CommsTick                  = 10
+
+  NO_COMMS_TO_KFISHER = true
+
+  // No helm command in Timeout seconds = ALL STOPPED
+  Timeout                    = 6                     
+
+  ComputeHeading             = 0     // 0 = NO, 1 = YES
+  m_verbose                  = 1
+  MAX_THRUST_VALUE           = 99
+
+}

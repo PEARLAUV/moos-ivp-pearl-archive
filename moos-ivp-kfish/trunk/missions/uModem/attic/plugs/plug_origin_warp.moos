@@ -1,0 +1,11 @@
+#ifdef SIMULATION true
+  MOOSTimeWarp = $(WARP)
+#else
+  MOOSTimeWarp = 1
+#endif
+
+// MIT Sailing Pavilion
+LatOrigin  =  42.358456		
+LongOrigin = -71.087589	
+
+

@@ -1,0 +1,12 @@
+//---------------------------------------------------------
+// uFldWrapDetect Config Block
+
+ProcessConfig = uFldWrapDetect
+{
+  AppTick    = 4
+  CommsTick  = 4
+
+ MAX_SEGMENTS = 9000
+ MAX_TRAIL_DISTANCE = 90
+}
+//---------------------------------------------------------

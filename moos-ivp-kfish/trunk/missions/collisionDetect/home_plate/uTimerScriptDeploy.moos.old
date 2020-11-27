@@ -1,0 +1,18 @@
+//------------------------------------------
+// uTimerScript
+
+ProcessConfig = uTimerScript
+{
+  AppTick   = 4
+  CommsTick = 4
+
+  paused     = false
+  event      = var=DEPLOY_ALL, val=true, time=10
+//  event      = var=RAND_NUMBER, val=$(9), time=0.50
+//  event      = var=RAND_NUMBER, val=$(7), time=0.75
+//  event      = var=RAND_NUMBER, val=$(5), time=1.00
+//  reset_max  = nolimit
+//  reset_time = all-posted
+}
+
+//------------------------------------------

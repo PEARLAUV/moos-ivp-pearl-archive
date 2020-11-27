@@ -1,0 +1,126 @@
+ServerHost = gerard
+ServerPort = 9000
+Community  = gpsTest
+
+// MIT Sailing Pavilion
+LatOrigin  =  42.358456		
+LongOrigin = -71.087589	
+
+
+ProcessConfig = ANTLER
+{
+  MSBetweenLaunches = 200
+
+  Run = MOOSDB          @ NewConsole = false
+  Run = iGPS_KFAC       @ NewConsole = false
+  Run = pNodeReporter   @ NewConsole = false
+ 
+}
+
+ProcessConfig = pMarineViewer
+{
+  AppTick    = 4
+  CommsTick  = 4
+
+
+  set_pan_x            = -90
+  set_pan_y            = -280
+  zoom                 = 0.65
+  vehicle_shape_scale  = 1.5
+  hash_delta           = 50
+  hash_shade           = 0.4
+  hash_viewable        = true
+
+  trails_point_size   = 1
+
+  // Appcast configuration
+  appcast_height       = 75
+  appcast_width        = 30
+  appcast_viewable     = true
+  appcast_color_scheme = indigo
+  nodes_font_size      = medium
+  procs_font_size      = medium
+  appcast_font_size    = small
+
+  //datum_viewable = true
+  //datum_size     = 18                                                             
+  //gui_size = small                                                                
+                                                                                    
+  left_context[survey-point] = DEPLOY=true                                          
+  left_context[survey-point] = MOOS_MANUAL_OVERIDE=false                            
+  left_context[survey-point] = RETURN=false                                         
+                                                                                    
+  right_context[return] = DEPLOY=true                                               
+  right_context[return] = MOOS_MANUAL_OVERIDE=false                                 
+  right_context[return] = RETURN=false                                              
+                                                                                    
+  left_context[polyvert] = POLY_VERT=x=$(XPOS),y=$(YPOS)                            
+                                                                                    
+  scope  = WPT_EFFICIENCY_LEG                                                       
+  scope  = WPT_EFFICIENCY_SUM                                                       
+  scope  = WPT_EFFICIENCY_VAL                                                       
+  scope  = RETURN                                                                   
+  scope  = WPT_STAT                                                                 
+  scope  = VIEW_SEGLIST                                                             
+  scope  = VIEW_POINT                                                               
+  scope  = VIEW_POLYGON                                                             
+  scope  = MVIEWER_LCLICK                                                           
+  scope  = MVIEWER_RCLICK            
+  button_one = DEPLOY # DEPLOY=true                                                 
+  button_one = MOOS_MANUAL_OVERIDE=false # RETURN=false                             
+  button_two = RETURN # RETURN=true                                                 
+  button_three = CONTINUE # CONTINUE=true                                           
+                                                                                    
+  action  = MENU_KEY=deploy # DEPLOY = true # RETURN = false                        
+  action+ = MENU_KEY=deploy # MOOS_MANUAL_OVERIDE=false                             
+  action  = RETURN=true                                                             
+  action  = UPDATES_RETURN=speed=1.4                                                
+}        
+
+ProcessConfig = pNodeReporter
+{
+  AppTick     = 5
+  CommsTick   = 5
+
+  VESSEL_TYPE = kayak
+
+}
+
+ProcessConfig = pLogger
+{
+  AppTick       = 10
+  CommsTick     = 10
+
+  File          = LOG_GPS
+  PATH          = ./
+  //SyncLog     = true @ 0.2
+  AsyncLog      = true
+  FileTimeStamp = false
+
+  Log = IVPHELM_LIFE_EVENT @ 0 nosync                                                              
+                                                                                                   
+  // Log it all!!!!!                                                                               
+  LogAuxSrc = true                                                                                 
+  WildCardLogging = true                                                                           
+                                                                                                   
+  CompressAlogs = false                                                                            
+}  
+
+
+
+ProcessConfig = iGPS_KFAC
+{
+        AppTick       = 10
+        CommsTick     = 10
+        Type          = SERIAL
+        SHOW_CEP      = FALSE
+        PREFIX        = NAV_
+        PUBLISH_HEADING = TRUE
+        TRIGGER_MSG   = GPRMC
+        Port          = /dev/tty.usbserial-FTEH2DPT
+        BaudRate      = 19200
+        SWITCH_PITCH_ROLL = true
+        HEADING_OFFSET = -90
+}
+
+

@@ -1,0 +1,21 @@
+ProcessConfig = uMissionTester
+{
+    AppTick                = 2
+    CommsTick              = 2
+    THIS_IS_SHORE          = true
+    TIMEOUT                = 10800 sec // 3 hours   //10 min
+
+//    QUORUM_NAMES           = constantine,changer
+
+    START_FLAGS            = DEPLOY_ALL = true,STATION_ALL=false
+    START_FLAGS            = MOOS_MANUAL_OVERIDE_ALL=false,RETURN_ALL=false
+
+    START_DELAY            = 3 seconds
+ 
+   END_CONDITION          = DB_UPTIME > 10800 min
+ //   END_CONDITION          = KING_OF_THE_HILL_constantine=true
+ //   END_CONDITION          = KING_OF_THE_HILL_changer=true
+
+    VERBOSE                = true
+    METRIC_AT_END          = DEPLOY_ALL, TIMER_RUNNING
+}

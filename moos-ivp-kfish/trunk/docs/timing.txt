@@ -1,0 +1,20 @@
+Compiling on Clearpath Kingfisher M200 Evan:
+- Motherboard: Commell LE-376C
+- Processor: quad-core Intel Atom D525 1.8GHz
+- MOOS-IvP SVN Revision 6929
+- Launched with: time ./build.sh
+- Results:
+        real 27m10.855s
+        user 75m55.313s
+        sys  4m55.298s
+
+Compiling on PABLO:
+- Motherboard: Raspberry Pi Model 2B
+- Processor: Broadcom BCM2836 ARM7 Quad Core 900MHz
+- MOOS-IvP SVN Revision 6929
+- Launched with: time ./build.sh
+- Results:
+        real 46m2.119s
+        user 127m33.170s
+        sys  4m54.000s
+

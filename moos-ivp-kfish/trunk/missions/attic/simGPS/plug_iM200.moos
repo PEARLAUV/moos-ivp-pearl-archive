@@ -1,0 +1,14 @@
+//------------------------------------------------------------
+ProcessConfig = iM200
+{
+	AppTick   = 10
+	CommsTick = 10
+
+	thrust_mode        = direct-thrust
+	ip_address         = 192.168.1.176
+	port_number        = 29500
+
+  heading_source     = NAV_UPDATE
+  heading_msg_name   = NAV_HEADING
+	mag_offset         = 14.5
+}

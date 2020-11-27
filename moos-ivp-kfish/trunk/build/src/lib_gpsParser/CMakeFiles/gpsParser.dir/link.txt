@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../../lib/libgpsParser.a  CMakeFiles/gpsParser.dir/gpsParser.cpp.o
+/usr/bin/ranlib ../../../lib/libgpsParser.a

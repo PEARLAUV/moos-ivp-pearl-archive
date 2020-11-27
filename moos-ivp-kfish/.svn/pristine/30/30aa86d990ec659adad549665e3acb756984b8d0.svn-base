@@ -1,0 +1,14 @@
+//--------------------------------------------------
+// pHostInfo configuration block from plugin
+
+ProcessConfig = pHostInfo
+{
+  AppTick 	= 1
+  CommsTick 	= 1
+
+  //If we don't do this it will automatically choose the
+  //wired eth0 which won't work on our wifi
+  DEFAULT_HOSTIP_FORCE = 192.168.1.176
+//  DEFAULT_HOSTIP = localhost
+}
+
