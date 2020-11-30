@@ -1,0 +1,30 @@
+//--------------------------------------------------------
+// FIELD VEHICLE
+// uProcessWatch Configuration Block (Created from Plugin)
+
+ProcessConfig = uProcessWatch
+{
+  AppTick   = 2
+  CommsTick = 2
+
+  ALLOW_RETRACTIONS = true
+
+  WATCH_ALL = true // default is true
+
+  NOWATCH = uMS*
+  NOWATCH = uMAC*  
+  NOWATCH = uXMS*
+  NOWATCH = uPokeDB*
+  
+  WATCH  = iActuationKFAC
+  WATCH  = iGPS_KFAC
+  WATCH  = iM200
+  WATCH  = pHelmIvP
+  WATCH  = pHostInfo
+  WATCH  = pLogger
+  WATCH  = pMarinePID
+  WATCH  = pNodeReporter
+  SUMMARY_WAIT = 12
+}
+
+

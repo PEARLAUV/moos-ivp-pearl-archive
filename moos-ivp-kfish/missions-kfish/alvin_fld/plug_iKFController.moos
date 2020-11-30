@@ -1,0 +1,24 @@
+//----------------------------------------------
+// iKFController configuration (Made from PLUGIN)
+
+ProcessConfig = iKFController
+{
+  // The controller needs to run at least 10Hz
+  // otherwise the Clearpath API will timeout
+  AppTick = 20
+  CommsTick = 20
+  
+  Port = /dev/ttyUSB0
+  Timeout = 6  
+
+  // If 1 then heading is computed from magnetometers
+  ComputeHeading = 0
+  // Magnetometer offsets in Gauss
+  MagOffsetX = -0.0562
+  MagOffsetY = -0.0342
+  MagOffsetZ = 0.0
+  // An orientation from compass to vehicle in degrees
+  HeadingOffset = 0.0
+
+
+}

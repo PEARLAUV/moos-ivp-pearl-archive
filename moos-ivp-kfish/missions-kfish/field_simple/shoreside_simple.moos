@@ -1,0 +1,151 @@
+// Shore station for Kingfisher simple deployment
+//	Author:	Alon Y
+//	Date:		Mar 31, 2012
+
+ServerHost = localhost
+ServerPort = 9000
+ 
+// Community name IS the vehicle name
+Community  = shoreside2
+
+// Datum for the MIT Sailing Pavilion
+LatOrigin	=  42.358456	// 0,0 just in front of the MIT sailing pavilion
+LongOrigin	= -71.087589	// 0,0 just in front of the MIT sailing pavilion
+
+
+//-------------------------------------------------------------
+// Antler configuration  block
+
+ProcessConfig = ANTLER
+{
+  MSBetweenLaunches = 200
+
+  //crucial processes
+  Run = MOOSDB			@ NewConsole = false
+  Run = pMOOSBridge     	@ NewConsole = false
+  Run = pMarineViewer		@ NewConsole = true
+  Run = pLogger @ NewConsole = false 
+ //Run = uXMS            	@ NewConsole = true
+}
+
+//------------------------------------------------------------------
+// pMOOSBridge config block
+
+ProcessConfig = pMOOSBridge
+{
+  AppTick   = 5
+  CommsTick = 5
+
+  // this is the port *this* bridge will be listening for incoming UDP packets 
+  // from other bridges in other communities.
+  UDPListen = 9200 
+
+  // SHARE = [VAR] -> to-community @ to-host:to-port [VAR]
+
+	SHARE = archie@10.25.0.92:9001 [NODE_REPORT_LOCAL] -> shoreside@10.25.0.20:9000 [NODE_REPORT]
+	SHARE = [DEPLOY, RETURN, KEEP, MOOS_MANUAL_OVERRIDE] -> archie@10.25.0.92:9001
+	SHARE = [DEPLOY, RETURN, KEEP, MOOS_MANUAL_OVERRIDE] -> betty@10.25.0.93:9002
+}
+
+
+//----------------------------------------------
+// pMarineViewer configuration  block
+
+ProcessConfig = pMarineViewer
+{
+  AppTick    = 5
+  CommsTick  = 5
+
+  TIFF_FILE     = ../data/pavilion.tif
+
+    center_view_true = true
+  center_view_sticky = true
+
+  HASH_VIEW     = false
+  HASH_DELTA    = 100
+  HASH_SHADE    = 0.45
+  BACK_SHADE    = 0.70
+
+          trails_viewable = true
+        trails_point_size = 1
+       polygon_edge_color = white
+     polygon_vertex_color = light_green
+       polygon_edge_width = 1
+  polygon_viewable_labels = false
+  
+      seglist_vertex_size = 4
+        point_vertex_size = 8
+
+      vehicle_shape_scale = 3
+                     zoom = 1.7
+                set_pan_x = 0
+                set_pan_y = 80
+
+  VEHICOLOR     = archie,dark_blue
+  VEHICOLOR     = betty,0.2, 0.8, 0.0
+
+  scope  = NODE_REPORT
+  scope  = DEPLOY
+  scope  = RETURN
+  scope  = VIEW_POINT
+  scope  = VIEW_SEGLIST
+  scope  = VIEW_POLYGON
+  scope  = MVIEWER_LCLICK
+  scope  = MVIEWER_RCLICK
+  scope  = PROC_WATCH_SUMMARY_ARCHIE
+  scope  = PROC_WATCH_SUMMARY_BETTY
+  scope  = BHV_WARNING_ARCHIE
+  scope  = BHV_WARNING_BETTY
+  scope  = BHV_ERROR_ARCHIE
+  scope  = BHV_ERROR_BETTY
+
+
+  BUTTON_ONE   = DEPLOY  # DEPLOY=true # RETURN=false # KEEP=false # MOOS_MANUAL_OVERRIDE=false
+  BUTTON_TWO   = RETURN  # DEPLOY=false # RETURN=true # KEEP=false # MOOS_MANUAL_OVERRIDE=false
+  BUTTON_THREE = STATION # DEPLOY=false # RETURN=false # KEEP=true # MOOS_MANUAL_OVERRIDE=false  
+  BUTTON_FOUR  = ALLSTOP # DEPLOY=false # RETURN=false # MOOS_MANUAL_OVERRIDE=true
+}
+
+//------------------------------------------------------------------
+// uXMS configuration block
+
+ProcessConfig = uXMS
+{
+  AppTick    = 5
+  CommsTick  = 5
+
+  VAR  = PROC_WATCH_SUMMARY_9000
+  VAR  = PROC_WATCH_SUMMARY_9000
+
+  VAR  = NODE_REPORT
+  VAR  = VIEW_POLYGON
+  VAR  = VIEW_POINT
+
+  VAR  = UPDATES_WPT_ARCHIE
+  VAR  = UPDATES_WPT_BETTY
+
+  VAR  = DEPLOY_ALL
+  VAR  = DEPLOY_ARCHIE
+  VAR  = DEPLOY_BETTY
+
+  VAR  = STATION_KEEP_ALL
+  VAR  = STATION_KEEP_ARCHIE
+  VAR  = STATION_KEEP_BETTY
+
+  VAR  = RETURN_ALL
+  VAR  = RETURN_ARCHIE
+  VAR  = RETURN_BETTY
+}   
+  
+
+ProcessConfig = pLogger
+{
+	AppTick = 10
+	CommsTick = 10
+
+	Log	= NODE_REPORT @ 0
+	Log	= ARCHIE_X @ 0
+	Log	= ARCHIE_Y @ 0
+	Log	= BETTY_X @ 0
+	Log	= BETTY_Y @ 0
+}

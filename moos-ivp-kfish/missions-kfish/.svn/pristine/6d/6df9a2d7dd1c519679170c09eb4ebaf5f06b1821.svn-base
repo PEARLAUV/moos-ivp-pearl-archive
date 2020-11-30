@@ -1,0 +1,287 @@
+//	BETTY Handling Tests
+//	Author:	Alon Y
+//	Date:		April 20, 2012
+
+	Community		= Handling
+	ServerHost		= Betty
+	ServerPort		= 9000 
+	LatOrigin		=  42.358456		// 0,0 just in front of the MIT sailing pavilion
+	LongOrigin		= -71.087589		// 0,0 just in front of the MIT sailing pavilion
+
+ProcessConfig = ANTLER
+{
+  MSBetweenLaunches		= 200
+  
+  Run	= MOOSDB		@ NewConsole = false
+//  Run	= iKFController		@ NewConsole = false	// Manages vehicle actuation
+  Run	= iActuationKF		@ NewConsole = false	// Interfaces with the Kingfisher
+  Run	= pNodeReporter		@ NewConsole = false	// Packages message to report position
+  Run	= pMOOSBridge		@ NewConsole = false	// Bridges messages with shore station
+  Run	= pMarinePID		@ NewConsole = false	// Converts helm output to actuator values
+  Run	= pHelmIvP		@ NewConsole = false	// The autonomous helm
+  Run	= iOS5000		@ NewConsole = false	// Reads the digital compass
+//  Run	= iGPS_5hz		@ NewConsole = false	// Reads the 5hz gps on the kingfisher
+Run = iGPS_KF @ NewConsole = false
+Run = pEchoVar @ NewConsole = false
+
+//Run	= iRemote		@ NewConsole = false
+//Run	= iMetaCompass		@ NewConsole = false	// 
+//Run	= pEchoVar		@ NewConsole = false	// 
+//Run	= uProcessWatch		@ NewConsole = false	// 
+//Run	= pLogger		@ NewConsole = false	// Logs messages to disk
+}
+
+
+ProcessConfig = pEchoVar
+{
+  AppTick   = 10
+  CommsTick = 10
+
+  Echo  = GPS_LATITUDE  ->  NAV_LAT
+  Echo  = GPS_LONGITUDE ->  NAV_LONG
+  Echo  = GPS_X         ->  NAV_X
+  Echo  = GPS_Y         ->  NAV_Y
+  Echo  = COMPASS_HEADING ->  NAV_HEADING
+  Echo  = GPS_SPEED     ->  NAV_SPEED
+
+}
+
+ProcessConfig = iGPS
+{
+        AppTick = 10
+        CommsTick = 10
+        Port = /dev/GPS18X5HZ
+        Streaming = true
+        Verbose = false
+        BaudRate = 19200
+        Type = GARMIN
+}
+
+
+ProcessConfig = iActuationKF
+{                                                                                                  
+  AppTick                       = 10                                                               
+  CommsTick                     = 10                                                               
+  Port                          = /dev/KINGFISHER       // tty port for communicating with the vehicle controller 
+  Timeout                       = 6                     // No helm command in Timeout seconds = ALL STOPPED       
+  ComputeHeading                = 0                     // 0 = NO, 1 = YES                         
+  m_verbose                     = 1                                                                
+  MAX_THRUST_VALUE              = 84
+//MagOffsetX                    = 0.0                                                              
+//MagOffsetY                    = 0.0                                                              
+//ProcessOrientationData        = true                                                             
+//ProcessMagnetometerData       = true                                                             
+OFFSET_LT10        = 8.5
+OFFSET_GTE10_LT20  = 8.5
+OFFSET_GTE20_LT30  = 8.5
+OFFSET_GTE30_LT40  = 8.0
+OFFSET_GTE40_LT50  = 7.5
+OFFSET_GTE50_LT60  = 7.0
+OFFSET_GTE60_LT70  = 7.0
+OFFSET_GTE70_LT80  = 7.0
+OFFSET_GTE80_LT90  = 7.5
+OFFSET_GTE90       = 8.5
+
+}
+      
+
+ProcessConfig = iKFController
+{
+  AppTick			= 10
+  CommsTick			= 10
+  Port				= /dev/KINGFISHER	// tty port for communicating with the vehicle controller
+  Timeout			= 3			// No helm command in Timeout seconds = ALL STOPPED
+  ComputeHeading		= 1			// 0 = NO, 1 = YES
+  m_verbose			= 1
+  newstylecommand		= 1
+  maxrudderdiff			= 100
+//MagOffsetX 			= 0.0
+//MagOffsetY 			= 0.0
+//ProcessOrientationData	= true
+//ProcessMagnetometerData 	= true
+}
+
+ProcessConfig = pNodeReporter
+{
+  AppTick			= 5
+  CommsTick			= 5
+  VESSEL_TYPE			= KAYAK			// Sets the icon in pMarineViewer
+  VESSEL_LENGTH			= 2			// Always = 2 for kingfisher
+}
+
+ProcessConfig = pMOOSBridge
+{
+  AppTick			= 5
+  CommsTick			= 5
+  BridgeFrequency		= 0			// Always set to 0 (bridge on new message available)
+  SHARE	= [NODE_REPORT_LOCAL]	-> shoreside2@10.25.0.2:9000 [NODE_REPORT]
+  SHARE	= [VIEW_POLYGON]	-> shoreside2@10.25.0.2:9000 [VIEW_POLYGON]
+  SHARE	= [VIEW_POINT]		-> shoreside2@10.25.0.2:9000 [VIEW_POINT]
+  SHARE	= [VIEW_SEGLIST]	-> shoreside2@10.25.0.2:9000 [VIEW_SEGLIST]
+  SHARE	= [VIEW_RANGE_PULSE]	-> shoreside2@10.25.0.2:9000 [VIEW_RANGE_PULSE]
+}
+
+ProcessConfig = pMarinePID
+{
+  AppTick			= 5
+  CommsTick			= 5
+  Verbose			= true			// Send lots of status messages to the console
+  DEPTH_CONTROL			= false			// Always set false, Kingfisher is a surface vessel
+  ACTIVE_START			= true			// Always set true
+  MAXRUDDER			= 100			// Maximum angle from center for effective rudder
+  MAXTHRUST			= 100			// Highest % thrust that can be requested
+
+// SPEED_FACTOR
+//	- A non-zero SPEED_FACTOR overrides use of SPEED_PID
+//	- Will set DESIRED_THRUST = DESIRED_SPEED * SPEED_FACTOR
+  SPEED_FACTOR			= 50			// Leave at 50 for Kingfisher
+
+  // Yaw PID controller
+  YAW_PID_KP			= 0.35
+  YAW_PID_KD			= 0.0
+  YAW_PID_KI			= 0.0
+  YAW_PID_INTEGRAL_LIMIT	= 0.07
+
+  // Speed PID controller
+  SPEED_PID_KP			= 0.4
+  SPEED_PID_KD			= 0.0
+  SPEED_PID_KI			= 0.0
+  SPEED_PID_INTEGRAL_LIMIT	= 0.07
+}
+
+ProcessConfig = pHelmIvP
+{
+  AppTick			= 5
+  CommsTick			= 5
+  VERBOSE			= true
+  Behaviors			= simple.bhv		// Name of the bhv configuration file
+  OK_SKEW			= ANY			// Always = ANY, ignores timestamp issues
+  Domain			= course,0:359:360	// Heading considered at 1deg increments
+  Domain			= speed,0:2.0:21	// Speed considered in 1/20th increments
+}
+
+ProcessConfig = iOS5000
+{
+  AppTick			= 5
+  CommsTick			= 5
+  Port				= /dev/OS5000		// tty port for communicating with the dig compass
+  Speed				= 19200			// Always set to 19200 (OS5000 baud rate)
+  PreRotation			= -15			// Adjust by -15 for magnetic variation in Boston
+}
+
+ProcessConfig = iGPS_5hz
+{
+  AppTick			= 5
+  CommsTick			= 5
+  VERBOSE			= true
+  Port				= /dev/GPS18X5HZ	// tty port for communicating with the GPS
+  BaudRate			= 19200			// Most 1hzGPS baud=9600; for 5hz baud=19200
+  Streaming			= false			// Always set to true
+  compass_thresh		= 5
+  OUTPUT_PREFIX			= NAV
+}
+
+ProcessConfig = iRemote
+	{
+	AppTick   = 10
+	CommsTick = 10
+
+	CustomKey = 1 : HELM_VERBOSE @ "verbose"
+	CustomKey = 2 : HELM_VERBOSE @ "terse"
+	CustomKey = 3 : HELM_VERBOSE @ "quiet"
+	CustomKey = 4 : DEPLOY @ "true"
+	CustomKey = 5 : DEPLOY @ "false"
+	CustomKey = 6 : RETURN @ "true"
+	CustomKey = 7 : RETURN @ "false"
+	}
+
+ProcessConfig = pLogger
+{
+	AppTick			= 10
+	CommsTick			= 10
+
+	File				= betty_
+	PATH				= ./logs/
+	SyncLog			= true @ 0.2
+	AsyncLog			= true
+	FileTimeStamp		= true
+	WildCardLogging		= true
+
+	// PID Output
+	Log				= DESIRED_THRUST       @ 0
+	Log				= DESIRED_RUDDER       @ 0
+
+	// Helm Output
+	Log				= DEPLOY               @ 0
+	Log				= RETURN               @ 0
+	Log				= MOOS_MANUAL_OVERIDE  @ 0
+	Log				= MOOS_MANUAL_OVERRIDE @ 0
+	Log				= DESIRED_SPEED        @ 0
+	Log				= DESIRED_HEADING      @ 0
+	Log				= HELM_IPF_COUNT       @ 0 
+	log				= LOOP_CPU             @ 0
+	log				= LOOP_WALL            @ 0
+	Log				= VEHICLE_WPT_INDEX    @ 0
+	Log				= DIST_TO_STATION      @ 0
+	Log				= DIST_TO_REGION       @ 0
+	Log				= LOITER_AQUIRE        @ 0
+	Log				= LOITER_INDEX         @ 0
+	Log				= LOITER_CONTROL_TAG   @ 0
+
+	// Vehicle Position
+	Log				= NAV_X                @ 0
+	Log				= NAV_Y                @ 0
+	Log				= NAV_YAW              @ 0
+	Log				= NAV_HEADING          @ 0
+	Log				= NAV_SPEED            @ 0
+
+	// GPS and Compass
+	Log				= GPS_X                @ 0
+	Log				= GPS_Y                @ 0
+	Log				= GPS_SPEED            @ 0
+	Log				= GPS_HEADING          @ 0
+	Log				= GPS_TIME             @ 0
+
+	Log				= COMPASS_HEADING      @ 0
+	Log				= COMPASS_YAW          @ 0
+	Log				= COMPASS_PITCH        @ 0
+	Log				= COMPASS_HEADING_COMPUTED @ 0
+	Log				= COMPASS_YAW_COMPUTED @ 0
+	Log				= COMPASS_ROLL         @ 0
+	Log				= COMPASS_MAG_X        @ 0
+	Log				= COMPASS_MAG_Y        @ 0
+	Log				= COMPASS_MAG_Z        @ 0
+}
+
+
+ProcessConfig = uProcessWatch
+{
+  AppTick 		= 2
+  CommsTick 	= 2
+
+  WATCH  = pHelmIvP
+  WATCH  = iGPS
+  WATCH  = iKFController
+  WATCH  = pEchoVar
+  WATCH  = pLogger
+  WATCH  = pMarinePID
+  WATCH  = pNodeReporter
+}
+
+
+//------------------------------------------
+// pEchoVar configuration block
+
+
+//--------------------------------------------------------
+// iMetaCompass config block (from plug_iMetaCompass.moos)
+// 
+//   Publishes:  META_HEADING, META_SOURCE, META_OFFSET
+//   Subscribes: COMPASS_HEADING, GPS_HEADING, GPS_SPEED
+
+ProcessConfig = iMetaCompass
+{
+  AppTick     = 5
+  CommsTick   = 5
+  SpeedThresh = 0.2
+}

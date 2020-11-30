@@ -1,0 +1,80 @@
+\documentclass[onecolumn,letterpaper,11pt]{article}
+
+% some very useful LaTeX packages include:
+\usepackage[lined,boxed]{}
+\usepackage{color, listings, tabularx, amsfonts, moreverb, here}
+\usepackage{cite, graphicx, epsfig, psfrag, subfigure, lastpage}
+\usepackage{url, array, amsmath, makeidx, fancyhdr, verbatim}  
+\usepackage[footnotesize]{caption}
+\usepackage[bookmarksopen=true,colorlinks=true,linkcolor=blue,citecolor=green,bookmarks,ps2pdf]{hyperref}
+\interdisplaylinepenalty=2500
+
+\newcommand{\app}[1]{{\small \tt #1}}
+\newcommand{\aapp}[1]{{\footnotesize \tt #1}}
+\newcommand{\var}[1]{{\small \tt #1}}
+\newcommand{\bvar}[1]{{\small \bf \tt #1}}
+\newcommand{\vvar}[1]{{\footnotesize \tt #1}}
+\newcommand{\bvvar}[1]{{\footnotesize \bf \tt #1}}
+\newcommand{\tf}[1]{{\footnotesize \tt #1}}
+\newcounter{listing}
+
+%==================================================
+
+\newlength{\pin}
+\setlength{\pin}{0.2in}
+\newcommand{\helm}{IvP Helm}
+\newcommand{\phelm}{pHelmIvP}
+\newcommand{\ibuff}{info\_buffer}
+\newcounter{alisting}
+\newenvironment{hangpar}[1]{\list{}{
+    \setlength{\listparindent}{1.5em}       \setlength{\itemindent}{0pt}
+    \setlength{\itemsep}{0pt}               \setlength{\parindent}{0pt}
+    \setlength{\rightmargin}{0pt}           \setlength{\leftmargin}{#1}}
+    \item\hspace{-\leftmargin}\noindent\ignorespaces}
+    {\endlist}
+
+\setlength{\textwidth}{6.5in}      \setlength{\textheight}{8.5in}
+\setlength{\topmargin}{-0.25in}    \setlength{\evensidemargin}{0.1in}
+\setlength{\oddsidemargin}{0.1in}  \setlength{\parskip}{0pt}
+\setcounter{tocdepth}{3}
+\newcommand{\pskip}{\vspace{5pt}}
+
+\makeindex
+
+\begin{document}
+%\input{includes/version}
+
+% Produce the title page
+\thispagestyle{empty} \vspace{4cm}
+
+\begin{center}
+\begin{huge}
+Getting Started with MOOS-IvP on the REMUS
+\end{huge}
+\vspace{0.5in}
+
+Michael Benjamin \\
+Maurice Fallon
+
+\end{center}
+
+
+
+
+
+\begin{center}
+\vspace{0.04in} 
+{\bf \today}
+\end{center}
+
+\newpage  
+\input{body.tex}
+
+\newpage
+\small
+\bibliographystyle{plain}
+\bibliography{biblio}
+\normalsize
+\end{document}
+
+
