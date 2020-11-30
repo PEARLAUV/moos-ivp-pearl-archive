@@ -1,0 +1,132 @@
+//--------    FILE: alpha.bhv   -------------
+
+initialize   DEPLOY = false
+initialize   RETURN = false
+initialize   AVOID  = true
+initialize   AVOID_TYPE = colregs
+
+set MODE = ACTIVE {
+  DEPLOY = true
+} INACTIVE
+
+set MODE = SURVEYING {
+  MODE = ACTIVE
+  RETURN != true
+} 
+
+set MODE = RETURNING {
+  MODE = ACTIVE
+  RETURN = true
+} 
+
+//----------------------------------------------
+Behavior = BHV_AvdColregs
+{
+  name       = avdcol_
+  pwt        = 300
+  condition  = MODE==ACTIVE
+  condition  = AVOID_TYPE = colregs
+  updates    = CONTACT_COLREGS
+  endflag    = CONTACT_RESOLVED = $[CONTACT]
+  templating = spawn
+
+             contact = to-be-set
+    on_no_contact_ok = true
+         extrapolate = false
+               decay = 30,60
+
+        pwt_outer_dist = 30
+        pwt_inner_dist = 10
+        completed_dist = 50
+     min_util_cpa_dist = 5
+     max_util_cpa_dist = 10
+
+//   bearing_line_config = white:0, green:0.65, yellow:0.8, red:1.0
+}
+
+//----------------------------------------------
+Behavior = BHV_AvoidCollision
+{
+  name       = avdcol_
+  pwt        = 300
+  condition  = MODE==ACTIVE
+  condition  = AVOID_TYPE = normal
+  updates    = CONTACT_COLREGS
+  endflag    = CONTACT_RESOLVED = $[CONTACT]
+  templating = spawn
+
+             contact = to-be-set
+    on_no_contact_ok = true
+         extrapolate = false
+               decay = 30,60
+
+        pwt_outer_dist = 30
+        pwt_inner_dist = 10
+        completed_dist = 50
+     min_util_cpa_dist = 7
+     max_util_cpa_dist = 12
+
+//   bearing_line_config = white:0, green:0.65, yellow:0.8, red:1.0
+}
+
+//----------------------------------------------
+Behavior = BHV_Waypoint
+{ 
+  name      = waypt_survey
+  pwt       = 100
+  condition = MODE==SURVEYING
+  endflag   = RETURN = true
+  UPDATES   = WPT_UPDATE
+  perpetual = true
+
+            lead = 28
+     lead_damper = 1
+           speed = $(SPEED)   // meters per second
+    capture_line = true
+  capture_radius = 10.0
+     slip_radius = 30.0
+
+	   points = 50,-35 : 0,-55 : 12, -80:48,-95: 62,-60  // small home plate
+//#ifdef PATTERN 1
+//          points = 60,0 : 60,-160 : 150,-160 : 180,-80 : 150,0
+//#elseifdef PATTERN 2
+//          points = 60,-160 : 150,-160 : 180,-80 : 150,0 : 60,0
+//#else
+//          points = 60,-60 : 60,-180 : 150,-180 : 180,-120 : 150,-60
+//#endif
+          repeat = 1800
+           order = $(ORDER)
+
+
+    visual_hints = nextpt_color=red, nextpt_lcolor=green
+    visual_hints = vertex_color=white, edge_color=grey60
+    visual_hints = vertex_size=2, edge_size=1
+}
+
+//----------------------------------------------
+//Behavior=BHV_HeadingHysteresis
+{
+  name       = heading_hyster
+  pwt        = 100
+  condition  = MODE==ACTIVE
+  perpetual  = true
+
+   memory_time = 10
+}
+
+//----------------------------------------------
+Behavior=BHV_Waypoint
+{
+  name       = waypt_return
+  pwt        = 100
+  condition  = MODE==RETURNING
+  perpetual  = true
+  endflag    = RETURN = false
+  endflag    = DEPLOY = false
+  endflag    = MISSION = complete
+
+           speed = 2.0
+  capture_radius = 2.0
+     slip_radius = 8.0
+          points = $(START_POS)
+}

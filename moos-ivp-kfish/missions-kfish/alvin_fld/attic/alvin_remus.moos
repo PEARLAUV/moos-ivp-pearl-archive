@@ -1,0 +1,51 @@
+//------------------------------------------------
+// File: alvin.moos
+// Name: M. Benjamin
+// Date: Nov 26th, 2010
+//------------------------------------------------
+
+ServerHost = localhost
+ServerPort = 9000
+
+Community    = alvin
+MOOSTimeWarp = 1
+LatOrigin    = 43.825300 
+LongOrigin   = -70.330400 
+
+//------------------------------------------
+// Antler configuration  block
+ProcessConfig = ANTLER
+{
+  MSBetweenLaunches = 200
+
+  Run = MOOSDB          @ NewConsole = false
+  Run = pNodeReporter   @ NewConsole = false
+  Run = pHelmIvP        @ NewConsole = false
+}
+
+//------------------------------------------
+// pHelmIvP config block
+
+ProcessConfig = pHelmIvP
+{
+  AppTick    = 4
+  CommsTick  = 4
+
+  Behaviors  = alvin.bhv
+  Verbose    = true
+  Domain     = course:0:359:360
+  Domain     = speed:0:4:21
+  Domain     = depth:0:10:101
+}
+
+//------------------------------------------
+// pNodeReporter config block
+
+ProcessConfig = pNodeReporter
+{
+  AppTick	= 4
+  CommsTick	= 4
+
+  VESSEL_TYPE   = UUV
+  VESSEL_LENGTH = 2
+}

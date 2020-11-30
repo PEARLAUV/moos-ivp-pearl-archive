@@ -1,0 +1,13 @@
+//--------------------------------------------------------
+// iMetaCompass config block (from plug_iMetaCompass.moos)
+// 
+//   Publishes:  META_HEADING, META_SOURCE, META_OFFSET
+//   Subscribes: COMPASS_HEADING, GPS_HEADING, GPS_SPEED
+
+ProcessConfig = iMetaCompass
+{
+  AppTick     = 4
+  CommsTick   = 4
+  SpeedThresh = 0.2
+}
+

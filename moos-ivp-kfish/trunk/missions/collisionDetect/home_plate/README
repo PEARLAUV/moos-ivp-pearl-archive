@@ -1,0 +1,27 @@
+To Run this mission, make sure that the following 
+directories are in your path:
+
+moos-ivp-regress/trunk/bin
+moos-ivp-regress/trunk/lib
+moos-ivp-regress/trunk/scripts
+
+Then launch the mission with:
+       $ regress.py -l ./launch.sh -t twiddle.t -w 15 -o outputfile.txt checkfile_colregs.chk
+
+regress.py -l ./launch.sh -t twiddle.t -w 15 -o outputfile.txt checkfile.chk
+
+--------------------------------------------------
+
+regress.py -l ./launch_sim_regress_2_vehicles.sh -t twiddle.t -w 15 -o outputfile.txt checkfile_colregs.chk
+
+To run COLREGs simulations:
+
+1) adjust mission time in plug_uMissionTester_shoreside.moos to actual (unwarped) run time
+2) ensure mission time in plug_uMissionTester_vehicle.moos is less than shoreside
+3) ensure no targ_* files in parent directory (use ./clean.sh)
+4) configure twiddle file appropriately
+5) ensure launch script comments out creation of unused targ files (or they will be executed!!)
+6) launch with regress.py -l ./launch_sim_regress_2_vehicles.sh -t twiddle.t -w 15 -o outputfile.txt checkfile_colregs.chk
+
+
+

@@ -1,0 +1,28 @@
+//--------------------------------------------------------
+// SHORESIDE
+// uProcessWatch Configuration Block (Created from Plugin)
+
+ProcessConfig = uProcessWatch
+{
+  AppTick   = 2
+  CommsTick = 2
+
+  ALLOW_RETRACTIONS = true
+
+  WATCH_ALL = true // default is true
+
+  NOWATCH = uMS*
+  NOWATCH = uMAC*  
+  NOWATCH = uXMS*
+  NOWATCH = uPokeDB*
+  
+  WATCH  = pMarineViewer
+  WATCH  = pShare
+  WATCH  = pHostInfo
+  WATCH  = uFldShoreBroker
+  WATCH  = uFldNodeComms
+  
+  SUMMARY_WAIT = 12
+}
+
+

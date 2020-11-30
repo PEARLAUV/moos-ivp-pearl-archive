@@ -1,0 +1,31 @@
+// Lab7
+
+ServerHost = localhost
+ServerPort = $(VPORT)
+
+// Community name IS the vehicle name
+Community  = $(VNAME)
+
+#include plug_origin_warp.moos
+  
+//------------------------------------------------------------
+Processconfig = ANTLER
+{
+  MSBetweenLaunches = 100
+   
+  Run = iActuationKFAC       @ NewConsole = false
+  Run = iGPS_KFAC            @ NewConsole = false
+  Run = iOS5000AC            @ NewConsole = false
+  Run = uProcessWatch      @ NewConsole = false
+  Run = pHostInfo          @NewConsole = false
+  Run = iHealth_KF100 @NewConsole = false
+  Run = pEchoVar @ NewConsole = false
+}
+
+#include plug_iGPS_KFAC.moos
+#include plug_iOS5000AC.moos
+#include plug_uProcessWatch_fld.moos
+#include plug_iHealthKF100.moos
+#include plug_pHostInfo.moos
+#include plug_iActuationKFAC.moos
+#include plug_pEchoVar.moos

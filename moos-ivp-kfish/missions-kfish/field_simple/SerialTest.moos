@@ -1,0 +1,82 @@
+// Generic Kingfisher simple deployment
+// Serial Test MOOS file
+//	Author:	Alon Y
+//	Date:		Mar 31, 2012
+
+// Community name is always 'SerialTest'
+	Community = SerialTest
+
+// Always use localhost:9001
+	 ServerHost		= localhost
+	 ServerPort		= 9000
+
+// Origin wherever field testing is taking place
+	LatOrigin		=  42.358341		// 0,0 just in front of the MIT sailing pavilion
+	LongOrigin		= -71.087437		// 0,0 just in front of the MIT sailing pavilion
+
+// Always launch MOOSDB
+// Uncomment the one serial process of interest
+	ProcessConfig = ANTLER
+	{
+  	MSBetweenLaunches	= 200
+  
+	// MANDATORY ON VEHICLE
+	Run = MOOSDB		@ NewConsole = false
+	//Run = iKFController	@ NewConsole = false	// Manages vehicle actuation
+	Run = iOS5000		@ NewConsole = false	// Reads the digital compass
+	Run = iGPS_5hz		@ NewConsole = false	// Reads the GPS
+	}
+
+ProcessConfig = iKFController
+	{
+	AppTick		= 5
+	CommsTick		= 5
+
+	Port			= /dev/ttyUSB1	// tty port for communicating with the vehicle controller
+	Timeout		= 600			// No helm command in Timeout seconds = ALL STOPPED
+	ComputeHeading	= 0			// Set to 0 (do not output heading value)
+	}
+
+ProcessConfig = iOS5000
+	{
+	// xxxTick =	5 when using 5hz GPS, 2 when using 1hz GPS 
+	AppTick		= 5
+	CommsTick		= 5
+  
+	Port			= /dev/ttyUSB2		// tty port for communicating with the dig compass
+	Speed			= 19200			// Always set to 19200 (OS5000 baud rate)
+	PreRotation		= 0				// 
+	}
+
+ProcessConfig = iGPS_5HZ
+	{
+	// xxxTick =	5 when using 5hz GPS, 2 when using 1hz GPS 
+	AppTick		= 10
+	CommsTick		= 10
+
+	VERBOSE		= true
+	PORT			= /dev/ttyUSB0
+	BAUDRATE		= 19200			
+	STREAMING		= false			// Always set to true
+	HANDSHAKING		= false
+	OUTPUT_PREFIX	= NAV
+	COMPASS_THRESH	= 0.5
+	}
+
+ProcessConfig = iGPS_KF
+	{
+	// xxxTick =	5 when using 5hz GPS, 2 when using 1hz GPS 
+	AppTick		= 5
+	CommsTick		= 5
+
+	VERBOSE		= true
+	PORT			= /dev/tty.usbserial-FTEH2DSK	
+	BAUDRATE		= 19200
+	STREAMING		= true			// Always set to true
+	HANDSHAKING		= false
+	MIN_NUM_SAT		= 0
+	OUTPUT_PREFIX	= NAV
+	COMPASS_THRESH	= 0.0
+	}
+
+

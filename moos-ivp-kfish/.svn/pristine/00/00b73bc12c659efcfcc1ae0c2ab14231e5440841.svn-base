@@ -1,0 +1,44 @@
+// MOOS file
+
+ServerHost   = localhost
+ServerPort   = 9000
+Community    = alpha
+MOOSTimeWarp = 1
+
+LatOrigin  = 43.825300 
+LongOrigin = -70.330400 
+
+//------------------------------------------
+// Antler configuration  block
+ProcessConfig = ANTLER
+{
+  MSBetweenLaunches = 500
+
+  Run = MOOSDB          @ NewConsole = false
+  Run = iKFController   @ NewConsole = false
+}
+
+
+//------------------------------------------
+// iKFController configuration  block
+
+ProcessConfig = iKFController
+{
+  // The controller needs to run at least 10Hz
+  // otherwise the Clearpath API will timeout
+  AppTick = 20
+  CommsTick = 20
+  
+  Port = /dev/ttyUSB0
+  Timeout = 3  
+
+  // If 1 then heading is computed from magnetometers
+  ComputeHeading = 0
+  // Magnetometer offsets in Gauss
+  MagOffsetX = 0.0
+  MagOffsetY = 0.0
+  MagOffsetZ = 0.0
+  // An orientation from compass to vehicle in degrees
+  HeadingOffset = -90.0
+}
+

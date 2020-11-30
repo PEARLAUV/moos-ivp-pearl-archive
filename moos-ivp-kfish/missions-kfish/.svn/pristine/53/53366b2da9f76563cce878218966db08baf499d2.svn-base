@@ -1,0 +1,39 @@
+//------------------------------------------------------------------
+// pMOOSBridge config block
+
+ProcessConfig = pMOOSBridge_$(VNAME)
+{
+  AppTick   = 2
+  CommsTick = 2
+
+  BridgeFrequency=0
+
+  // SHARE = [VAR] -> to-community @ to-host:to-port [VAR]
+
+  //UDPSHARE = [NODE_REPORT_LOCAL]  -> ALL@BROADCAST:$(SPTU) [NODE_REPORT]
+  //UDPSHARE = [VIEW_POLYGON]       -> ALL@BROADCAST:$(SPTU) [VIEW_POLYGON]
+  //UDPSHARE = [VIEW_SEGLIST]       -> ALL@BROADCAST:$(SPTU) [VIEW_POLYGON]
+  //UDPSHARE = [VIEW_POINT]         -> ALL@BROADCAST:$(SPTU) [VIEW_POINT]
+  //UDPSHARE = [PROC_WATCH_SUMMARY] -> ALL@BROADCAST:$(SPTU) [PROC_SUMMARY_%(VNAME)]
+  //UDPSHARE = [BHV_WARNING]        -> ALL@BROADCAST:$(SPTU) [BHV_WARNING_%(VNAME)]
+  //UDPSHARE = [BHV_ERROR]          -> ALL@BROADCAST:$(SPTU) [BHV_ERROR_%(VNAME)]
+  //UDPSHARE = [VIEW_POINT]         -> ALL@BROADCAST:$(SPTU) [VIEW_POINT]
+  UDPSHARE = [VIEW_RANGE_PULSE]   -> ALL@BROADCAST:$(SPTU) [VIEW_RANGE_PULSE]
+
+  UDPSHARE = [NODE_REPORT_LOCAL]  -> shoreside@10.25.0.88:$(SPTU) [NODE_REPORT]
+  UDPSHARE = [VIEW_POLYGON]       -> shoreside@10.25.0.88:$(SPTU) [VIEW_POLYGON]
+  UDPSHARE = [VIEW_SEGLIST]       -> shoreside@10.25.0.88:$(SPTU) [VIEW_POLYGON]
+  UDPSHARE = [VIEW_POINT]         -> shoreside@10.25.0.88:$(SPTU) [VIEW_POINT]
+  UDPSHARE = [PROC_WATCH_SUMMARY] -> shoreside@10.25.0.88:$(SPTU) [PROC_SUMMARY_%(VNAME)]
+  UDPSHARE = [BHV_WARNING]        -> shoreside@10.25.0.88:$(SPTU) [BHV_WARNING_%(VNAME)]
+  UDPSHARE = [BHV_ERROR]          -> shoreside@10.25.0.88:$(SPTU) [BHV_ERROR_%(VNAME)]
+  UDPSHARE = [VIEW_POINT]         -> shoreside@10.25.0.88:$(SPTU) [VIEW_POINT]
+
+  //SHARE    = [TCP_RAW]       -> shoreside @ $(SIP):$(SPTT) [TCP_RAW]
+  //UDPSHARE = [UDP_RAW]       -> shoreside @ $(SIP):$(SPTT) [UDP_RAW]
+
+  //UDPSHARE = [UDP_RAW_RATE]  -> shoreside @ $(SIP):$(SPTT) [UDP_RAW_RATE_REMOTE]
+  //UDPSHARE = [UDP_RAW_COUNT] -> shoreside @ $(SIP):$(SPTT) [UDP_RAW_COUNT_REMOTE]
+  //UDPSHARE = [TCP_RAW_RATE]  -> shoreside @ $(SIP):$(SPTT) [TCP_RAW_RATE_REMOTE]
+  //UDPSHARE = [TCP_RAW_COUNT] -> shoreside @ $(SIP):$(SPTT) [TCP_RAW_COUNT_REMOTE]
+}

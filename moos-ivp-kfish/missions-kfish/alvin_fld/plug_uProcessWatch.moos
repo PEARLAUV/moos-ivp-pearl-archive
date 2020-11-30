@@ -1,0 +1,16 @@
+//------------------------------------------------------------------
+// uProcessWatch configuration block
+
+ProcessConfig = uProcessWatch
+{
+  AppTick 	= 2
+  CommsTick 	= 2
+
+  WATCH  = pHelmIvP
+  WATCH  = iGPS
+  WATCH  = iKFController
+  WATCH  = pEchoVar
+  WATCH  = pLogger
+  WATCH  = pMarinePID
+  WATCH  = pNodeReporter
+}

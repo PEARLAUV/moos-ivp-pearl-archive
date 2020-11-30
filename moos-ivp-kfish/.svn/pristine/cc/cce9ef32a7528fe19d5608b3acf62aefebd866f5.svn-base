@@ -1,0 +1,14 @@
+ProcessConfig = iM200
+{
+        AppTick   = 20
+        CommsTick = 20
+
+        DIRECT_THRUST_MODE = true
+
+        IP_ADDRESS         = 192.168.1.175
+        PORT_NUMBER        = 29500
+        VERBOSE            = TRUE
+    HEADING_SOURCE     = RAW_COMPASS
+    HEADING_MSG_NAME   = NAV_HEADING
+//         MAG_OFFSET    = -14.9
+}

@@ -1,0 +1,14 @@
+ProcessConfig = iGPSDevice
+{
+        AppTick           = 10
+        CommsTick         = 10
+        Prefix            = NAV_
+        Port              = /dev/GPS_HEMI
+        BaudRate          = 19200
+        Type              = SERIAL
+        SHOW_CEP          = false
+	PUBLISH_HEADING   = true
+	TRIGGER_MSG       = GPRMC
+	SWITCH_PITCH_ROLL = true
+	HEADING_OFFSET    = -90
+}
