@@ -23,7 +23,8 @@ Behavior = BHV_Waypoint
      slip_radius = 15.0
    //       repeat = 1
    //       points = 40,40 : 40,-40 : 80,0
-   points        = 60,20 : 0,0 : -20,30 : 0,0 : -60,-50 : 0,0 : 30,-30 : 0,0
+   //points        = 60,20 : 0,0 : -20,30 : 0,0 : -60,-50 : 0,0 : 30,-30 : 0,0
+   points        = -20,30 : -50,20 : -60,-50 : -15,-40 : 30,-30 : 70,-20 : 65,20 : 30,40
 	
     visual_hints = nextpt_color=yellow
     visual_hints = nextpt_vertex_size=8
