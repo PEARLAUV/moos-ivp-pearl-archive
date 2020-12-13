@@ -8,7 +8,7 @@
 #----------------------------------------------------------
 trap "kill -- -$$" EXIT SIGTERM SIGHUP SIGINT SIGKILL
 TIME_WARP=1
-COMMUNITY="alpha"
+COMMUNITY="pearl"
 GUI="yes"
 
 #----------------------------------------------------------
