@@ -1,11 +1,10 @@
 //-------------------------------------------------
-// NAME: M. Benjamin, MIT CSAIL
-// FILE: alpha.moos
+// FILE: pearl1.moos
 //-------------------------------------------------
 
 ServerHost   = localhost
 ServerPort   = 9000
-Community    = alpha
+Community    = pearl
 MOOSTimeWarp = 1
 
 // Forest Lake
