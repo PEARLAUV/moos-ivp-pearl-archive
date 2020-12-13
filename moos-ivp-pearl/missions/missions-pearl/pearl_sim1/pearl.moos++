@@ -1,5 +1,5 @@
 //-------------------------------------------------
-// FILE: pearl1.moos
+// FILE: pearl.moos
 //-------------------------------------------------
 
 ServerHost   = localhost
@@ -7,7 +7,7 @@ ServerPort   = 9000
 Community    = pearl
 //----  Next Line was commented and replaced with a command line overload ---- //
 //MOOSTimeWarp = 1    (default)
-MOOSTimeWarp = 1
+MOOSTimeWarp = 10
 
 // Deep Pond
 LatOrigin    = 41.739191
@@ -147,8 +147,8 @@ ProcessConfig = pMarineViewer
   tiff_file            = deep_pond_sat.tif
   tiff_file_b          = deep_pond_map.tif
 
-  set_pan_x            = -90
-  set_pan_y            = -280
+  //set_pan_x            = -90
+  //set_pan_y            = -280
   zoom                 = 1.5
   vehicle_shape_scale  = 1.5
 

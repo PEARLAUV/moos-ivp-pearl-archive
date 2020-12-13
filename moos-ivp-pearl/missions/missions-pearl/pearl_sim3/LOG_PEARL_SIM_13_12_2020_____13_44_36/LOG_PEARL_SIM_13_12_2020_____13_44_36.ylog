@@ -1,0 +1,25 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% LOG FILE:       ./LOG_PEARL_SIM_13_12_2020_____13_44_36/LOG_PEARL_SIM_13_12_2020_____13_44_36.ylog
+%% FILE OPENED ON  Wed Dec 31 19:00:00 1969
+%% LOGSTART               1607885075.75
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+1.062346   MOOS_DEBUG           pMarinePID           ** NEW CONTROLLER GAINS ARE ** 
+1.062636   MOOS_DEBUG           pMarinePID           YAW_PID_KP             = 0.400 
+1.062731   MOOS_DEBUG           pMarinePID           YAW_PID_KD             = 0.100 
+1.062825   MOOS_DEBUG           pMarinePID           YAW_PID_KI             = 0.000 
+1.062946   MOOS_DEBUG           pMarinePID           YAW_PID_INTEGRAL_LIMIT = 0.070 
+1.063042   MOOS_DEBUG           pMarinePID           MAXRUDDER              = 100.000 
+1.064499   MOOS_DEBUG           pMarinePID           SPEED_PID_KP           = 1.000 
+1.066911   MOOS_DEBUG           pMarinePID           SPEED_PID_KD           = 0.000 
+1.066991   MOOS_DEBUG           pMarinePID           SPEED_PID_KI           = 0.000 
+1.067073   MOOS_DEBUG           pMarinePID           SPEED_PID_INTEGRAL_LIMIT = 0.070 
+1.067243   MOOS_DEBUG           pMarinePID           MAXTHRUST              = 100.000 
+1.506653   MOOS_DEBUG           pHelmIvP             pHelmIvP AllStop: ManualOverride 
+1.506653   MOOS_DEBUG           pHelmIvP             pHelmIvP AllStop: ManualOverride 
+1.506653   MOOS_DEBUG           pHelmIvP             pHelmIvP AllStop: ManualOverride 
+1.506653   MOOS_DEBUG           pHelmIvP             pHelmIvP AllStop: ManualOverride 
+1.506653   MOOS_DEBUG           pHelmIvP             pHelmIvP AllStop: ManualOverride 
+22.20896   MOOS_DEBUG           pMarinePID           pMarinePID Control Is On 
+22.20901   MOOS_DEBUG           pMarinePID           Paused Due To Tardy HELM Input: THRUST=0 
+22.30032   MOOS_DEBUG           pHelmIvP             pHelmIvP AllStop: clear 
+22.30032   MOOS_DEBUG           pHelmIvP             pHelmIvP AllStop: clear 
