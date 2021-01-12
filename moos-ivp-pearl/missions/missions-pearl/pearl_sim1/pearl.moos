@@ -22,7 +22,7 @@ ProcessConfig = ANTLER
   Run = uSimMarine	@ NewConsole = false
   Run = pMarinePID      @ NewConsole = false
   Run = pHelmIvP        @ NewConsole = false
-  Run = pMarineViewer	@ NewConsole = false
+  Run = pMarineViewer	@ NewConsole = true
   Run = uProcessWatch	@ NewConsole = false
   Run = pNodeReporter	@ NewConsole = false
   Run = uMemWatch       @ NewConsole = false
@@ -157,8 +157,8 @@ ProcessConfig = pMarineViewer
 	nodes_font_size      = xlarge
 
   scope  = PHI_HOST_INFO
-  scope  = GPS_LATITUDE
-  scope  = GPS_LONGITUDE
+  //scope  = GPS_LATITUDE
+  //scope  = GPS_LONGITUDE
 
   button_one = DEPLOY # DEPLOY=true
   button_one = MOOS_MANUAL_OVERRIDE=false # RETURN=false
@@ -180,28 +180,28 @@ ProcessConfig = pNodeReporter
 //------------------------------------------
 // iGPSDevice config block
 
-ProcessConfig = iGPSDevice
-{
-  AppTick     = 10
-  CommsTick   = 10
+//ProcessConfig = iGPSDevice
+//{
+//  AppTick     = 10
+//  CommsTick   = 10
   
-  Port              = /dev/ttyUSB0
-  BaudRate          = 9600
-  PREFIX            = GPS_
+//  Port              = /dev/ttyUSB0
+//  BaudRate          = 9600
+//  PREFIX            = GPS_
   
-  HEADING_SOURCE    = none
-  HEADING_OFFSET    = 0.0
+//  HEADING_SOURCE    = none
+//  HEADING_OFFSET    = 0.0
   
-  PUBLISH_UTC          = false
-  PUBLISH_HPE          = false
-  PUBLISH_HDOP         = false
-  PUBLISH_YAW          = false
-  PUBLISH_RAW          = false
-  PUBLISH_PITCH_ROLL   = false
+//  PUBLISH_UTC          = false
+//  PUBLISH_HPE          = false
+//  PUBLISH_HDOP         = false
+//  PUBLISH_YAW          = false
+//  PUBLISH_RAW          = false
+//  PUBLISH_PITCH_ROLL   = false
   
-  SWAP_PITCH_ROLL      = flase
+//  SWAP_PITCH_ROLL      = false
   
-  TRIGGER_MSG          = none
-  }
+//  TRIGGER_MSG          = none
+//  }
   
 
