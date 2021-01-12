@@ -25,6 +25,8 @@ Processconfig = ANTLER
   Run = pShare          @ NewConsole = false
   Run = pHostInfo       @ NewConsole = false
   Run = uFldNodeBroker  @ NewConsole = false
+  
+  Run = iGPSDevice      @ NewConsole = false
 }
 
 //------------------------------------------
