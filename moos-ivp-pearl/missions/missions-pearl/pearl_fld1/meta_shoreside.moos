@@ -97,6 +97,8 @@ ProcessConfig = pMarineViewer
   stale_remove_thresh = 20
 
   scope = PHI_HOST_INFO
+  scope = GPS_LATITUDE
+  scope = GPS_LONGITUDE
 
   button_one = DEPLOY  # DEPLOY_ALL=true 
   button_one = MOOS_MANUAL_OVERRIDE_ALL=false 
