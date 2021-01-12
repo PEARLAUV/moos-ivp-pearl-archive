@@ -56,6 +56,52 @@ CMAKE_BINARY_DIR = /home/erolland/moos-ivp-autonomy/moos-ivp-pearl/build
 #=============================================================================
 # Targets provided globally by CMake.
 
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip/fast
+
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
+
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install
+
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
+
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+
+.PHONY : list_install_components/fast
+
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
@@ -110,14 +156,88 @@ depend:
 	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
+#=============================================================================
+# Target rules for targets named NMEAParse
+
+# Build rule for target.
+NMEAParse: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 NMEAParse
+.PHONY : NMEAParse
+
+# fast build rule for target.
+NMEAParse/fast:
+	$(MAKE) -f src/lib_NMEAParse/CMakeFiles/NMEAParse.dir/build.make src/lib_NMEAParse/CMakeFiles/NMEAParse.dir/build
+.PHONY : NMEAParse/fast
+
+#=============================================================================
+# Target rules for targets named SimpleSerial
+
+# Build rule for target.
+SimpleSerial: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 SimpleSerial
+.PHONY : SimpleSerial
+
+# fast build rule for target.
+SimpleSerial/fast:
+	$(MAKE) -f src/lib_SimpleSerial/CMakeFiles/SimpleSerial.dir/build.make src/lib_SimpleSerial/CMakeFiles/SimpleSerial.dir/build
+.PHONY : SimpleSerial/fast
+
+#=============================================================================
+# Target rules for targets named gpsParser
+
+# Build rule for target.
+gpsParser: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 gpsParser
+.PHONY : gpsParser
+
+# fast build rule for target.
+gpsParser/fast:
+	$(MAKE) -f src/lib_gpsParser/CMakeFiles/gpsParser.dir/build.make src/lib_gpsParser/CMakeFiles/gpsParser.dir/build
+.PHONY : gpsParser/fast
+
+#=============================================================================
+# Target rules for targets named iGPSDevice
+
+# Build rule for target.
+iGPSDevice: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 iGPSDevice
+.PHONY : iGPSDevice
+
+# fast build rule for target.
+iGPSDevice/fast:
+	$(MAKE) -f src/iGPSDevice/CMakeFiles/iGPSDevice.dir/build.make src/iGPSDevice/CMakeFiles/iGPSDevice.dir/build
+.PHONY : iGPSDevice/fast
+
+#=============================================================================
+# Target rules for targets named iGPSSim
+
+# Build rule for target.
+iGPSSim: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 iGPSSim
+.PHONY : iGPSSim
+
+# fast build rule for target.
+iGPSSim/fast:
+	$(MAKE) -f src/iGPSSim/CMakeFiles/iGPSSim.dir/build.make src/iGPSSim/CMakeFiles/iGPSSim.dir/build
+.PHONY : iGPSSim/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
+	@echo "... install/strip"
+	@echo "... install/local"
+	@echo "... install"
+	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
+	@echo "... NMEAParse"
+	@echo "... SimpleSerial"
+	@echo "... gpsParser"
+	@echo "... iGPSDevice"
+	@echo "... iGPSSim"
 .PHONY : help
 
 

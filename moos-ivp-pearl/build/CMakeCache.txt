@@ -244,6 +244,9 @@ LIBRARY_OUTPUT_DIRECTORY:PATH=/home/erolland/moos-ivp-autonomy/moos-ivp-pearl/li
 
 LIBRARY_OUTPUT_PATH:PATH=/home/erolland/moos-ivp-autonomy/moos-ivp-pearl/lib
 
+//The directory containing a CMake configuration file for MOOSGeodesy.
+MOOSGeodesy_DIR:PATH=/home/erolland/moos-ivp/build/MOOS/MOOSGeodesy
+
 //Base directory of the MOOS-IvP source tree
 MOOSIVP_SOURCE_TREE_BASE:PATH=/home/erolland/moos-ivp
 
@@ -257,6 +260,9 @@ RUNTIME_OUTPUT_DIRECTORY:PATH=/home/erolland/moos-ivp-autonomy/moos-ivp-pearl/bi
 
 //tell me about all compiler warnings (-Wall) 
 WALL_ON:BOOL=OFF
+
+//Dependencies for the target
+gpsParser_LIB_DEPENDS:STATIC=general;NMEAParse;
 
 
 ########################
@@ -375,7 +381,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=2
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=7
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

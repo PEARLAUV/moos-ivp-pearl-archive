@@ -37,3 +37,13 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
   set(CMAKE_CROSSCOMPILING "FALSE")
 endif()
 
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for each subdirectory.
+  include("/home/erolland/moos-ivp-autonomy/moos-ivp-pearl/build/src/lib_NMEAParse/cmake_install.cmake")
+  include("/home/erolland/moos-ivp-autonomy/moos-ivp-pearl/build/src/lib_SimpleSerial/cmake_install.cmake")
+  include("/home/erolland/moos-ivp-autonomy/moos-ivp-pearl/build/src/lib_gpsParser/cmake_install.cmake")
+  include("/home/erolland/moos-ivp-autonomy/moos-ivp-pearl/build/src/iGPSDevice/cmake_install.cmake")
+  include("/home/erolland/moos-ivp-autonomy/moos-ivp-pearl/build/src/iGPSSim/cmake_install.cmake")
+
+endif()
+
