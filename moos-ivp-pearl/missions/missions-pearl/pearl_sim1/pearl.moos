@@ -175,3 +175,31 @@ ProcessConfig = pNodeReporter
   platform_type   = kayak
 }
 
+//------------------------------------------
+// iGPSDevice config block
+
+ProcessConfig = iGPSDevice
+{
+  AppTick     = 10
+  CommsTick   = 10
+  
+  Port              = /dev/ttyUSB0
+  BaudRate          = 9600
+  PREFIX            = GPS_
+  
+  HEADING_SOURCE    = none
+  HEADING_OFFSET    = 0.0
+  
+  PUBLISH_UTC          = false
+  PUBLISH_HPE          = false
+  PUBLISH_HDOP         = false
+  PUBLISH_YAW          = false
+  PUBLISH_RAW          = false
+  PUBLISH_PITCH_ROLL   = false
+  
+  SWAP_PITCH_ROLL      = flase
+  
+  TRIGGER_MSG          = none
+  }
+  
+
