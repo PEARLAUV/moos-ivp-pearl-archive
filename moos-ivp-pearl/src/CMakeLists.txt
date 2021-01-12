@@ -13,7 +13,7 @@ FILE(GLOB LOCAL_LIBRARY_DIRS ./lib_* ../lib)
 INCLUDE_DIRECTORIES(${LOCAL_LIBRARY_DIRS})
 LINK_DIRECTORIES(${LOCAL_LIBRARY_DIRS})
 
-SET (PEARL-OPTIONS $ENV{PERALOPTIONS})
+SET (PEARL-OPTIONS $ENV{PEARLOPTIONS})
 
 #============================================================================
 # List the subdirectories to build...
