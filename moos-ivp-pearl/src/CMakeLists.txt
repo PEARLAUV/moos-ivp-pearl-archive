@@ -37,6 +37,9 @@ ELSEIF ( PEARL-OPTIONS STREQUAL emulator )
      ADD_SUBDIRECTORY(uSimM200)
      ADD_SUBDIRECTORY(iGPSSim)
      ADD_SUBDIRECTORY(iM200)
+
+ENDIF ()
+
 ##############################################################################
 #                           END of CMakeLists.txt
 ##############################################################################
