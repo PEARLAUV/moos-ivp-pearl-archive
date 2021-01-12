@@ -78,13 +78,11 @@ void showExampleConfigAndExit()
   blk("  HEADING_OFFSET  = 0.0        // If publishing heading, this offset value  ");
   blk("                               //   will be added to heading when published.");
   blk("  PUBLISH_UTC     = false      // If true, publishes UTC time from the GPS  ");
-  blk("  PUBLISH_HPE     = false      // If true, publishes horiz. position error  ");
   blk("  PUBLISH_HDOP    = false      // If true, publishes HDOP                   ");
   blk("  PUBLISH_YAW     = false      // If true, publish yaw (if available)       ");
   blk("  PUBLISH_RAW     = false      // If true, publish all nmea sentences to    ");
   blk("                               //   MOOS message NMEA_FROM_GPS              ");
   blk("  PUBLISH_PITCH_ROLL = false   // If true, publish pitch and roll (if avail)");
-  blk("  SWAP_PITCH_ROLL = false      // If true, swaps pitch and roll values.     ");
   blk("  TRIGGER_MSG     = gpgga      // Accumulates data from all incoming        ");
   blk("                               //   NMEA_MSGs but only publishes when the   ");
   blk("                               //   trigger is received.                    ");
@@ -129,7 +127,6 @@ void showInterfaceAndExit()
   blk("                           EST  Position is estimated                       ");
   blk("                           BAD  No position can be calculated               ");
   blk("[prefix]_MAGVAR    double  If available, local compass magnetic variation   ");
-  blk("[prefix]_HPE       double  If available, horizontal position error          ");
   blk("NMEA_FROM_GPS      string  Received NMEA sentences                          ");
   blk("                                                                            ");
   exit(0);
