@@ -41,39 +41,39 @@ for ARGI; do
     fi
     if [ "${ARGI}" = "--m100" ] ; then
         printf "\n   --- Building tools for m100\n\n"
-        KFISHOPTIONS="m100"
+        PEARLOPTIONS="m100"
     fi
     if [ "${ARGI}" = "-1" ] ; then
         printf "\n   --- Building tools for m100\n\n"
-        KFISHOPTIONS="m100"
+        PEARLOPTIONS="m100"
     fi
     if [ "${ARGI}" = "--m200" ] ; then
         printf "\n   --- Building tools for m200\n\n"
-        KFISHOPTIONS="m200"
+        PEARLOPTIONS="m200"
     fi
     if [ "${ARGI}" = "-2" ] ; then
         printf "\n   --- Building tools for m200\n\n"
-        KFISHOPTIONS="m200"
+        PEARLOPTIONS="m200"
     fi
     if [ "${ARGI}" = "--emulator" ] ; then
         printf "\n   --- Building emulator tools\n\n"
-        KFISHOPTIONS="emulator"
+        PEARLOPTIONS="emulator"
     fi
     if [ "${ARGI}" = "-e" ] ; then
         printf "\n   --- Building emulator tools\n\n"
-        KFISHOPTIONS="emulator"
+        PEARLOPTIONS="emulator"
     fi
     if [ "${ARGI}" = "--rex4" ] ; then
         printf "\n    --- Building rex4 tools\n\n"
-        KFISHOPTIONS="rex4"
+        PEARLOPTIONS="rex4"
     fi
     if [ "${ARGI}" = "-r" ] ; then
         printf "\n    --- Building rex4 tools\n\n"
-        KFISHOPTIONS="rex4"
+        PEARLOPTIONS="rex4"
     fi
     if [ "${ARGI}" = "-t" ] ; then
         printf "\n   --- Building test applications\n\n"
-        KFISHOPTIONS="test"
+        PEARLOPTIONS="test"
     fi
 done
 
