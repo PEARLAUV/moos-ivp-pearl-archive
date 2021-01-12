@@ -60,10 +60,10 @@ void showExampleConfigAndExit()
 {
   blk("                                                                            ");
   blu("============================================================================");
-  blu("iGPSDevice Example MOOS Configuration                                       ");
+  blu("iGPS Example MOOS Configuration                                             ");
   blu("============================================================================");
   blk("                                                                            ");
-  blk("ProcessConfig = iGPS                                                  ");
+  blk("ProcessConfig = iGPS                                                        ");
   blk("{                                                                           ");
   blk("  AppTick    = 10              // Ticks should be set to a value equal to or");
   blk("  CommsTick  = 10              // greater than the GPS output frequency     ");
@@ -99,7 +99,7 @@ void showInterfaceAndExit()
 {
   blk("                                                                            ");
   blu("============================================================================");
-  blu("iGPS INTERFACE                                                        ");
+  blu("iGPS INTERFACE                                                              ");
   blu("============================================================================");
   blk("                                                                            ");
   showSynopsis();
@@ -112,9 +112,9 @@ void showInterfaceAndExit()
   blk("PUBLICATIONS:    (NOTE: publication conditional on incoming nmea sentences) ");
   blk("------------------------------------                                        ");
   blk("[prefix]_LATITUDE  double  Latitude parsed from recent NMEA sentence        ");
-  blk("[prefix]_LAT       double  Copy of _LATITUDE");
+  blk("[prefix]_LAT       double  Copy of _LATITUDE                                ");
   blk("[prefix]_LONGITUDE double  Longitude parsed from recent NMEA sentence       ");
-  blk("[prefix]_LONG      double  Copy of _LONGITUDE");
+  blk("[prefix]_LONG      double  Copy of _LONGITUDE                               ");
   blk("[prefix]_X         double  X position in meters relative to the local origin");
   blk("[prefix]_Y         double  Y position in meters relative to the local origin");
   blk("[prefix]_SPEED     double  Speed in meters per second, provided by GPS      ");
