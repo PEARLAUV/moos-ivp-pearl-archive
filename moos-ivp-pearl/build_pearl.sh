@@ -4,7 +4,7 @@ PWD=`pwd`
 BUILD_DIR=./build
 HELP="no"
 CLEAN="no"
-KFISHOPTIONS="all"
+PEARLOPTIONS="all"
 
 #-------------------------------------------------------------------
 # Define some terminal colors for convenience
@@ -77,7 +77,7 @@ for ARGI; do
     fi
 done
 
-export KFISHOPTIONS=${KFISHOPTIONS}
+export PEARLOPTIONS=${PEARLOPTIONS}
 
 #-------------------------------------------------------------------
 #  Part 2: Handle the request for help
