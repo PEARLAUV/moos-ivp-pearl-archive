@@ -33,7 +33,7 @@ ProcessConfig = pHostInfo
   AppTick 	= 1
   CommsTick = 1
 
-  default_hostip_force = 192.168.0.102
+  default_hostip_force = 192.168.7.96
 }
 
 
@@ -46,7 +46,7 @@ ProcessConfig = pShare
   AppTick    = 2
   CommsTick  = 2
 
-  input = route = 192.168.0.102:9300
+  input = route = 192.168.7.96:9300
 }
 
 //--------------------------------------------------
@@ -111,7 +111,9 @@ ProcessConfig = pMarineViewer
   stale_report_thresh = 2
   stale_remove_thresh = 20
 
-  scope = PHI_HOST_INFO
+  //scope = PHI_HOST_INFO
+  scope = GPS_LATITUDE
+  //scope = GPS_LONGITUDE
 
   button_one = DEPLOY  # DEPLOY_ALL=true 
   button_one = MOOS_MANUAL_OVERRIDE_ALL=false 
