@@ -3,7 +3,7 @@
  *
  *  Created on: January 8 2015
  *      Author: Alon Yaari
-
+ */
 
 #include "GPGSAnmea.h"
 
@@ -262,28 +262,3 @@ string GPGSAnmea::ToString_navTimestamp()
       sVal = "";
   return sVal;
 }
-
-
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
