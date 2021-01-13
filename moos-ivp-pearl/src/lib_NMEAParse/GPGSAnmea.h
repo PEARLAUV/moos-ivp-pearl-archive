@@ -3,7 +3,7 @@
  *
  *  Created on: Jan 9, 2015
  *      Author: Alon Yaari
-
+ */
 
 #ifndef GPGSANMEA_H_
 #define GPGSANMEA_H_
@@ -94,17 +94,3 @@ private:
 };
 #endif
 
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-//
