@@ -26,7 +26,7 @@ ProcessConfig = ANTLER
   Run = uProcessWatch	@ NewConsole = false
   Run = pNodeReporter	@ NewConsole = false
   Run = uMemWatch       @ NewConsole = false
-  Run = iGPS            @ NewConsole = false
+  Run = iGPSSim            @ NewConsole = false
 }
 
 //------------------------------------------
@@ -74,7 +74,7 @@ ProcessConfig = uProcessWatch
   watch  = pNodeReporter
   watch  = pMarinePID
   watch  = pHelmIvP  
-  watch  = iGPS
+  watch  = iGPSSim
 }
 
 //------------------------------------------
@@ -182,23 +182,37 @@ ProcessConfig = pNodeReporter
 //-------------------------------
 // iGPS config block
 
-ProcessConfig = iGPS
-{
-  AppTick     = 10
-  CommsTick   = 10
+//ProcessConfig = iGPS
+//{
+//  AppTick     = 10
+//  CommsTick   = 10
+//  
+// Port              = /dev/ttyUSB0
+//  BaudRate          = 9600
+//  PREFIX            = GPS
   
-  Port              = /dev/ttyUSB0
-  BaudRate          = 9600
-  PREFIX            = GPS
+//  HEADING_SOURCE    = none
+//  HEADING_OFFSET    = 0.0
   
-  HEADING_SOURCE    = none
-  HEADING_OFFSET    = 0.0
+//  PUBLISH_UTC          = true
+//  PUBLISH_HDOP         = true
+//  PUBLISH_RAW          = true
   
-  PUBLISH_UTC          = true
-  PUBLISH_HDOP         = true
-  PUBLISH_RAW          = true
-  
-  TRIGGER_MSG          = GPGGA
-}
-  
+//  TRIGGER_MSG          = GPGGA
+//}
 
+//--------------------
+ProcessConfig = iGPSSim
+{
+  AppTick    = 5               // Ticks should be set to the frequency of
+  CommsTick  = 5               //   the GPS being simulated
+
+  Port            = /dev/ttyUSB0  // Fully-qualified path to the serial port
+  BaudRate        = 9600     // Serial port baud rate
+  INPUT_PREFIX    = SIM_       // Prefix for input _HEADING, _SPEED, etc.
+  GPGGA           = true       // Publish GPGGA? (default: true)
+  GPHDT           = false      // Publish GPHDT? (default: false)
+  GPRMC           = true       // Publish GPRMC? (default: true)
+  GPTXT           = false      // Publish GPTXT? (default: false)
+  PASHR           = false      // Publish PASHR? (default: false)
+}
