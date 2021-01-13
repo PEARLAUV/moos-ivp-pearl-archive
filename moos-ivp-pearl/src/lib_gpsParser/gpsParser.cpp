@@ -20,7 +20,6 @@ gpsParser::gpsParser(CMOOSGeodesy* geo, string triggerKey="GPGGA", bool reportUn
     m_readyCount            = 0;
     m_pub_raw               = false;
     m_pub_hdop              = false;
-    m_pub_yaw               = false;
     m_pub_utc               = false;
     m_last_quality          = "";
     m_last_sat              = BAD_DOUBLE;
@@ -385,7 +384,3 @@ bool gpsParser::SetParam_HEADING_OFFSET(string sVal)
   return true;
 }
 
-bool gpsParser::SetParam_SWITCH_PITCH_ROLL(string sVal)
-{
-  return true;
-}
