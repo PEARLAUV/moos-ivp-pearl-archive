@@ -32,6 +32,7 @@ public:
 
 protected:
     bool    RegisterForMOOSMessages();
+    
     void    IngestFromGPS();
     void    HandleOneMessage(gpsValueToPublish gVal);
     void    PublishMessage(gpsValueToPublish gVal);
