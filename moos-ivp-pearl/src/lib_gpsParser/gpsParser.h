@@ -77,10 +77,8 @@ Y              dbl GPGGA, GPRMC Always                   Latitude translated to 
 UTC            dbl GPGGA, GPRMC (m_pub_utc)              UTC time in seconds (including fractional if available) since GPS epoch
 QUALITY        str GPGGA        On value change          "0" = no fix, "1" non-differential fix, "2" differential fix, "6" = estimated fix
 SAT            dbl GPGGA        On value change          Number of satellites used to determine fix
-PDOP           dbl GPGSA        (m_pub_pdop)             Position dilution of precision in meters, 0.5 to 99.9
-HDOP           dbl GPGGA, GPGSA (m_pub_hdop)             Horizontal dilution of precision in meters, 0.5 to 99.9
-VDOP           dbl GPGSA        (m_pub_vdop)             Vertical dilution of precision in meters, 0.5 to 99.9
-SPEED          dbl GPRMC, GPVTG Always                   Speed over ground in meters per second
+HDOP           dbl GPGGA        (m_pub_hdop)             Horizontal dilution of precision in meters, 0.5 to 99.9
+SPEED          dbl GPRMC        Always                   Speed over ground in meters per second
 MAGVAR         dbl GPRMC        On value change          Degrees from true north (+ is clockwise) of magnetic variation from true north
 NMEA_TEXT      str GPTXT        On value change          Passthrough of any text message output by GPS in GPSTXT sentence
 HEADING_GPRMC  dbl GPRMC        m_heading_source == HEADING_SOURCE_GPRMC Deg. cw from true N in direction of travel, per GPRMC
@@ -89,8 +87,6 @@ HEADING_GPRMC  dbl GPRMC        m_heading_source == HEADING_SOURCE_GPRMC Deg. cw
 #BAD_SENTENCES dbl All          Always                   Number of sentences with familiar nmea key but failed parsing for some reason
 #GPGGA         dbl GPGGA        Number of GPGGA messages successfully parsed to date
 #GPRMC         dbl GPRMC        Number of GPRMC messages successfully parsed to date
-#GPGSA         dbl GPGSA        Number of GPGSA messages successfully parsed to date
-#GPVTG         dbl GPVTG        Number of GPVTG messages successfully parsed to date
 #GPTXT         dbl GPTXT        Number of GPTXT messages successfully parsed to date
 
 */
@@ -145,19 +141,9 @@ private:
     //      MAGVAR      double  Magnetic variation at current lat/lon in signed decimal degrees
     bool    HandleGPRMC(std::string nmea);
 
-    // GPGSA
-    //      PDOP        double  Position dilution of precision, used for estimating fix error
-    //      HDOP        double  Horizontal dilution of precision, used for estimating fix error
-    //      VDOP        double  Vertical dilution of precision, used for estimating fix error
-    bool    HandleGPGSA(std::string nmea);
-
     // GPTXT
     //      Not yet implemented
     bool    HandleGPTXT(std::string nmea);
-
-    // GPVTG
-    //      SPEED       double  Groundspeed reported by the GPS in meters per second
-    bool    HandleGPVTG(std::string nmea);
 
     bool    SetParam_TYPE(std::string sVal);
     bool    SetParam_SHOW_CEP(std::string sVal);
@@ -177,9 +163,7 @@ private:
 
     bool          m_bReportUnhandledNMEA;
     bool          m_pub_raw;
-    bool          m_pub_pdop;
     bool          m_pub_hdop;
-    bool          m_pub_vdop;
     bool          m_pub_utc;
     std::string   m_last_quality;
     std::string   m_last_nmea_text;
@@ -190,9 +174,7 @@ private:
     unsigned int  m_totalUnhandled;
     unsigned int  m_totalGPGGA;
     unsigned int  m_totalGPRMC;
-    unsigned int  m_totalGPGSA;
     unsigned int  m_totalGPTXT;
-    unsigned int  m_totalGPVTG;
 
     double        m_headingOffset;
 
