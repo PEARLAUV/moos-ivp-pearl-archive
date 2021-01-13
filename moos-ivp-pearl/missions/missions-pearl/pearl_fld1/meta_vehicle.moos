@@ -21,7 +21,7 @@ Processconfig = ANTLER
   Run = pMarinePID      @ NewConsole = false
   Run = pHelmIvP        @ NewConsole = false
   Run = uProcessWatch   @ NewConsole = false
-  Run = iGPS            @ NewConsole = false
+  Run = iGPS            @ NewConsole = true
 
   Run = pShare          @ NewConsole = false
   Run = pHostInfo       @ NewConsole = false
