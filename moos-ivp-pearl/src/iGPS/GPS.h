@@ -47,9 +47,7 @@ protected:
     bool    SetParam_HEADING_OFFSET(std::string sVal);
     bool    SetParam_PUBLISH_UTC(std::string sVal);
     bool    SetParam_PUBLISH_HDOP(std::string sVal);
-    bool    SetParam_PUBLISH_YAW(std::string sVal);
     bool    SetParam_PUBLISH_RAW(std::string sVal);
-    bool    SetParam_PUBLISH_PITCH_ROLL(std::string sVal);
     bool    SetParam_TRIGGER_MSG(std::string sVal);
     
     bool            m_bValidSerialConn;
@@ -58,9 +56,7 @@ protected:
     gpsParser*      m_parser;
     bool            m_pub_utc;
     bool            m_pub_hdop;
-    bool            m_pub_yaw;
     bool            m_pub_raw;
-    bool            m_pub_pitch_roll;
     bool            m_report_unhandled;
     std::string     m_serial_port;
     int             m_baudrate;
