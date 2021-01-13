@@ -27,7 +27,7 @@ GPS::GPS()
   m_trigger_key       = "";
   m_heading_source    = HEADING_SOURCE_NONE;
   m_heading_offset    = 0.0;
-  m_compass_heading   = BAD_DOUBLE;
+//   m_compass_heading   = BAD_DOUBLE;
 
   m_curX              = BAD_DOUBLE;
   m_curY              = BAD_DOUBLE;
@@ -103,13 +103,13 @@ bool GPS::OnNewMail(MOOSMSG_LIST &NewMail)
   MOOSMSG_LIST::iterator p;
   for (p=NewMail.begin(); p!=NewMail.end(); ++p) {
       CMOOSMsg & rMsg = *p;
-      if (MOOSStrCmp(rMsg.GetKey(), "COMPASS_HEADING")) {
-        m_compass_heading = p->GetDouble();
-        gpsValueToPublish compassHeadingToPublish = gpsValueToPublish(true,
-                                                                      m_compass_heading,
-                                                                      "",
-                                                                      "HEADING_COMPASS");
-        HandleOneMessage(compassHeadingToPublish); } }
+//       if (MOOSStrCmp(rMsg.GetKey(), "COMPASS_HEADING")) {
+//         m_compass_heading = p->GetDouble();
+//         gpsValueToPublish compassHeadingToPublish = gpsValueToPublish(true,
+//                                                                       m_compass_heading,
+//                                                                       "",
+//                                                                       "HEADING_COMPASS");
+//         HandleOneMessage(compassHeadingToPublish); } }
   return UpdateMOOSVariables(NewMail);
 }
 
@@ -169,8 +169,6 @@ void GPS::IngestFromGPS()
   #GPGGA
   #GPRMC
  */
-
-}
 
 bool GPS::RegisterForMOOSMessages()
 {
