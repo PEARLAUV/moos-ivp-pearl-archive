@@ -77,25 +77,21 @@ Y              dbl GPGGA, GPRMC Always                   Latitude translated to 
 UTC            dbl GPGGA, GPRMC (m_pub_utc)              UTC time in seconds (including fractional if available) since GPS epoch
 QUALITY        str GPGGA        On value change          "0" = no fix, "1" non-differential fix, "2" differential fix, "6" = estimated fix
 SAT            dbl GPGGA        On value change          Number of satellites used to determine fix
-HDOP           dbl GPGGA        (m_pub_hdop)             Horizontal dilution of precision in meters, 0.5 to 99.9
-HPE            dbl GPRME        (m_pub_hpe)              Horizontal position error estimate, 0.0 to 999.99 meters
-YAW            dbl GPHDT        (m_pub_yaw)              Degrees clockwise from true north that vehicle bow is pointing toward
-SPEED          dbl GPRMC        Always                   Speed over ground in meters per second
+PDOP           dbl GPGSA        (m_pub_pdop)             Position dilution of precision in meters, 0.5 to 99.9
+HDOP           dbl GPGGA, GPGSA (m_pub_hdop)             Horizontal dilution of precision in meters, 0.5 to 99.9
+VDOP           dbl GPGSA        (m_pub_vdop)             Vertical dilution of precision in meters, 0.5 to 99.9
+SPEED          dbl GPRMC, GPVTG Always                   Speed over ground in meters per second
 MAGVAR         dbl GPRMC        On value change          Degrees from true north (+ is clockwise) of magnetic variation from true north
 NMEA_TEXT      str GPTXT        On value change          Passthrough of any text message output by GPS in GPSTXT sentence
-ROLL           dbl PASHR        (m_pub_pitch_roll)       Angle of roll, -90.0 to 90.0, 0.0 = level
-PITCH          dbl PASHR        (m_pub_pitch_roll)       Angle of pitch, -90.0 to 90.0, 0.0 = level
 HEADING_GPRMC  dbl GPRMC        m_heading_source == HEADING_SOURCE_GPRMC Deg. cw from true N in direction of travel, per GPRMC
-HEADING_PASHR  dbl PASHR        m_heading_source == HEADING_SOURCE_PASHR Deg. cw from true N in direction of travel, per PASHR
 
 #UNHANDLED     dbl Bad keys     (m_bReportUnhandledNMEA) Number of sentences that could not be parsed due to unfamiliar nmea key
 #BAD_SENTENCES dbl All          Always                   Number of sentences with familiar nmea key but failed parsing for some reason
 #GPGGA         dbl GPGGA        Number of GPGGA messages successfully parsed to date
-#GPHDT         dbl GPHDT        Number of GPHDT messages successfully parsed to date
 #GPRMC         dbl GPRMC        Number of GPRMC messages successfully parsed to date
-#GPRME         dbl GPRME        Number of GPRME messages successfully parsed to date
-#GPTXT         dbl GPTXT        Number of GPRME messages successfully parsed to date
-#PASHR         dbl PASHR        Number of PASHR messages successfully parsed to date
+#GPGSA         dbl GPGSA        Number of GPGSA messages successfully parsed to date
+#GPVTG         dbl GPVTG        Number of GPVTG messages successfully parsed to date
+#GPTXT         dbl GPTXT        Number of GPTXT messages successfully parsed to date
 
 */
 
@@ -107,14 +103,10 @@ public:
                       ~gpsParser() {}
     bool              NMEASentenceIngest(std::string nmea);
 
-    void              SetSwapPitchAndRoll(bool bShouldSwap);
     void              SetHeadingOffset(double offset) { m_headingOffset = offset; }
     void              SetPublish_raw(bool b)          { m_pub_raw = b; }
     void              SetPublish_hdop(bool b)         { m_pub_hdop = b; }
-    void              SetPublish_yaw(bool b)          { m_pub_yaw = b; }
     void              SetPublish_utc(bool b)          { m_pub_utc = b; }
-    void              SetPublish_hpe(bool b)          { m_pub_hpe = b; }
-    void              SetPublish_pitch_roll(bool b)   { m_pub_pitch_roll = b; }
 
     std::string       GetNextErrorString();
     void              ClearErrorStrings()             { m_errorStrings.clear(); }
@@ -143,11 +135,6 @@ private:
     //      HDOP        double  Horizontal dilution of precision, used for estimating fix error
     bool    HandleGPGGA(std::string nmea);
 
-    // GPHDT or HEHDT (Hemisphere GPS - specific)
-    //      YAW         double  Degrees clockwise from true north that bow points toward
-    //                          NOTE: This is NOT heading, which is direction of travel
-    bool    HandleGPHDT(std::string nmea);
-
     // GPRMC
     //      UTC         double  Universal time in seconds since start of epoch
     //      LATITUDE    double  Latitude in signed decimal degrees
@@ -158,20 +145,19 @@ private:
     //      MAGVAR      double  Magnetic variation at current lat/lon in signed decimal degrees
     bool    HandleGPRMC(std::string nmea);
 
-    // GPRME
-    //      HPE         double  Estimated horizontal position error in meters
-    bool    HandleGPRME(std::string nmea);
+    // GPGSA
+    //      PDOP        double  Position dilution of precision, used for estimating fix error
+    //      HDOP        double  Horizontal dilution of precision, used for estimating fix error
+    //      VDOP        double  Vertical dilution of precision, used for estimating fix error
+    bool    HandleGPGSA(std::string nmea);
 
     // GPTXT
     //      Not yet implemented
     bool    HandleGPTXT(std::string nmea);
 
-    // PASHR (Hemisphere GPS - specific)
-    //      HEADING     double  Degrees clockwise from true north describing direction of travel
-    //                          NOTE: This is NOT yaw, which is direction bow points to
-    //      PITCH       double  Degrees of pitch in decimal degrees
-    //      ROLL        double  Degrees of roll in decimal degrees
-    bool    HandlePASHR(std::string nmea);
+    // GPVTG
+    //      SPEED       double  Groundspeed reported by the GPS in meters per second
+    bool    HandleGPVTG(std::string nmea);
 
     bool    SetParam_TYPE(std::string sVal);
     bool    SetParam_SHOW_CEP(std::string sVal);
@@ -182,7 +168,6 @@ private:
     bool    SetParam_PUBLISH_HEADING(std::string sVal);
     bool    SetParam_REPORT_NMEA(std::string sVal);
     bool    SetParam_HEADING_OFFSET(std::string sVal);
-    bool    SetParam_SWITCH_PITCH_ROLL(std::string sVal);
 
     double  DMS2DecDeg(double dfVal);
 
@@ -192,11 +177,10 @@ private:
 
     bool          m_bReportUnhandledNMEA;
     bool          m_pub_raw;
+    bool          m_pub_pdop;
     bool          m_pub_hdop;
-    bool          m_pub_yaw;
+    bool          m_pub_vdop;
     bool          m_pub_utc;
-    bool          m_pub_hpe;
-    bool          m_pub_pitch_roll;
     std::string   m_last_quality;
     std::string   m_last_nmea_text;
     double        m_last_sat;
@@ -205,39 +189,16 @@ private:
     unsigned int  m_totalBadSentences;
     unsigned int  m_totalUnhandled;
     unsigned int  m_totalGPGGA;
-    unsigned int  m_totalGPHDT;
     unsigned int  m_totalGPRMC;
-    unsigned int  m_totalGPRME;
+    unsigned int  m_totalGPGSA;
     unsigned int  m_totalGPTXT;
-    unsigned int  m_totalPASHR;
+    unsigned int  m_totalGPVTG;
 
     double        m_headingOffset;
-    std::string   m_rollStoreName;
-    std::string   m_pitchStoreName;
 
     CMOOSGeodesy* m_geo;
     std::deque<std::string>                    m_errorStrings;
     std::map<std::string, gpsValueToPublish>   m_publishQ;
 };
 
-
-
-
-
-
 #endif
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
