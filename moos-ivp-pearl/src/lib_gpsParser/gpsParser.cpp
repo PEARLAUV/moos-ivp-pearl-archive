@@ -8,11 +8,7 @@
 #include "NMEAbase.h"
 #include "gpsParser.h"
 #include "GPGGAnmea.h"
-#include "GPHDTnmea.h"
 #include "GPRMCnmea.h"
-#include "GPRMEnmea.h"
-#include "CPNVGnmea.h"
-#include "PASHRnmea.h"
 
 using namespace std;
 
@@ -26,8 +22,6 @@ gpsParser::gpsParser(CMOOSGeodesy* geo, string triggerKey="GPGGA", bool reportUn
     m_pub_hdop              = false;
     m_pub_yaw               = false;
     m_pub_utc               = false;
-    m_pub_hpe               = false;
-    m_pub_pitch_roll        = false;
     m_last_quality          = "";
     m_last_sat              = BAD_DOUBLE;
     m_last_magvar           = BAD_DOUBLE;
@@ -35,14 +29,9 @@ gpsParser::gpsParser(CMOOSGeodesy* geo, string triggerKey="GPGGA", bool reportUn
     m_totalBadSentences     = 0;
     m_totalUnhandled        = 0;
     m_totalGPGGA            = 0;
-    m_totalGPHDT            = 0;
-    m_totalGPTXT            = 0;
-    m_totalGPRME            = 0;
     m_totalGPRMC            = 0;
-    m_totalPASHR            = 0;
+    m_totalGPTXT            = 0;
     m_headingOffset         = 0.0;
-    m_rollStoreName         = "ROLL";
-    m_pitchStoreName        = "PITCH";
     m_errorStrings.clear();
 }
 
@@ -68,14 +57,6 @@ string gpsParser::GetNextErrorString()
     return "";
 }
 
-void gpsParser::SetSwapPitchAndRoll(bool bShouldSwap)
-{
-  if (bShouldSwap) {
-    string temp      = m_rollStoreName;
-    m_rollStoreName  = m_pitchStoreName;
-    m_pitchStoreName = temp; }
-}
-
 // NMEASentenceIngest()
 //      Parse an NMEA sentence, add extracted values to the publish queue
 //      FALSE on error, call LastError() to retrieve error text
@@ -94,12 +75,8 @@ bool gpsParser::NMEASentenceIngest(string nmea)
   bool bProcessedOK = false;
   string key = NMEAbase::GetKeyFromSentence(nmea);
   if      (MOOSStrCmp(key, "GPGGA"))  bProcessedOK = HandleGPGGA(nmea);
-  else if (MOOSStrCmp(key, "GPHDT"))  bProcessedOK = HandleGPHDT(nmea);
   else if (MOOSStrCmp(key, "GPRMC"))  bProcessedOK = HandleGPRMC(nmea);
-  else if (MOOSStrCmp(key, "GPRME"))  bProcessedOK = HandleGPRME(nmea);
-  else if (MOOSStrCmp(key, "HEHDT"))  bProcessedOK = HandleGPHDT(nmea);
   else if (MOOSStrCmp(key, "GPTXT"))  bProcessedOK = HandleGPTXT(nmea);
-  else if (MOOSStrCmp(key, "PASHR"))  bProcessedOK = HandlePASHR(nmea);
   else {
     m_totalUnhandled++;
     if (m_bReportUnhandledNMEA) {
@@ -213,35 +190,6 @@ bool gpsParser::HandleGPGGA(string nmea)
     return AddToPublishQueue((double) m_totalGPGGA, "#GPGGA");
 }
 
-//      GPHDT or HEHDT - Hemisphere GPS message for direction bow is pointing (yaw)
-//
-//      http://www.hemispheregps.com/gpsreference/GPHDT.htm
-//      YAW (this is not HEADING)
-//      This is the direction that the vessel (antennas) is pointing and is not
-//      necessarily the direction of vessel motion (the course over ground).
-//
-//      $GPHDT,<1>,<2>*hh<CR><LF>
-//          or
-//      $HEHDT,<1>,<2>*hh<CR><LF>
-//      <1>  Current heading in degrees
-//      <2>  Always 'T' to indicate true heading
-bool gpsParser::HandleGPHDT(string nmea)
-{
-    GPHDTnmea gphdt;
-    if (!gphdt.ParseSentenceIntoData(nmea, false)) {
-        string err = "Could not parse GPHDT message: ";
-        err       += nmea;
-        m_errorStrings.push_back(err);
-        m_totalBadSentences++;
-        AddToPublishQueue((double) m_totalBadSentences, "#BAD_SENTENCES");
-        return false; }
-    double yaw;
-    if (gphdt.Get_yaw(yaw))
-        AddToPublishQueue(yaw, "YAW");
-    m_totalGPHDT++;
-    return AddToPublishQueue((double) m_totalGPHDT, "#GPHDT");
-}
-
 //     $GPRMC,<1>,<2>,<3>,<4>,<5>,<6>,<7>,<8>,<9>,<10>,<11>,<12>*hh<CR><LF>
 //     <1>  UTC time, format hhmmss.s
 //     <2>  Status, A=Valid, V=Receiver warning
@@ -303,74 +251,11 @@ bool gpsParser::HandleGPRMC(string nmea)
     return AddToPublishQueue((double) m_totalGPRMC, "#GPRMC");
 }
 
-//     $GPRME,<1>,<2>,<3>*hh<CR><LF>
-//     <1>  Estimated horizontal position error, 0.0 to 999.99 meters
-//     <2>  Horizontal error units, always M=meters
-//     <3>  Estimated vertical position error, 0.0 to 999.99 meters
-//     <4>  Vertical error units, always M=meters
-//     <5>  Estimated position error, 0.0 to 999.99 meters
-//     <6>  Position error units, always M=meters
-bool gpsParser::HandleGPRME(string nmea)
-{
-    GPRMEnmea gprme;
-    if (!gprme.ParseSentenceIntoData(nmea, false)) {
-        string err = "Could not parse GPRME message: ";
-        err       += nmea;
-        m_errorStrings.push_back(err);
-        m_totalBadSentences++;
-        AddToPublishQueue((double) m_totalBadSentences, "#BAD_SENTENCES");
-        return false; }
-    double posErr;
-    if (gprme.Get_estPOSerr(posErr))
-        AddToPublishQueue(posErr, "HPE");
-    m_totalGPRME++;
-    return AddToPublishQueue((double) m_totalGPRME, "#GPRME");
-}
-
 bool gpsParser::HandleGPTXT(string nmea)
 {
     AddToPublishQueue(nmea, "NMEA_TEXT");
     m_totalGPTXT++;
     return AddToPublishQueue((double) m_totalGPTXT, "#GPTXT");
-}
-
-//      $PASHR,<1>,<2>,<3>,<4>,<5>,<6>,<7>,<8>,<9>,<10>*hh<CR><LF>
-//      <1>  [UTCtime]      UTC Timestamp of the sentence
-//      <2>  [Heading]      Heading in degrees
-//      <3>  [Heading_rel]  'T' disolayed if heading is relative to true north
-//      <4>  [Roll]         Roll in decimal degrees
-//      <5>  [Pitch]        Pitch in decimal degrees
-//      <6>  [Heave]        Heave in meters
-//      <7>  [Roll_stdDev]  Standard deviation of roll in decimal degrees
-//      <8>  [Pitch_stdDev] Standard deviation of pitch in decimal degrees
-//      <9>  [Heading_stdDev] Standard deviation of heading in decimal degrees
-//      <10> [Quality]      Quality flag (0 = no position, 1 = non-RTK fixed integer pos, 2 = RTK fixed integer pos)
-bool gpsParser::HandlePASHR(string nmea)
-{
-    PASHRnmea pashr;
-    if (!pashr.ParseSentenceIntoData(nmea, false)) {
-        string err = "Could not parse PASHR message: ";
-        err       += nmea;
-        err       += "  ";
-        err       += pashr.GetErrorString();
-        m_errorStrings.push_back(err);
-        m_totalBadSentences++;
-        AddToPublishQueue((double) m_totalBadSentences, "#BAD_SENTENCES");
-        return false; }
-    double curHeading = 0.0;
-    if (pashr.Get_heading(curHeading))
-        curHeading += m_headingOffset;
-    else
-        curHeading = BAD_DOUBLE;
-    AddToPublishQueue(curHeading, "HEADING_PASHR");
-    double curRoll = BAD_DOUBLE;
-    if (pashr.Get_roll(curRoll))
-        AddToPublishQueue(curRoll, m_rollStoreName);
-    double curPitch = BAD_DOUBLE;
-    if (pashr.Get_pitch(curPitch))
-        AddToPublishQueue(curPitch, m_pitchStoreName);
-    m_totalPASHR++;
-    return AddToPublishQueue((double) m_totalPASHR, "#PASHR");
 }
 
 // AddToPublishQueue()
@@ -416,10 +301,6 @@ bool gpsParser::AddToPublishQueue(gpsValueToPublish gVal)
   else if (key == "UNHANDLED" && !m_bReportUnhandledNMEA)  bGoodToAdd = true;
   else if (key == "UTC"       && !m_pub_utc)               bGoodToAdd = true;
   else if (key == "HDOP"      && !m_pub_hdop)              bGoodToAdd = true;
-  else if (key == "HPE"       && !m_pub_hpe)               bGoodToAdd = true;
-  else if (key == "YAW"       && !m_pub_yaw)               bGoodToAdd = true;
-  else if (key == "ROLL"      && !m_pub_pitch_roll)        bGoodToAdd = true;
-  else if (key == "PITCH"     && !m_pub_pitch_roll)        bGoodToAdd = true;
 
   // 3. Values that are always published
   else if (key == "LATITUDE")                              bGoodToAdd = true;
@@ -428,7 +309,6 @@ bool gpsParser::AddToPublishQueue(gpsValueToPublish gVal)
   else if (key == "Y")                                     bGoodToAdd = true;
   else if (key == "SPEED")                                 bGoodToAdd = true;
   else if (key == "HEADING_GPRMC")                         bGoodToAdd = true;
-  else if (key == "HEADING_PASHR")                         bGoodToAdd = true;
 
   // 4. Publish only when value changes (or it was never previously published)
   else {
@@ -509,27 +389,3 @@ bool gpsParser::SetParam_SWITCH_PITCH_ROLL(string sVal)
 {
   return true;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
