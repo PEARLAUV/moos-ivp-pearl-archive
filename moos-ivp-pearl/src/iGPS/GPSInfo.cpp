@@ -10,7 +10,7 @@
 
 #include <cstdlib>
 #include <iostream>
-#include "Colorparse.h"
+#include "ColorParse.h"
 #include "ReleaseInfo.h"
 #include "GPSInfo.h"
 
