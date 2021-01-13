@@ -12,7 +12,7 @@
 #include <map>
 #include "MOOS/libMOOS/MOOSLib.h"
 #include "MOOS/libMOOSGeodesy/MOOSGeodesy.h"
-#include "MOOS/libMOOS/ThirdParty/AppCasting/AppCastingMOOSApp.h"
+#include "MOOS/libMOOS/Thirdparty/AppCasting/AppCastingMOOSApp.h"
 #include "SerialComms.h"
 #include "gpsParser.h"
 
