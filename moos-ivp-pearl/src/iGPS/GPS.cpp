@@ -17,9 +17,7 @@ GPS::GPS()
   m_bValidSerialConn      = false;
   m_pub_utc           = false;
   m_pub_hdop          = false;
-  m_pub_yaw           = false;
   m_pub_raw           = false;
-  m_pub_pitch_roll    = false;
   m_report_unhandled  = false;
   m_serial_port       = "";
   m_baudrate          = 9600;
@@ -66,12 +64,8 @@ bool GPS::OnStartUp()
       bHandled = SetParam_PUBLISH_UTC(value);
     else if (param == "PUBLISH_HDOP")
       bHandled = SetParam_PUBLISH_HDOP(value);
-    else if (param == "PUBLISH_YAW")
-      bHandled = SetParam_PUBLISH_YAW(value);
     else if (param == "PUBLISH_RAW")
       bHandled = SetParam_PUBLISH_RAW(value);
-    else if (param == "PUBLISH_PITCH_ROLL")
-      bHandled = SetParam_PUBLISH_PITCH_ROLL(value);
     else if (param == "TRIGGER_MSG")
       bHandled = SetParam_TRIGGER_MSG(value);
     else
@@ -166,19 +160,14 @@ void GPS::IngestFromGPS()
   NMEA_TXT        string        On value change
   HEADING_GPRMC   double        (m_heading_source == HEADING_SOURCE_GPRMC)
   HDOP            double        (m_pub_hdop       == true) && on value change
-  YAW             double        (m_pub_yaw        == true)
   UTC             double        (m_pub_utc        == true)
-  PITCH           double        (m_pub_pitch_roll == true)
-  ROLL            double        (m_pub_pitch_roll == true)
   NMEA_FROM_GPS   string        (m_pub_raw        == true)
   Counter messages
   ------------------------------------------
   #BAD_SENTENCE
   #UNHANDLED
   #GPGGA
-  #GPGSA
   #GPRMC
-  #GPVTG
  */
 
 }
@@ -240,9 +229,7 @@ bool GPS::ParserSetup()
   m_parser->SetHeadingOffset(m_heading_offset);
   m_parser->SetPublish_raw(m_pub_raw);
   m_parser->SetPublish_hdop(m_pub_hdop);
-  m_parser->SetPublish_yaw(m_pub_yaw);
   m_parser->SetPublish_utc(m_pub_utc);
-  m_parser->SetPublish_pitch_roll(m_pub_pitch_roll);
   return true;
 }
 
@@ -296,6 +283,7 @@ bool GPS::SetParam_BAUDRATE(std::string sVal)
     reportConfigWarning("Mission file parameter BAUDRATE may not be blank.");
   else if (sVal ==   "2400") m_baudrate = 2400;
   else if (sVal ==   "4800") m_baudrate = 4800;
+  else if (sVal ==   "9600") m_baudrate = 9600;
   else if (sVal ==  "19200") m_baudrate = 19200;
   else if (sVal ==  "38400") m_baudrate = 38400;
   else if (sVal ==  "57600") m_baudrate = 57600;
@@ -387,23 +375,6 @@ bool GPS::SetParam_PUBLISH_HDOP(std::string sVal)
   return true;
 }
 
-bool GPS::SetParam_PUBLISH_YAW(std::string sVal)
-{
-  if (tolower(sVal) == "true")
-    m_pub_yaw = true;
-  else if (tolower(sVal) == "false")
-    m_pub_yaw = false;
-  else {
-    string err = "Mission file parameter PUBLISH_YAW must be 'true' or 'false'. ";
-    err       += "Unhandled: ";
-    err       += sVal;
-    err       += ". Defaulting to ";
-    err       += (m_pub_yaw ? "true" : "false");
-    err       += ".";
-    reportConfigWarning(err); }
-  return true;
-}
-
 bool GPS::SetParam_PUBLISH_RAW(std::string sVal)
 {
   if (tolower(sVal) == "true")
@@ -416,23 +387,6 @@ bool GPS::SetParam_PUBLISH_RAW(std::string sVal)
     err       += sVal;
     err       += ". Defaulting to ";
     err       += (m_pub_raw ? "true" : "false");
-    err       += ".";
-    reportConfigWarning(err); }
-  return true;
-}
-
-bool GPS::SetParam_PUBLISH_PITCH_ROLL(std::string sVal)
-{
-  if (tolower(sVal) == "true")
-    m_pub_pitch_roll = true;
-  else if (tolower(sVal) == "false")
-    m_pub_pitch_roll = false;
-  else {
-    string err = "Mission file parameter PUBLISH_PITCH_ROLL must be 'true' or 'false'. ";
-    err       += "Unhandled: ";
-    err       += sVal;
-    err       += ". Defaulting to ";
-    err       += (m_pub_pitch_roll ? "true" : "false");
     err       += ".";
     reportConfigWarning(err); }
   return true;
@@ -458,10 +412,8 @@ bool GPS::buildReport()
   m_msgs << "     HEADING_SOURCE:          " << strSource << endl;
   string strPub = "";
   if (m_pub_hdop)       strPub += "HDOP, ";
-  if (m_pub_pitch_roll) strPub += "PITCH, ROLL, ";
   if (m_pub_raw)        strPub += "raw GPS sentences, ";
   if (m_pub_utc)        strPub += "UTC time, ";
-  if (m_pub_yaw)        strPub += "YAW, ";
   if (strPub.empty())
     strPub = "No additional publications from GPS";
   else {
