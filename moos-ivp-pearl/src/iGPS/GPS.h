@@ -16,8 +16,6 @@
 #include "SerialComms.h"
 #include "gpsParser.h"
 
-#define BAD_DOUBLE -99999.99
-
 enum HeadingSource { HEADING_SOURCE_NONE,
                      HEADING_SOURCE_GPRMC};
 
