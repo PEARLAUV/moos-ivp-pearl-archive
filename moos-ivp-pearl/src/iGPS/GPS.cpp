@@ -109,7 +109,8 @@ bool GPS::OnNewMail(MOOSMSG_LIST &NewMail)
 //                                                                       m_compass_heading,
 //                                                                       "",
 //                                                                       "HEADING_COMPASS");
-//         HandleOneMessage(compassHeadingToPublish); } }
+//         HandleOneMessage(compassHeadingToPublish); }
+  }
   return UpdateMOOSVariables(NewMail);
 }
 
