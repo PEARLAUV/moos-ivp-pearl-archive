@@ -1,0 +1,131 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% LOG FILE:       ./LOG_SHORESIDE_12_1_2021_____21_31_24/LOG_SHORESIDE_12_1_2021_____21_31_24._moos
+%% FILE OPENED ON  Wed Dec 31 19:00:00 1969
+%% LOGSTART               16105050846.9
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+//*******************************************************
+// ShoreSide Configuration File
+
+ServerHost = localhost
+ServerPort = 9000
+Community  = shoreside
+
+MOOSTimeWarp = 10
+
+LatOrigin    = 41.739191
+LongOrigin   = -69.992287
+
+  
+//--------------------------------------------------------
+Processconfig = ANTLER
+{
+  MSBetweenLaunches = 100
+
+  Run = MOOSDB          @ NewConsole = false
+  Run = pMarineViewer   @ NewConsole = false
+  Run = pLogger         @ NewConsole = false
+
+  Run = pShare          @ NewConsole = false
+  Run = pHostInfo       @ NewConsole = false
+  Run = uFldShoreBroker @ NewConsole = false
+}
+
+//--------------------------------------------------
+// pHostInfo configuration block from plugin
+
+ProcessConfig = pHostInfo
+{
+  AppTick 	= 1
+  CommsTick = 1
+
+  default_hostip_force = 192.168.7.96
+}
+
+
+
+//---------------------------------------------------------
+// pShare Config Block
+
+ProcessConfig = pShare
+{
+  AppTick    = 2
+  CommsTick  = 2
+
+  input = route = 192.168.7.96:9300
+}
+
+//--------------------------------------------------
+// uFldShoreBroker Configuration Block
+
+ProcessConfig = uFldShoreBroker
+{
+  AppTick   = 1
+  CommsTick = 1
+
+  qbridge = DEPLOY, NODE_REPORT, NODE_MESSAGE
+  qbridge = STATION_KEEP, APPCAST_REQ
+  qbridge = MOOS_MANUAL_OVERRIDE
+ 
+  bridge  = src=RETURN_ALL, alias=RETURN
+  bridge  = src=RETURN_$V,  alias=RETURN
+
+  bridge  = src=REGION_INFO,  alias=REGION_INFO
+}
+
+//--------------------------------------------------
+// pLogger Configuration Block
+
+ProcessConfig = pLogger
+{
+  AppTick       = 10
+  CommsTick     = 10
+  
+  File          = LOG_SHORESIDE
+  PATH          = ./
+  AsyncLog      = true
+  FileTimeStamp = true
+
+  // Log it all!!!!!
+  WildCardLogging = true 
+}
+
+
+//--------------------------------------------------------
+ProcessConfig = pMarineViewer
+{
+  AppTick    = 4
+  CommsTick  = 4
+
+  tiff_file     = deep_pond_sat.tif
+  tiff_file_b   = deep_pond_map.tif
+  //set_pan_x            = 0
+  //set_pan_y            = 0
+  zoom                 = 1.5
+  vehicles_shape_scale = 1.5
+  vehicles_name_mode   = names+shortmode
+
+  appcast_viewable     = true
+  appcast_color_scheme = indigo
+	appcast_font_size    = large
+	procs_font_size      = large
+	nodes_font_size      = xlarge
+	
+  comms_pulse_viewable_all = false
+  vehicles_name_mode = names
+
+  stale_report_thresh = 2
+  stale_remove_thresh = 20
+
+  //scope = PHI_HOST_INFO
+  scope = GPS_LATITUDE
+  //scope = GPS_LONGITUDE
+
+  button_one = DEPLOY  # DEPLOY_ALL=true 
+  button_one = MOOS_MANUAL_OVERRIDE_ALL=false 
+  button_one = RETURN_ALL=false
+  button_two = RETURN  # RETURN_ALL=true
+  
+  //left_context[view_point]  = VIEW_POINT = x=$(XPOS),y=$(YPOS),label=hello
+}
+
+

@@ -12,7 +12,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/3.16.3/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.16.3/CMakeSystem.cmake"
   "../src/CMakeLists.txt"
-  "../src/iGPSDevice/CMakeLists.txt"
+  "../src/iGPS/CMakeLists.txt"
   "../src/iGPSSim/CMakeLists.txt"
   "../src/lib_NMEAParse/CMakeLists.txt"
   "../src/lib_SimpleSerial/CMakeLists.txt"
@@ -62,8 +62,8 @@ set(CMAKE_MAKEFILE_PRODUCTS
   "src/lib_NMEAParse/CMakeFiles/CMakeDirectoryInformation.cmake"
   "src/lib_SimpleSerial/CMakeFiles/CMakeDirectoryInformation.cmake"
   "src/lib_gpsParser/CMakeFiles/CMakeDirectoryInformation.cmake"
-  "src/iGPSDevice/CMakeFiles/CMakeDirectoryInformation.cmake"
   "src/iGPSSim/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "src/iGPS/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
@@ -71,6 +71,6 @@ set(CMAKE_DEPEND_INFO_FILES
   "src/lib_NMEAParse/CMakeFiles/NMEAParse.dir/DependInfo.cmake"
   "src/lib_SimpleSerial/CMakeFiles/SimpleSerial.dir/DependInfo.cmake"
   "src/lib_gpsParser/CMakeFiles/gpsParser.dir/DependInfo.cmake"
-  "src/iGPSDevice/CMakeFiles/iGPSDevice.dir/DependInfo.cmake"
   "src/iGPSSim/CMakeFiles/iGPSSim.dir/DependInfo.cmake"
+  "src/iGPS/CMakeFiles/iGPS.dir/DependInfo.cmake"
   )

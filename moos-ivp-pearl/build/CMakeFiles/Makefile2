@@ -74,8 +74,8 @@ clean: src/clean
 src/all: src/lib_NMEAParse/all
 src/all: src/lib_SimpleSerial/all
 src/all: src/lib_gpsParser/all
-src/all: src/iGPSDevice/all
 src/all: src/iGPSSim/all
+src/all: src/iGPS/all
 
 .PHONY : src/all
 
@@ -83,8 +83,8 @@ src/all: src/iGPSSim/all
 src/preinstall: src/lib_NMEAParse/preinstall
 src/preinstall: src/lib_SimpleSerial/preinstall
 src/preinstall: src/lib_gpsParser/preinstall
-src/preinstall: src/iGPSDevice/preinstall
 src/preinstall: src/iGPSSim/preinstall
+src/preinstall: src/iGPS/preinstall
 
 .PHONY : src/preinstall
 
@@ -92,28 +92,28 @@ src/preinstall: src/iGPSSim/preinstall
 src/clean: src/lib_NMEAParse/clean
 src/clean: src/lib_SimpleSerial/clean
 src/clean: src/lib_gpsParser/clean
-src/clean: src/iGPSDevice/clean
 src/clean: src/iGPSSim/clean
+src/clean: src/iGPS/clean
 
 .PHONY : src/clean
 
 #=============================================================================
-# Directory level rules for directory src/iGPSDevice
+# Directory level rules for directory src/iGPS
 
 # Recursive "all" directory target.
-src/iGPSDevice/all: src/iGPSDevice/CMakeFiles/iGPSDevice.dir/all
+src/iGPS/all: src/iGPS/CMakeFiles/iGPS.dir/all
 
-.PHONY : src/iGPSDevice/all
+.PHONY : src/iGPS/all
 
 # Recursive "preinstall" directory target.
-src/iGPSDevice/preinstall:
+src/iGPS/preinstall:
 
-.PHONY : src/iGPSDevice/preinstall
+.PHONY : src/iGPS/preinstall
 
 # Recursive "clean" directory target.
-src/iGPSDevice/clean: src/iGPSDevice/CMakeFiles/iGPSDevice.dir/clean
+src/iGPS/clean: src/iGPS/CMakeFiles/iGPS.dir/clean
 
-.PHONY : src/iGPSDevice/clean
+.PHONY : src/iGPS/clean
 
 #=============================================================================
 # Directory level rules for directory src/iGPSSim
@@ -269,35 +269,6 @@ src/lib_gpsParser/CMakeFiles/gpsParser.dir/clean:
 .PHONY : src/lib_gpsParser/CMakeFiles/gpsParser.dir/clean
 
 #=============================================================================
-# Target rules for target src/iGPSDevice/CMakeFiles/iGPSDevice.dir
-
-# All Build rule for target.
-src/iGPSDevice/CMakeFiles/iGPSDevice.dir/all: src/lib_NMEAParse/CMakeFiles/NMEAParse.dir/all
-src/iGPSDevice/CMakeFiles/iGPSDevice.dir/all: src/lib_SimpleSerial/CMakeFiles/SimpleSerial.dir/all
-src/iGPSDevice/CMakeFiles/iGPSDevice.dir/all: src/lib_gpsParser/CMakeFiles/gpsParser.dir/all
-	$(MAKE) -f src/iGPSDevice/CMakeFiles/iGPSDevice.dir/build.make src/iGPSDevice/CMakeFiles/iGPSDevice.dir/depend
-	$(MAKE) -f src/iGPSDevice/CMakeFiles/iGPSDevice.dir/build.make src/iGPSDevice/CMakeFiles/iGPSDevice.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/erolland/moos-ivp-autonomy/moos-ivp-pearl/build/CMakeFiles --progress-num=43,44,45,46 "Built target iGPSDevice"
-.PHONY : src/iGPSDevice/CMakeFiles/iGPSDevice.dir/all
-
-# Build rule for subdir invocation for target.
-src/iGPSDevice/CMakeFiles/iGPSDevice.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/erolland/moos-ivp-autonomy/moos-ivp-pearl/build/CMakeFiles 46
-	$(MAKE) -f CMakeFiles/Makefile2 src/iGPSDevice/CMakeFiles/iGPSDevice.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/erolland/moos-ivp-autonomy/moos-ivp-pearl/build/CMakeFiles 0
-.PHONY : src/iGPSDevice/CMakeFiles/iGPSDevice.dir/rule
-
-# Convenience name for target.
-iGPSDevice: src/iGPSDevice/CMakeFiles/iGPSDevice.dir/rule
-
-.PHONY : iGPSDevice
-
-# clean rule for target.
-src/iGPSDevice/CMakeFiles/iGPSDevice.dir/clean:
-	$(MAKE) -f src/iGPSDevice/CMakeFiles/iGPSDevice.dir/build.make src/iGPSDevice/CMakeFiles/iGPSDevice.dir/clean
-.PHONY : src/iGPSDevice/CMakeFiles/iGPSDevice.dir/clean
-
-#=============================================================================
 # Target rules for target src/iGPSSim/CMakeFiles/iGPSSim.dir
 
 # All Build rule for target.
@@ -324,6 +295,35 @@ iGPSSim: src/iGPSSim/CMakeFiles/iGPSSim.dir/rule
 src/iGPSSim/CMakeFiles/iGPSSim.dir/clean:
 	$(MAKE) -f src/iGPSSim/CMakeFiles/iGPSSim.dir/build.make src/iGPSSim/CMakeFiles/iGPSSim.dir/clean
 .PHONY : src/iGPSSim/CMakeFiles/iGPSSim.dir/clean
+
+#=============================================================================
+# Target rules for target src/iGPS/CMakeFiles/iGPS.dir
+
+# All Build rule for target.
+src/iGPS/CMakeFiles/iGPS.dir/all: src/lib_NMEAParse/CMakeFiles/NMEAParse.dir/all
+src/iGPS/CMakeFiles/iGPS.dir/all: src/lib_SimpleSerial/CMakeFiles/SimpleSerial.dir/all
+src/iGPS/CMakeFiles/iGPS.dir/all: src/lib_gpsParser/CMakeFiles/gpsParser.dir/all
+	$(MAKE) -f src/iGPS/CMakeFiles/iGPS.dir/build.make src/iGPS/CMakeFiles/iGPS.dir/depend
+	$(MAKE) -f src/iGPS/CMakeFiles/iGPS.dir/build.make src/iGPS/CMakeFiles/iGPS.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/erolland/moos-ivp-autonomy/moos-ivp-pearl/build/CMakeFiles --progress-num=43,44,45,46 "Built target iGPS"
+.PHONY : src/iGPS/CMakeFiles/iGPS.dir/all
+
+# Build rule for subdir invocation for target.
+src/iGPS/CMakeFiles/iGPS.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/erolland/moos-ivp-autonomy/moos-ivp-pearl/build/CMakeFiles 46
+	$(MAKE) -f CMakeFiles/Makefile2 src/iGPS/CMakeFiles/iGPS.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/erolland/moos-ivp-autonomy/moos-ivp-pearl/build/CMakeFiles 0
+.PHONY : src/iGPS/CMakeFiles/iGPS.dir/rule
+
+# Convenience name for target.
+iGPS: src/iGPS/CMakeFiles/iGPS.dir/rule
+
+.PHONY : iGPS
+
+# clean rule for target.
+src/iGPS/CMakeFiles/iGPS.dir/clean:
+	$(MAKE) -f src/iGPS/CMakeFiles/iGPS.dir/build.make src/iGPS/CMakeFiles/iGPS.dir/clean
+.PHONY : src/iGPS/CMakeFiles/iGPS.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

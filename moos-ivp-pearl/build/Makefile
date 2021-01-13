@@ -196,19 +196,6 @@ gpsParser/fast:
 .PHONY : gpsParser/fast
 
 #=============================================================================
-# Target rules for targets named iGPSDevice
-
-# Build rule for target.
-iGPSDevice: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 iGPSDevice
-.PHONY : iGPSDevice
-
-# fast build rule for target.
-iGPSDevice/fast:
-	$(MAKE) -f src/iGPSDevice/CMakeFiles/iGPSDevice.dir/build.make src/iGPSDevice/CMakeFiles/iGPSDevice.dir/build
-.PHONY : iGPSDevice/fast
-
-#=============================================================================
 # Target rules for targets named iGPSSim
 
 # Build rule for target.
@@ -220,6 +207,19 @@ iGPSSim: cmake_check_build_system
 iGPSSim/fast:
 	$(MAKE) -f src/iGPSSim/CMakeFiles/iGPSSim.dir/build.make src/iGPSSim/CMakeFiles/iGPSSim.dir/build
 .PHONY : iGPSSim/fast
+
+#=============================================================================
+# Target rules for targets named iGPS
+
+# Build rule for target.
+iGPS: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 iGPS
+.PHONY : iGPS
+
+# fast build rule for target.
+iGPS/fast:
+	$(MAKE) -f src/iGPS/CMakeFiles/iGPS.dir/build.make src/iGPS/CMakeFiles/iGPS.dir/build
+.PHONY : iGPS/fast
 
 # Help Target
 help:
@@ -236,8 +236,8 @@ help:
 	@echo "... NMEAParse"
 	@echo "... SimpleSerial"
 	@echo "... gpsParser"
-	@echo "... iGPSDevice"
 	@echo "... iGPSSim"
+	@echo "... iGPS"
 .PHONY : help
 
 

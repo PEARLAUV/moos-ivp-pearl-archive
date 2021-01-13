@@ -48,20 +48,6 @@ SerialComms.h
 gpsParser.h
 /home/erolland/moos-ivp-autonomy/moos-ivp-pearl/src/iGPSDevice/gpsParser.h
 
-/home/erolland/moos-ivp-autonomy/moos-ivp-pearl/src/iGPSDevice/GPSDeviceInfo.cpp
-GPSDeviceInfo.h
-/home/erolland/moos-ivp-autonomy/moos-ivp-pearl/src/iGPSDevice/GPSDeviceInfo.h
-cstdlib
--
-iostream
--
-ColorParse.h
-/home/erolland/moos-ivp-autonomy/moos-ivp-pearl/src/iGPSDevice/ColorParse.h
-ReleaseInfo.h
-/home/erolland/moos-ivp-autonomy/moos-ivp-pearl/src/iGPSDevice/ReleaseInfo.h
-GPSDeviceInfo.h
-/home/erolland/moos-ivp-autonomy/moos-ivp-pearl/src/iGPSDevice/GPSDeviceInfo.h
-
 /home/erolland/moos-ivp-autonomy/moos-ivp-pearl/src/iGPSDevice/GPSDeviceInfo.h
 
 /home/erolland/moos-ivp-autonomy/moos-ivp-pearl/src/iGPSDevice/iGPSDeviceMain.cpp
@@ -652,9 +638,5 @@ string
 set
 -
 time.h
--
-
-/home/erolland/moos-ivp/ivp/src/lib_mbutil/ReleaseInfo.h
-string
 -
 

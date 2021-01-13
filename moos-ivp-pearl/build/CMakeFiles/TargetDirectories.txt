@@ -31,13 +31,6 @@
 /home/erolland/moos-ivp-autonomy/moos-ivp-pearl/build/src/lib_gpsParser/CMakeFiles/rebuild_cache.dir
 /home/erolland/moos-ivp-autonomy/moos-ivp-pearl/build/src/lib_gpsParser/CMakeFiles/edit_cache.dir
 /home/erolland/moos-ivp-autonomy/moos-ivp-pearl/build/src/lib_gpsParser/CMakeFiles/gpsParser.dir
-/home/erolland/moos-ivp-autonomy/moos-ivp-pearl/build/src/iGPSDevice/CMakeFiles/install/strip.dir
-/home/erolland/moos-ivp-autonomy/moos-ivp-pearl/build/src/iGPSDevice/CMakeFiles/install/local.dir
-/home/erolland/moos-ivp-autonomy/moos-ivp-pearl/build/src/iGPSDevice/CMakeFiles/install.dir
-/home/erolland/moos-ivp-autonomy/moos-ivp-pearl/build/src/iGPSDevice/CMakeFiles/list_install_components.dir
-/home/erolland/moos-ivp-autonomy/moos-ivp-pearl/build/src/iGPSDevice/CMakeFiles/rebuild_cache.dir
-/home/erolland/moos-ivp-autonomy/moos-ivp-pearl/build/src/iGPSDevice/CMakeFiles/edit_cache.dir
-/home/erolland/moos-ivp-autonomy/moos-ivp-pearl/build/src/iGPSDevice/CMakeFiles/iGPSDevice.dir
 /home/erolland/moos-ivp-autonomy/moos-ivp-pearl/build/src/iGPSSim/CMakeFiles/install/strip.dir
 /home/erolland/moos-ivp-autonomy/moos-ivp-pearl/build/src/iGPSSim/CMakeFiles/install/local.dir
 /home/erolland/moos-ivp-autonomy/moos-ivp-pearl/build/src/iGPSSim/CMakeFiles/install.dir
@@ -45,3 +38,10 @@
 /home/erolland/moos-ivp-autonomy/moos-ivp-pearl/build/src/iGPSSim/CMakeFiles/rebuild_cache.dir
 /home/erolland/moos-ivp-autonomy/moos-ivp-pearl/build/src/iGPSSim/CMakeFiles/edit_cache.dir
 /home/erolland/moos-ivp-autonomy/moos-ivp-pearl/build/src/iGPSSim/CMakeFiles/iGPSSim.dir
+/home/erolland/moos-ivp-autonomy/moos-ivp-pearl/build/src/iGPS/CMakeFiles/install/strip.dir
+/home/erolland/moos-ivp-autonomy/moos-ivp-pearl/build/src/iGPS/CMakeFiles/install/local.dir
+/home/erolland/moos-ivp-autonomy/moos-ivp-pearl/build/src/iGPS/CMakeFiles/install.dir
+/home/erolland/moos-ivp-autonomy/moos-ivp-pearl/build/src/iGPS/CMakeFiles/list_install_components.dir
+/home/erolland/moos-ivp-autonomy/moos-ivp-pearl/build/src/iGPS/CMakeFiles/rebuild_cache.dir
+/home/erolland/moos-ivp-autonomy/moos-ivp-pearl/build/src/iGPS/CMakeFiles/edit_cache.dir
+/home/erolland/moos-ivp-autonomy/moos-ivp-pearl/build/src/iGPS/CMakeFiles/iGPS.dir
