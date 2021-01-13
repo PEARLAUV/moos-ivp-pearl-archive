@@ -27,9 +27,7 @@ void showSynopsis()
   blk("  configuration data when not powered.                                      ");
   blk("  Sentences currently parsed:                                               ");
   grn("    GPGGA  Time, position and fix related data                              ");
-  grn("    GPGSA  Dilution of precision and active satellites                      ");
   grn("    GPRMC  Recommended minimum navigation info                              ");
-  grn("    GPVTG  Track made good and ground speed                                 ");
   blk("                                                                            ");
 }
 
@@ -79,10 +77,8 @@ void showExampleConfigAndExit()
   blk("                               //   will be added to heading when published.");
   blk("  PUBLISH_UTC     = false      // If true, publishes UTC time from the GPS  ");
   blk("  PUBLISH_HDOP    = false      // If true, publishes HDOP                   ");
-  blk("  PUBLISH_YAW     = false      // If true, publish yaw (if available)       ");
   blk("  PUBLISH_RAW     = false      // If true, publish all nmea sentences to    ");
   blk("                               //   MOOS message NMEA_FROM_GPS              ");
-  blk("  PUBLISH_PITCH_ROLL = false   // If true, publish pitch and roll (if avail)");
   blk("  TRIGGER_MSG     = gpgga      // Accumulates data from all incoming        ");
   blk("                               //   NMEA_MSGs but only publishes when the   ");
   blk("                               //   trigger is received.                    ");
@@ -117,9 +113,6 @@ void showInterfaceAndExit()
   blk("[prefix]_Y         double  Y position in meters relative to the local origin");
   blk("[prefix]_SPEED     double  Speed in meters per second, provided by GPS      ");
   blk("[prefix]_HEADING   double  Heading in deg CW from true N, see mission params");
-  blk("[prefix]_YAW       double  Direction bow points in degrees CW from true N   ");
-  blk("[prefix]_PITCH     double  Degrees of tilt left or right                    ");
-  blk("[prefix]_ROLL      double  Degrees of tilt forward or back                  ");
   blk("[prefix]_SAT       double  Number of satellites GPS can make use of         ");
   blk("[prefix]_HDOP      double  Horizontal dilution of precision value from GPS  ");
   blk("[prefix]_QUALITY   string  DIFF Differential fix (provides best position)   ");
