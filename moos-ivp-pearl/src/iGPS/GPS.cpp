@@ -145,6 +145,7 @@ void GPS::IngestFromGPS()
   while (m_parser->ErrorsAvailable())
       reportRunWarning(m_parser->GetNextErrorString());
 }
+  
 /*
   Messages from the GPS parser
   Message Name    Message Type  When to Publish
