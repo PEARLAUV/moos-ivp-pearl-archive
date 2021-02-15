@@ -1,0 +1,24 @@
+//--------------------------------------------------------
+// uProcessWatch Configuration Block (Created from Plugin)
+
+ProcessConfig = uProcessWatch
+{
+  AppTick   = 2
+  CommsTick = 2
+
+  nowatch = uMAC*  
+  nowatch = uXMS*
+  
+  watch  = pHelmIvP
+  watch  = iGPS
+  watch  = iPEARL
+  watch  = iChargeController
+  watch  = pEchoVar
+  watch  = pPearlPID
+  watch  = pLogger
+  watch  = pNodeReporter
+  watch  = uSolarHeading
+  
+}
+
+

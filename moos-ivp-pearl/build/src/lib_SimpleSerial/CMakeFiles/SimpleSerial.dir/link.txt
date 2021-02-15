@@ -1,2 +1,0 @@
-/usr/bin/ar qc ../../../lib/libSimpleSerial.a  CMakeFiles/SimpleSerial.dir/SerialComms.cpp.o
-/usr/bin/ranlib ../../../lib/libSimpleSerial.a

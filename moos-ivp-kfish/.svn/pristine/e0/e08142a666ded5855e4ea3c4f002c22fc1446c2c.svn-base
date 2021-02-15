@@ -1,3 +1,0 @@
-# iter, mission, checkfile_colregs.chk, variable values ... 
-0, PASS, FAIL, ['archie:BHV_AvoidCollision:pwt_outer_dist:15', 'betty:BHV_AvoidCollision:pwt_outer_dist:15']
-1, PASS, FAIL, ['archie:BHV_AvoidCollision:pwt_outer_dist:30.0', 'betty:BHV_AvoidCollision:pwt_outer_dist:30.0']

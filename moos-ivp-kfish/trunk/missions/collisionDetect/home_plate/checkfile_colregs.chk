@@ -1,4 +1,0 @@
-START "DEPLOY_ALL=true"
-END "DEPLOY_ALL==false"
-PASS "DEPLOY_ALL==true"
-FAIL "DEPLOY_ALL==false"

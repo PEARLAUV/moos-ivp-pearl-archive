@@ -1,0 +1,12 @@
+//--------------------------------
+// uSolarHeading config block from plugin
+
+ProcessConfig = uSolarHeading
+{
+  AppTick     = 10
+  CommsTick   = 10
+
+  PREFIX          = SOLAR
+  HEADING_OFFSET  = 0.0
+  PUBLISH_ANGLES  = true
+}

@@ -1,0 +1,18 @@
+Single vehicle mission designed to be a 'hardware-in-the-loop' simulation. 
+Utilizes shoreside-vehicle communication structure, with the simulator running onboard the Raspberry Pi.
+
+Launch instructions:
+
+(shoreside terminal)
+>> ./launch_shoreside.sh
+
+**note that the proper shore/vehicle IP addresses and ports must be specified
+either in the launch_shoreside.sh executable or at the command line. Type
+./launch_shoreside.sh -h for a full list of possible command line arguments.
+
+(remote vehicle terminal)
+>> ./launch_vehicle.sh
+
+**note that the proper shore/vehicle IP addresses and ports must be specified
+either in the launch_vehicle.sh executable or at the command line. Type
+./launch_vehicle.sh -h for a full list of possible command line arguments.
