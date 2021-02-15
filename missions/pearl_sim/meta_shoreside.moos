@@ -102,6 +102,7 @@ ProcessConfig = pMarineViewer
   scope = STAR_ALL
   scope = PERIMETER_ALL
   scope = FIGURE_EIGHT_ALL
+  scope = WIND_GUSTS_ALL
   
   ACTION  = MENU_KEY=star-burst   # STAR_ALL=true  # PERIMETER_ALL=false
   ACTION+ = MENU_KEY=star-burst   # FIGURE_EIGHT_ALL=false
