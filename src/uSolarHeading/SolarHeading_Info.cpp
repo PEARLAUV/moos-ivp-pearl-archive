@@ -90,7 +90,7 @@ void showInterfaceAndExit()
   blk("[prefix]_LATITUDE  double  Latitude parsed from recent NMEA sentence        ");
   blk("[prefix]_SUN_ELEVATION  double  Computed sun elevation angle in degrees     ");
   blk("[prefix]_SUN_AZIMUTH    double  Computed sun azimuth angle in degrees       ");
-  blk("[prefix]_HEADING        double  
+  blk("[prefix]_HEADING        double  Sun elevation angle plus heading offset     ");
   blk("                                                                            ");
   exit(0);
 }
