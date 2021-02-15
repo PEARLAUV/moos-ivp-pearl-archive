@@ -97,8 +97,10 @@ To set up MOOS-IvP, execute the following from the terminal:
 Next, to set up the moos-ivp-pearl extension, execute the following from the terminal:
 
 	$ cd ~
-	$ git clone https://github.com/PEARLAUV/moos-ivp-pearl
+	$ git clone https://github.com/PEARLAUV/moos-ivp-pearl.git
 	$ cd ~/moos-ivp-pearl
+	$ mkdir build
+	$ mkdir lib
 	$ ./build.sh
 	$ echo 'export PATH=$PATH:~/moos-ivp-pearl/bin'  >> ~/.bashrc
 	$ source ~/.bashrc
