@@ -450,6 +450,7 @@ bool PEARL::ParseNMEAString(string nmea)
     
   string toParse = MOOSChomp(nmea, "*");
   vector<string> parts = parseString(toParse, ',');
+  m_last_PLIMU_from_front = nmea; 
   string nmeaHeader = parts[0];
   if   (nmeaHeader == "$PLIMU") {
     m_last_PLIMU_from_front = nmea; 
