@@ -452,14 +452,14 @@ bool PEARL::ParseNMEAString(string nmea)
   vector<string> parts = parseString(toParse, ',');
   string nmeaHeader = parts[0];
   if   (nmeaHeader == "$PLIMU") {
-    HandlePLIMU(toParse);
-    m_last_PLIMU_from_front = nmea; }
+    m_last_PLIMU_from_front = nmea; 
+    HandlePLIMU(toParse); }
   else if (nmeaHeader == "$PLRAW") {
-    HandlePLRAW(toParse);
-    m_last_PLRAW_from_front = nmea; }
+    m_last_PLRAW_from_front = nmea; 
+    HandlePLRAW(toParse); }
   else if (nmeaHeader == "$PLMOT") {
-    HandlePLMOT(toParse);
-    m_last_PLMOT_from_front = nmea; }
+    m_last_PLMOT_from_front = nmea; 
+    HandlePLMOT(toParse); }
   else {
     reportRunWarning("Line from front seat has improper header: " + nmea);
     return false; }
@@ -467,7 +467,7 @@ bool PEARL::ParseNMEAString(string nmea)
   return true;
 }
 
-void PEARL::HandlePLIMU(string toParse)
+bool PEARL::HandlePLIMU(string toParse)
 {
   vector<string> parts = parseString(toParse, ',');
   string moValStr = parts[1];
@@ -511,9 +511,11 @@ void PEARL::HandlePLIMU(string toParse)
     }
       
   PublishIMUEuler(dHeading,dYaw,dPitch,dRoll);
+  
+  return true;
 }
 
-void PEARL::HandlePLRAW(string toParse)
+bool PEARL::HandlePLRAW(string toParse)
 {
   vector<string> parts = parseString(toParse, ',');
   string axValStr = parts[1];
@@ -565,9 +567,11 @@ void PEARL::HandlePLRAW(string toParse)
     currMagZ = dMagZ; }
       
   PublishIMURaw(dAccX,dAccY,dAccZ,dGyroX,dGyroY,dGyroZ,dMagX,dMagY,dMagZ);
+  
+  return true;
 }
 
-void PEARL::HandlePLMOT(string toParse)
+bool PEARL::HandlePLMOT(string toParse)
 {
   vector<string> parts = parseString(toParse, ',');
   string leftValStr = parts[1];
@@ -577,6 +581,8 @@ void PEARL::HandlePLMOT(string toParse)
     arduinoThrustLeft = strtod(leftValStr.c_str(), 0);
   if (!rightValStr.empty())
     arduinoThrustRight = strtod(rightValStr.c_str(), 0);
+    
+  return true;
 }
 
 bool PEARL::NMEAChecksumIsValid(string nmea)

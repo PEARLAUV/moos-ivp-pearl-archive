@@ -52,9 +52,9 @@ class PEARL : public AppCastingMOOSApp
    //NMEA Processing
    bool ParseNMEAString(std::string nmea);
    bool NMEAChecksumIsValid(std::string nmea);
-   void HandlePLIMU(std::string toParse);
-   void HandlePLRAW(std::string toParse);
-   void HandlePLMOT(std::string toParse);
+   bool HandlePLIMU(std::string toParse);
+   bool HandlePLRAW(std::string toParse);
+   bool HandlePLMOT(std::string toParse);
 
    //MOOS file parameters
    std::string   m_serial_port;
