@@ -38,16 +38,39 @@ PEARL::PEARL()
   m_pubNameYaw            = "YAW";
   m_pubNamePitch          = "PITCH";
   m_pubNameRoll           = "ROLL";
+  m_pubNameAccX           = "ACCX";
+  m_pubNameAccY           = "ACCY";
+  m_pubNameAccZ           = "ACCZ";
+  m_pubNameGyroX          = "GYROX";
+  m_pubNameGyroY          = "GYROY";
+  m_pubNameGyroZ          = "GYROZ";
+  m_pubNameMagX           = "MAGX";
+  m_pubNameMagY           = "MAGY";
+  m_pubNameMagZ           = "MAGZ";
   
   currHeading             = 0.0;
   currYaw                 = 0.0;
   currPitch               = 0.0;
   currRoll                = 0.0;
+  currAccX                = 0.0;
+  currAccY                = 0.0;
+  currAccZ                = 0.0;
+  currGyroX               = 0.0;
+  currGyroY               = 0.0;
+  currGyroZ               = 0.0;
+  currMagX                = 0.0;
+  currMagY                = 0.0;
+  currMagZ                = 0.0;
+  
+  arduinoThrustLeft       = 0.0;
+  arduinoThrustRight      = 0.0;
 
   //Appcast details
   m_msgs_from_front       = 0;
   m_msgs_to_front         = 0;
-  m_last_msg_from_front   = "";
+  m_last_PLIMU_from_front = "";
+  m_last_PLRAW_from_front = "";
+  m_last_PLMOT_from_front = "";
   m_last_msg_to_front     = "";
   
   //Motor related
@@ -58,6 +81,7 @@ PEARL::PEARL()
   m_des_count_thrust      = 0;
   m_des_count_rudder      = 0;
   m_ivpALLSTOP            = true;
+  m_manual_override       = false;
   
   m_max_thrust            = 0.0;
   m_max_rudder            = 0.0;  
@@ -193,7 +217,6 @@ void PEARL::GetData()
   while (m_serial->DataAvailable()) {
     string nmea = m_serial->GetNextSentence();
     m_msgs_from_front++;
-    m_last_msg_from_front = nmea;
     ParseNMEAString(nmea); 
   }
 }
@@ -347,11 +370,20 @@ bool PEARL::SetPublishNames()
   m_pubNameYaw       = m_prefix + m_pubNameYaw;
   m_pubNamePitch     = m_prefix + m_pubNamePitch;
   m_pubNameRoll      = m_prefix + m_pubNameRoll;
+  m_pubNameAccX      = m_prefix + m_pubNameAccX;
+  m_pubNameAccX      = m_prefix + m_pubNameAccX;
+  m_pubNameAccX      = m_prefix + m_pubNameAccX;
+  m_pubNameGyroX     = m_prefix + m_pubNameGyroX;
+  m_pubNameGyroY     = m_prefix + m_pubNameGyroY;
+  m_pubNameGyroZ     = m_prefix + m_pubNameGyroZ;
+  m_pubNameMagX      = m_prefix + m_pubNameMagX;
+  m_pubNameMagY      = m_prefix + m_pubNameMagY;
+  m_pubNameMagZ      = m_prefix + m_pubNameMagZ;
   
   return true;
 }
 
-void PEARL::PublishIMU(double dHeading, double dYaw, double dPitch, double dRoll)
+void PEARL::PublishIMUEuler(double dHeading, double dYaw, double dPitch, double dRoll)
 {
   if (dHeading != BAD_DOUBLE)
     m_Comms.Notify(m_pubNameHeading, dHeading);
@@ -369,6 +401,28 @@ void PEARL::PublishIMU(double dHeading, double dYaw, double dPitch, double dRoll
     m_Comms.Notify(m_pubNameRoll, dRoll);
   else
     reportRunWarning("Did not receive roll data.");
+}
+
+void PEARL::PublishIMURaw(double dAccX, double dAccY, double dAccZ, double dGyroX, double dGyroY, double dGyroZ, double dMagX, double dMagY, double dMagZ)
+{
+  if (dAccX != BAD_DOUBLE && dAccY != BAD_DOUBLE && dAccZ != BAD_DOUBLE) {
+    m_Comms.Notify(m_pubNameAccX, dAccX);
+    m_Comms.Notify(m_pubNameAccY, dAccY);
+    m_Comms.Notify(m_pubNameAccZ, dAccZ); }
+  else
+    reportRunWarning("Did not receive accelerometer data.");
+  if (dGyroX != BAD_DOUBLE && dGyroY != BAD_DOUBLE && dGyroZ != BAD_DOUBLE) {
+    m_Comms.Notify(m_pubNameGyroX, dGyroX);
+    m_Comms.Notify(m_pubNameGyroY, dGyroY);
+    m_Comms.Notify(m_pubNameGyroZ, dGyroZ); }
+  else
+    reportRunWarning("Did not receive gyroscope data.");
+  if (dMagX != BAD_DOUBLE && dMagY != BAD_DOUBLE && dMagZ != BAD_DOUBLE) {
+    m_Comms.Notify(m_pubNameMagX, dMagX);
+    m_Comms.Notify(m_pubNameMagY, dMagY);
+    m_Comms.Notify(m_pubNameMagZ, dMagZ); }
+  else
+    reportRunWarning("Did not receive magnetometer data.");
 }
 
 bool PEARL::ParseNMEAString(string nmea)
@@ -393,27 +447,49 @@ bool PEARL::ParseNMEAString(string nmea)
   //if (!MOOSStrCmp(checksum, calcdsum)) {
   //    reportRunWarning("Line from front seat has improper checksum: " + nmea);
   //    return false; }
-  
-  string yValStr = "";
-  string pValStr = "";
-  string rValStr = "";
     
   string toParse = MOOSChomp(nmea, "*");
   vector<string> parts = parseString(toParse, ',');
   string nmeaHeader = parts[0];
-  if   (nmeaHeader == "$PLIMU")  {
-    yValStr = parts[1];
-    pValStr = parts[2];
-    rValStr = parts[3]; 
-    }
+  if   (nmeaHeader == "$PLIMU") {
+    HandlePLIMU(toParse);
+    m_last_PLIMU_from_front = nmea; }
+  else if (nmeaHeader == "$PLRAW") {
+    HandlePLRAW(toParse);
+    m_last_PLRAW_from_front = nmea; }
+  else if (nmeaHeader == "$PLMOT") {
+    HandlePLMOT(toParse);
+    m_last_PLMOT_from_front = nmea; }
   else {
     reportRunWarning("Line from front seat has improper header: " + nmea);
     return false; }
-    
+  
+  return true;
+}
+
+void PEARL::HandlePLIMU(string toParse)
+{
+  vector<string> parts = parseString(toParse, ',');
+  string moValStr = parts[1];
+  string yValStr  = parts[2];
+  string pValStr  = parts[3];
+  string rValStr  = parts[4];
+  
   double dHeading  = BAD_DOUBLE;
   double dYaw      = BAD_DOUBLE;
   double dPitch    = BAD_DOUBLE;
   double dRoll     = BAD_DOUBLE;
+  
+  if (!moValStr.empty()) {
+    if (moValStr=="0") {
+      m_manual_override = false;
+      m_Comms.Notify("MOOS_MANUAL_OVERRIDE", m_manual_override); }
+    else if (moValStr=="1") {
+      m_manual_override = true;
+      m_Comms.Notify("MOOS_MANUAL_OVERRIDE", m_manual_override); }
+    else
+      reportRunWarning("Manual override command from front seat not 0 (false) or 1 (true): " + moValStr);
+    }
   
   if (!yValStr.empty()) {
     dHeading = strtod(yValStr.c_str(), 0) + m_heading_offset;
@@ -434,9 +510,73 @@ bool PEARL::ParseNMEAString(string nmea)
     currRoll = dRoll;
     }
       
-  PublishIMU(dHeading,dYaw,dPitch,dRoll);
+  PublishIMUEuler(dHeading,dYaw,dPitch,dRoll);
+}
+
+void PEARL::HandlePLRAW(string toParse)
+{
+  vector<string> parts = parseString(toParse, ',');
+  string axValStr = parts[1];
+  string ayValStr = parts[2];
+  string azValStr = parts[3];
+  string gxValStr = parts[4];
+  string gyValStr = parts[5];
+  string gzValStr = parts[6];
+  string mxValStr = parts[7];
+  string myValStr = parts[8];
+  string mzValStr = parts[9];
+    
+  double dAccX     = BAD_DOUBLE;
+  double dAccY     = BAD_DOUBLE;
+  double dAccZ     = BAD_DOUBLE;
+  double dGyroX    = BAD_DOUBLE;
+  double dGyroY    = BAD_DOUBLE;
+  double dGyroZ    = BAD_DOUBLE;
+  double dMagX     = BAD_DOUBLE;
+  double dMagY     = BAD_DOUBLE;
+  double dMagZ     = BAD_DOUBLE;
   
-  return true;
+  if (!axValStr.empty()) {
+    dAccX = strtod(axValStr.c_str(), 0);
+    currAccX = dAccX; }
+  if (!ayValStr.empty()) {
+    dAccY = strtod(ayValStr.c_str(), 0);
+    currAccY = dAccY; }
+  if (!azValStr.empty()) {
+    dAccZ = strtod(azValStr.c_str(), 0);
+    currAccZ = dAccZ; }
+  if (!gxValStr.empty()) {
+    dGyroX = strtod(gxValStr.c_str(), 0);
+    currGyroX = dGyroX; }
+  if (!gyValStr.empty()) {
+    dGyroY = strtod(gyValStr.c_str(), 0);
+    currGyroY = dGyroY; }
+  if (!gzValStr.empty()) {
+    dGyroZ = strtod(gzValStr.c_str(), 0);
+    currGyroZ = dGyroZ; }
+  if (!mxValStr.empty()) {
+    dMagX = strtod(mxValStr.c_str(), 0);
+    currMagX = dMagX; }
+  if (!myValStr.empty()) {
+    dMagY = strtod(myValStr.c_str(), 0);
+    currMagY = dMagY; }
+  if (!mzValStr.empty()) {
+    dMagZ = strtod(mzValStr.c_str(), 0);
+    currMagZ = dMagZ; }
+      
+  PublishIMURaw(dAccX,dAccY,dAccZ,dGyroX,dGyroY,dGyroZ,dMagX,dMagY,dMagZ);
+}
+
+void PEARL::HandlePLMOT(string toParse)
+{
+  vector<string> parts = parseString(toParse, ',');
+  string leftValStr = parts[1];
+  string rightValStr = parts[2];
+  
+  if (!leftValStr.empty())
+    arduinoThrustLeft = strtod(leftValStr.c_str(), 0);
+  if (!rightValStr.empty())
+    arduinoThrustRight = strtod(rightValStr.c_str(), 0);
 }
 
 bool PEARL::NMEAChecksumIsValid(string nmea)
@@ -479,16 +619,18 @@ bool PEARL::buildReport()
   string sOffset  = doubleToString(m_heading_offset, 1);
   string sMaxRud  = doubleToString(m_max_rudder, 1);
   string sMaxThr  = doubleToString(m_max_thrust, 1);
-  string sReqL    = doubleToString(m_des_L, 1);
-  string sReqR    = doubleToString(m_des_R, 1);
-  string sReqRud  = doubleToString(m_des_rudder, 1);
-  string sReqThr  = doubleToString(m_des_thrust, 1);
+  string sDesL    = doubleToString(m_des_L, 1);
+  string sDesR    = doubleToString(m_des_R, 1);
+  string sDesRud  = doubleToString(m_des_rudder, 1);
+  string sDesThr  = doubleToString(m_des_thrust, 1);
   string sCommL   = doubleToString(m_commanded_L, 1);
   string sCommR   = doubleToString(m_commanded_R, 1);
   string sHeading = doubleToString(currHeading, 1);
   string sYaw     = doubleToString(currYaw, 1);
   string sPitch   = doubleToString(currPitch, 1);
   string sRoll    = doubleToString(currRoll, 1);
+  string sLThr    = doubleToString(arduinoThrustLeft, 1);
+  string sRThr    = doubleToString(arduinoThrustRight, 1);
   
   m_msgs << endl << "SETUP" << endl << "-----" << endl;
   m_msgs << "     PORT (BAUDRATE):         " << m_serial_port << "(" << m_baudrate << ")" << endl;
@@ -501,20 +643,30 @@ bool PEARL::buildReport()
   m_msgs << "     MAX THRUST:           +/-" << sMaxThr << "%" << endl;
   
   if (m_ivpALLSTOP) {
-    m_msgs << "   --- IVPHELM ALLSTOP ENGAGED ---" << endl; }
-
-  m_msgs << "   Requested rudder, thrust:     " << sReqRud << ", " << sReqThr << endl;
-  m_msgs << "   Commanded to motors L, R:     " << sCommL << ", " << sCommR << endl;
-  m_msgs << "   Messages from front seat:     " << m_msgs_from_front << endl;
-  m_msgs << "   Messages to front seat:       " << m_msgs_to_front << endl;
-  m_msgs << "   Last message from front seat: " << m_last_msg_from_front << endl;
-  m_msgs << "   Last message to front seat:   " << m_last_msg_to_front << endl;
-  m_msgs << "   DESIRED_THRUST count:         " << m_des_count_thrust << endl;
-  m_msgs << "   DESIRED_RUDDER count:         " << m_des_count_rudder << endl;
-  m_msgs << "   Heading:                      " << sHeading << endl;
-  m_msgs << "   Yaw:                          " << sYaw << endl;
-  m_msgs << "   Pitch:                        " << sPitch << endl;
-  m_msgs << "   Roll:                         " << sRoll << endl;
+    m_msgs << "   --- IVPHELM ALLSTOP ENGAGED ---" << endl; 
+    m_msgs << endl; }
+  if (m_manual_override) {
+    m_msgs << "   --- MANUAL CONTROL ENGAGED ---" << endl;
+    m_msgs << endl; }
+  else if (!m_manual_override) {
+    m_msgs << "   --- MANUAL CONTROL NOT ENGAGED ---" << endl;
+    m_msgs << endl; }
+    
+  m_msgs << "   Requested rudder, thrust:      " << sDesRud << ", " << sDesThr << endl;
+  m_msgs << "   Commanded to motors L, R:      " << sCommL << ", " << sCommR << endl;
+  m_msgs << "   Reported thrust L, R:          " << sLThr << ", " << sRThr << endl;
+  m_msgs << "   Messages from front seat:      " << m_msgs_from_front << endl;
+  m_msgs << "   Messages to front seat:        " << m_msgs_to_front << endl;
+  m_msgs << "   Last PLIMU message from front: " << m_last_PLIMU_from_front << endl;
+  m_msgs << "   Last PLRAW message from front: " << m_last_PLRAW_from_front << endl;
+  m_msgs << "   Last PLMOT message from front: " << m_last_PLMOT_from_front << endl;
+  m_msgs << "   Last message to front seat:    " << m_last_msg_to_front << endl;
+  m_msgs << "   DESIRED_THRUST count:          " << m_des_count_thrust << endl;
+  m_msgs << "   DESIRED_RUDDER count:          " << m_des_count_rudder << endl;
+  m_msgs << "   Heading:                       " << sHeading << endl;
+  m_msgs << "   Yaw:                           " << sYaw << endl;
+  m_msgs << "   Pitch:                         " << sPitch << endl;
+  m_msgs << "   Roll:                          " << sRoll << endl;
   m_msgs << endl;
   
   return true;

@@ -46,11 +46,15 @@ class PEARL : public AppCastingMOOSApp
    bool SetParam_PUBLISH_RAW(std::string sVal);         //m_pub_raw
    
    bool SetPublishNames();
-   void PublishIMU(double dHeading, double dYaw, double dPitch, double dRoll);
+   void PublishIMUEuler(double dHeading, double dYaw, double dPitch, double dRoll);
+   void PublishIMURaw(double dAccX, double dAccY, double dAccZ, double dGyroX, double dGyroY, double dGyroZ, double dMagX, double dMagY, double dMagZ);
 
    //NMEA Processing
    bool ParseNMEAString(std::string nmea);
    bool NMEAChecksumIsValid(std::string nmea);
+   void HandlePLIMU(std::string toParse);
+   void HandlePLRAW(std::string toParse);
+   void HandlePLMOT(std::string toParse);
 
    //MOOS file parameters
    std::string   m_serial_port;
@@ -67,17 +71,40 @@ class PEARL : public AppCastingMOOSApp
    std::string   m_pubNameYaw;
    std::string   m_pubNamePitch;
    std::string   m_pubNameRoll;
+   std::string   m_pubNameAccX;
+   std::string   m_pubNameAccY;
+   std::string   m_pubNameAccZ;
+   std::string   m_pubNameGyroX;
+   std::string   m_pubNameGyroY;
+   std::string   m_pubNameGyroZ;
+   std::string   m_pubNameMagX;
+   std::string   m_pubNameMagY;
+   std::string   m_pubNameMagZ;
    
    double        currHeading;
    double        currYaw;
    double        currPitch;
-   double        currRoll;   
+   double        currRoll;
+   double        currAccX;
+   double        currAccY;
+   double        currAccZ;
+   double        currGyroX;
+   double        currGyroY;
+   double        currGyroZ;
+   double        currMagX;
+   double        currMagY;
+   double        currMagZ;
+   
+   double        arduinoThrustLeft;
+   double        arduinoThrustRight;
 
    //Appcast details
-   unsigned int  m_msgs_from_front;     //Number of messages received from front seat
-   unsigned int  m_msgs_to_front;       //Number of messages sent to front seat
-   std::string   m_last_msg_from_front; //Last raw message received from front seat
-   std::string   m_last_msg_to_front;   //Last raw message sent to front seat
+   unsigned int  m_msgs_from_front;       //Number of messages received from front seat
+   unsigned int  m_msgs_to_front;         //Number of messages sent to front seat
+   std::string   m_last_PLIMU_from_front; //Last raw PLIMU message received from front seat
+   std::string   m_last_PLRAW_from_front; //Last raw PLRAW message received from front seat
+   std::string   m_last_PLMOT_from_front; //Last raw PLMOT message received from front seat
+   std::string   m_last_msg_to_front;     //Last raw message sent to front seat
    
    //Motor related
    double        m_commanded_L;
@@ -89,6 +116,7 @@ class PEARL : public AppCastingMOOSApp
    int           m_des_count_thrust;
    int           m_des_count_rudder;
    bool          m_ivpALLSTOP;
+   bool          m_manual_override;
    
    double        m_max_thrust;
    double        m_max_rudder;
