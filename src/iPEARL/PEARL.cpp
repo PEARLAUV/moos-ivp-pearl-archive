@@ -68,10 +68,10 @@ PEARL::PEARL()
   //Appcast details
   m_msgs_from_front       = 0;
   m_msgs_to_front         = 0;
-  m_last_PLIMU_from_front = "";
-  m_last_PLRAW_from_front = "";
-  m_last_PLMOT_from_front = "";
-  m_last_msg_to_front     = "";
+  m_last_PLIMU_from_front = "Nothing received yet";
+  m_last_PLRAW_from_front = "Nothing received yet";
+  m_last_PLMOT_from_front = "Nothing received yet";
+  m_last_msg_to_front     = "Nothing sent yet";
   
   //Motor related
   m_commanded_L           = 0.0;
@@ -217,6 +217,7 @@ void PEARL::GetData()
   while (m_serial->DataAvailable()) {
     string nmea = m_serial->GetNextSentence();
     m_msgs_from_front++;
+    //m_last_PLIMU_from_front = nmea;
     ParseNMEAString(nmea); 
   }
 }
@@ -448,9 +449,9 @@ bool PEARL::ParseNMEAString(string nmea)
   //    reportRunWarning("Line from front seat has improper checksum: " + nmea);
   //    return false; }
     
-  string toParse = MOOSChomp(nmea, "*");
+  //string toParse = MOOSChomp(nmea, "*");
+  string toParse = nmea.substr(0, nmea.size()-1);
   vector<string> parts = parseString(toParse, ',');
-  m_last_PLIMU_from_front = nmea; 
   string nmeaHeader = parts[0];
   if   (nmeaHeader == "$PLIMU") {
     m_last_PLIMU_from_front = nmea; 
@@ -493,8 +494,8 @@ bool PEARL::HandlePLIMU(string toParse)
     }
   
   if (!yValStr.empty()) {
-    dHeading = strtod(yValStr.c_str(), 0) + m_heading_offset;
-    dYaw     = strtod(yValStr.c_str(), 0);
+    dHeading = stod(yValStr) + m_heading_offset;
+    dYaw     = stod(yValStr);
     if (dHeading > 360.0)
       dHeading -= 360.0;
     if (dHeading < 0.0)
@@ -503,11 +504,11 @@ bool PEARL::HandlePLIMU(string toParse)
     currYaw     = dYaw;
     }
   if (!pValStr.empty()) {
-    dPitch = strtod(pValStr.c_str(), 0);
+    dPitch = stod(pValStr);
     currPitch = dPitch;
     }
   if (!rValStr.empty()) {
-    dRoll = strtod(rValStr.c_str(), 0);
+    dRoll = stod(rValStr);
     currRoll = dRoll;
     }
       
@@ -540,31 +541,31 @@ bool PEARL::HandlePLRAW(string toParse)
   double dMagZ     = BAD_DOUBLE;
   
   if (!axValStr.empty()) {
-    dAccX = strtod(axValStr.c_str(), 0);
+    dAccX = stod(axValStr);
     currAccX = dAccX; }
   if (!ayValStr.empty()) {
-    dAccY = strtod(ayValStr.c_str(), 0);
+    dAccY = stod(ayValStr);
     currAccY = dAccY; }
   if (!azValStr.empty()) {
-    dAccZ = strtod(azValStr.c_str(), 0);
+    dAccZ = stod(azValStr);
     currAccZ = dAccZ; }
   if (!gxValStr.empty()) {
-    dGyroX = strtod(gxValStr.c_str(), 0);
+    dGyroX = stod(gxValStr);
     currGyroX = dGyroX; }
   if (!gyValStr.empty()) {
-    dGyroY = strtod(gyValStr.c_str(), 0);
+    dGyroY = stod(gyValStr);
     currGyroY = dGyroY; }
   if (!gzValStr.empty()) {
-    dGyroZ = strtod(gzValStr.c_str(), 0);
+    dGyroZ = stod(gzValStr);
     currGyroZ = dGyroZ; }
   if (!mxValStr.empty()) {
-    dMagX = strtod(mxValStr.c_str(), 0);
+    dMagX = stod(mxValStr);
     currMagX = dMagX; }
   if (!myValStr.empty()) {
-    dMagY = strtod(myValStr.c_str(), 0);
+    dMagY = stod(myValStr);
     currMagY = dMagY; }
   if (!mzValStr.empty()) {
-    dMagZ = strtod(mzValStr.c_str(), 0);
+    dMagZ = stod(mzValStr);
     currMagZ = dMagZ; }
       
   PublishIMURaw(dAccX,dAccY,dAccZ,dGyroX,dGyroY,dGyroZ,dMagX,dMagY,dMagZ);
@@ -579,9 +580,9 @@ bool PEARL::HandlePLMOT(string toParse)
   string rightValStr = parts[2];
   
   if (!leftValStr.empty())
-    arduinoThrustLeft = strtod(leftValStr.c_str(), 0);
+    arduinoThrustLeft = stod(leftValStr);
   if (!rightValStr.empty())
-    arduinoThrustRight = strtod(rightValStr.c_str(), 0);
+    arduinoThrustRight = stod(rightValStr);
     
   return true;
 }
