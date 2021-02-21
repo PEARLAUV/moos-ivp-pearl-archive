@@ -485,10 +485,10 @@ bool PEARL::HandlePLIMU(string toParse)
   if (!moValStr.empty()) {
     if (moValStr=="0") {
       m_manual_override = false;
-      m_Comms.Notify("MOOS_MANUAL_OVERRIDE", m_manual_override); }
+      m_Comms.Notify("MOOS_MANUAL_OVERRIDE", "false"); }
     else if (moValStr=="1") {
       m_manual_override = true;
-      m_Comms.Notify("MOOS_MANUAL_OVERRIDE", m_manual_override); }
+      m_Comms.Notify("MOOS_MANUAL_OVERRIDE", "true"); }
     else
       reportRunWarning("Manual override command from front seat not 0 (false) or 1 (true): " + moValStr);
     }
