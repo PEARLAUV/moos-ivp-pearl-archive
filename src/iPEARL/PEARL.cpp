@@ -185,7 +185,7 @@ bool PEARL::Iterate()
     else
       reportRunWarning("Failure sending commands to front seat."); }
       
-	GetData();
+  GetData();
   
 	AppCastingMOOSApp::PostReport();
   
@@ -209,17 +209,16 @@ bool PEARL::SerialSetup()
 
 void PEARL::GetData()
 {
-  
   if (!m_bValidSerialConn)
     return;
-    
+  
   //Grab sentences from Arduino and ingest them in the NMEA parser
   while (m_serial->DataAvailable()) {
     string nmea = m_serial->GetNextSentence();
     m_msgs_from_front++;
-    //m_last_PLIMU_from_front = nmea;
     ParseNMEAString(nmea); 
   }
+  
 }
 
 bool PEARL::SendToFront()

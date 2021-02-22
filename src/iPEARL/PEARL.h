@@ -123,6 +123,7 @@ class PEARL : public AppCastingMOOSApp
    
    //Stores number of messages processed, keyed on NMEA sentence name
    std::map<std::string, unsigned int>  m_counters;
+   
 };
 
 #endif

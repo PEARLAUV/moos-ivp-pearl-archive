@@ -416,6 +416,7 @@ bool GPS::buildReport()
     m_msgs << "     Lat, Lon: " << doubleToString(m_curLat, 6) << ", " << doubleToString(m_curLon, 6) << endl;
     for (;it != m_counters.end(); it++)
       m_msgs << "    " << it->first << ":  " << it->second << endl; }
+  
   return true;
 }
 
