@@ -1,5 +1,25 @@
-This directory may contain developer utility scripts.
+########################################################
+Directory for Arduino sketches to be used on front seat 
+(currently an Arduino MEGA) for the PEARL platform.
+########################################################
 
-The MyGenMOOSApp script is similar to that found in the moos-ivp/trunk/scripts/
-directory. Users are encouraged to tailor this one to their own needs.
+#=======================================================
+# sensor_write_calibration
+#=======================================================
+
+#=======================================================
+# calibration
+#=======================================================
+
+#=======================================================
+# calibrated_orientation
+#=======================================================
+
+#=======================================================
+# PEARL_
+#=======================================================
+
+#=======================================================
+# PEARL_
+#=======================================================
 
