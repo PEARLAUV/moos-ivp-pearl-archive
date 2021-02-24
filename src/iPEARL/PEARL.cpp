@@ -645,12 +645,16 @@ bool PEARL::buildReport()
   m_msgs << "     HEADING OFFSET:          " << sOffset << endl;
   m_msgs << endl;
   
-  m_msgs << endl << "PARAMETERS FROM CHARGE CONTROLLER" << endl << "---------------------------------" << endl;
+  m_msgs << "PARAMETERS FROM CHARGE CONTROLLER" << endl << "---------------------------------" << endl;
   m_msgs << "     MAX RUDDER:           +/-" << sMaxRud << endl;
   m_msgs << "     MAX THRUST:           +/-" << sMaxThr << "%" << endl;
+  m_msgs << endl;
   
   if (m_ivpALLSTOP) {
     m_msgs << "   --- IVPHELM ALLSTOP ENGAGED ---" << endl; 
+    m_msgs << endl; }
+  else if (!m_ivpALLSTOP) {
+    m_msgs << "   --- IVPHELM ALLSTOP NOT ENGAGED ---" << endl; 
     m_msgs << endl; }
   if (m_manual_override) {
     m_msgs << "   --- MANUAL CONTROL ENGAGED ---" << endl;
@@ -658,7 +662,8 @@ bool PEARL::buildReport()
   else if (!m_manual_override) {
     m_msgs << "   --- MANUAL CONTROL NOT ENGAGED ---" << endl;
     m_msgs << endl; }
-    
+  
+  m_msgs << "iPEARL Variables" << endl << "---------------------------------" << endl;
   m_msgs << "   Requested rudder, thrust:      " << sDesRud << ", " << sDesThr << endl;
   m_msgs << "   Commanded to motors L, R:      " << sCommL << ", " << sCommR << endl;
   m_msgs << "   Reported thrust L, R:          " << sLThr << ", " << sRThr << endl;

@@ -232,7 +232,7 @@ bool PearlPID::Iterate()
     return(true);
   }
   
-  if(m_station_keep && m_desired_speed < 0.01) {
+  if(m_station_keep && m_desired_speed < 0.01 && m_has_control) {
     m_use_solar = true;
     m_desired_heading = m_solar_heading;
   }
