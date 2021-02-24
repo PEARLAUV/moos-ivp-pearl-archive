@@ -6,6 +6,7 @@ initialize  STATION_KEEP         = false
 initialize  STAR                 = true
 initialize  PERIMETER            = false
 initialize  FIGURE_EIGHT         = false
+initialize  AUTONOMOUS_CONTROL   = false
 
 //----------SET MODES----------------------
 
@@ -33,6 +34,7 @@ Behavior = BHV_StationKeep
   condition = DEPLOY=true
   condition = RETURN=false
   condition = STATION_KEEP=true
+  condition = AUTONOMOUS_CONTROL=true
 
 	center_activate    = true
 	inner_radius       = 5
@@ -54,6 +56,7 @@ Behavior = BHV_Waypoint
   condition = STAR=true
   condition = PERIMETER=false
   condition = FIGURE_EIGHT=false
+  condition = AUTONOMOUS_CONTROL=true
   endflag   = RETURN=true
   UPDATES   = WPT_UPDATE
   
@@ -90,6 +93,7 @@ Behavior = BHV_Waypoint
   condition = STAR=false
   condition = PERIMETER=true
   condition = FIGURE_EIGHT=false
+  condition = AUTONOMOUS_CONTROL=true
   endflag   = RETURN=true
   UPDATES   = WPT_UPDATE
   
@@ -126,6 +130,7 @@ Behavior = BHV_Waypoint
   condition = STAR=false
   condition = PERIMETER=false
   condition = FIGURE_EIGHT=true
+  condition = AUTONOMOUS_CONTROL=true
   endflag   = RETURN=true
   UPDATES   = WPT_UPDATE
   
@@ -159,6 +164,7 @@ Behavior = BHV_Waypoint
   condition = DEPLOY=true
   condition = RETURN=true
   condition = STATION_KEEP=false
+  condition = AUTONOMOUS_CONTROL=true
   perpetual = true
   endflag   = RETURN=false
   endflag   = STATION_KEEP=true
