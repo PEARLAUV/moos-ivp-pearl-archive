@@ -232,7 +232,7 @@ bool PearlPID::Iterate()
     return(true);
   }
   
-  if(m_station_keep && m_desired_speed < 0.01 && m_has_control) {
+  if(m_station_keep && m_desired_speed < 0.01) {
     m_use_solar = true;
     m_desired_heading = m_solar_heading;
   }
@@ -349,6 +349,8 @@ void PearlPID::postAllStop()
     Notify("DESIRED_ELEVATOR", 0.0);
 
   m_allstop_posted = true;
+  
+  m_station_keep = false;
 }
 
 //------------------------------------------------------------
