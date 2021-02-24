@@ -236,6 +236,8 @@ bool PearlPID::Iterate()
     m_use_solar = true;
     m_desired_heading = m_solar_heading;
   }
+  else
+    m_use_solar = false;
 
   double rudder = 0;
   double thrust = 0;
