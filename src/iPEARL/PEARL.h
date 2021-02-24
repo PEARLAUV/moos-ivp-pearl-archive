@@ -116,7 +116,7 @@ class PEARL : public AppCastingMOOSApp
    int           m_des_count_thrust;
    int           m_des_count_rudder;
    bool          m_ivpALLSTOP;
-   bool          m_manual_override;
+   bool          m_autonomous_control;
    
    double        m_max_thrust;
    double        m_max_rudder;

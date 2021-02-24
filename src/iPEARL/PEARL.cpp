@@ -81,7 +81,7 @@ PEARL::PEARL()
   m_des_count_thrust      = 0;
   m_des_count_rudder      = 0;
   m_ivpALLSTOP            = true;
-  m_manual_override       = false;
+  m_autonomous_control    = false;
   
   m_max_thrust            = 0.0;
   m_max_rudder            = 0.0;  
@@ -483,11 +483,13 @@ bool PEARL::HandlePLIMU(string toParse)
   
   if (!moValStr.empty()) {
     if (moValStr=="0") {
-      m_manual_override = false;
-      m_Comms.Notify("MOOS_MANUAL_OVERRIDE", "false"); }
+      m_autonomous_control = true;
+      //m_Comms.Notify("MOOS_MANUAL_OVERRIDE", "false"); 
+      m_Comms.Notify("AUTONOMOUS_CONTROL", "true"); }
     else if (moValStr=="1") {
-      m_manual_override = true;
-      m_Comms.Notify("MOOS_MANUAL_OVERRIDE", "true"); }
+      m_autonomous_control = false;
+      //m_Comms.Notify("MOOS_MANUAL_OVERRIDE", "true");
+      m_Comms.Notify("AUTONOMOUS_CONTROL", "false"); }
     else
       reportRunWarning("Manual override command from front seat not 0 (false) or 1 (true): " + moValStr);
     }
@@ -656,11 +658,11 @@ bool PEARL::buildReport()
   else if (!m_ivpALLSTOP) {
     m_msgs << "   --- IVPHELM ALLSTOP NOT ENGAGED ---" << endl; 
     m_msgs << endl; }
-  if (m_manual_override) {
-    m_msgs << "   --- MANUAL CONTROL ENGAGED ---" << endl;
+  if (m_autonomous_control) {
+    m_msgs << "   --- AUTONOMOUS MODE ENGAGED ---" << endl;
     m_msgs << endl; }
-  else if (!m_manual_override) {
-    m_msgs << "   --- MANUAL CONTROL NOT ENGAGED ---" << endl;
+  else if (!m_autonomous_control) {
+    m_msgs << "   --- AUTONOMOUS CONTROL NOT ENGAGED ---" << endl;
     m_msgs << endl; }
   
   m_msgs << "iPEARL Variables" << endl << "---------------------------------" << endl;

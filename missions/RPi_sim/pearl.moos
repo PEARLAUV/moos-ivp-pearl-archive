@@ -20,7 +20,7 @@ ProcessConfig = ANTLER
   Run = MOOSDB            @ NewConsole = false
   //Run = pLogger           @ NewConsole = false
   Run = uSimMarine	      @ NewConsole = false
-  Run = pMarinePID        @ NewConsole = false
+  Run = pPearlPID         @ NewConsole = false
   Run = pHelmIvP          @ NewConsole = false
   Run = iPEARL            @ NewConsole = false
   Run = uProcessWatch	    @ NewConsole = false
@@ -59,7 +59,7 @@ ProcessConfig = uProcessWatch
   
   watch  = uSimMarine
   //watch  = pLogger
-  watch  = pMarinePID
+  watch  = pPearlPID
   watch  = pHelmIvP  
   watch  = iPEARL
 }
@@ -120,7 +120,7 @@ ProcessConfig = pMarinePID
 
   // A non-zero SPEED_FACTOR overrides use of SPEED_PID
   // Will set DESIRED_THRUST = DESIRED_SPEED * SPEED_FACTOR
-  speed_factor = 20
+  speed_factor = 0
 }
 
 //-------------------------------
