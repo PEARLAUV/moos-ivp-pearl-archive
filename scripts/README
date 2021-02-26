@@ -1,25 +1,54 @@
-########################################################
-Directory for Arduino sketches to be used on front seat 
-(currently an Arduino MEGA) for the PEARL platform.
-########################################################
+#########################################################################
+Directory for Arduino sketches to be used on front seat (currently an 
+Arduino MEGA) for the PEARL platform.
+#########################################################################
 
-#=======================================================
-# sensor_write_calibration
-#=======================================================
+The current front seat architecture utilizes an NXP 9-dof IMU board and
+the Madgwick filter for sensor fusion. Therefore the NXP_FXOS_FXAS.h 
+header file and the Adafruit_Madgwick filter are uncommented in the 
+relevant sketches below. 
 
-#=======================================================
-# calibration
-#=======================================================
+#========================================================================
+# sensor_write_calibration (for use on laptop)
+#========================================================================
+Script for writing calibrations to the Arduino, which are stored in 
+permanent memory on the board. Inputs within the scripts are:
+-Hard iron offsets (uTesla)
+-Soft iron offsets (uTesla)
+-Gyro zero-rate offsets (rad/s)
+-Accelerometer zero-rate offsets (m/s^2)
 
-#=======================================================
-# calibrated_orientation
-#=======================================================
+#========================================================================
+# calibration (for use on laptop)
+#========================================================================
+Script for producing the raw sensor data necessary to complete the 
+magnetometer calibration with MotionCal (see instructions below).
 
-#=======================================================
-# PEARL_Arduino_LED_test
-#=======================================================
+#========================================================================
+# calibrated_orientation (for use on laptop)
+#========================================================================
+Use this script to plot or print to the serial monitor the following:
+-X,Y,Z acceleration in m/s^2
+-X,Y,Z gyroscopic rates in deg/s or rad/s
+-X,Y,Z magnetometer readings in uTesla
+-Yaw, pitch, and roll readings from the sensor fusion filter
 
-#=======================================================
-# PEARL_frontseat
-#=======================================================
+This script is useful for determining the accelerometer and gyroscope
+offsets necessary for calibration, and for troubleshooting/viewing the 
+outputs of the sensor fusion filter. The code contains instructions for
+which block to uncomment for each output.
+
+#========================================================================
+# PEARL_Arduino_LED_test (for use on PEARL)
+#========================================================================
+
+
+#========================================================================
+# PEARL_frontseat_bluetooth (for use on PEARL)
+#========================================================================
+
+
+#========================================================================
+# PEARL_frontseat_rc (for use on PEARL)
+#========================================================================
 
