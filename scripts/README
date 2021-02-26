@@ -6,7 +6,14 @@ Arduino MEGA) for the PEARL platform.
 The current front seat architecture utilizes an NXP 9-dof IMU board and
 the Madgwick filter for sensor fusion. Therefore the NXP_FXOS_FXAS.h 
 header file and the Adafruit_Madgwick filter are uncommented in the 
-relevant sketches below. 
+relevant sketches below.
+
+The following Arduino libraries are required:
+Adafruit Sensor Calibration
+Adafruit AHRS
+ArduinoBlue
+Adafruit FXAS21002C
+Adafruit FXOS8700
 
 #========================================================================
 # sensor_write_calibration (for use on laptop)
@@ -17,6 +24,9 @@ permanent memory on the board. Inputs within the scripts are:
 -Soft iron offsets (uTesla)
 -Gyro zero-rate offsets (rad/s)
 -Accelerometer zero-rate offsets (m/s^2)
+
+You can use the sketch at File>Examples>Adafruit Sensor Calibration>sensor_calibration_read
+to view the current calibrations stored on the board.
 
 #========================================================================
 # calibration (for use on laptop)
@@ -85,3 +95,42 @@ $PLRAW,<Acc X>,<Acc Y>,<Acc Z>,<Gyro X>,<Gyro Y>,<Gyro Z>,<Mag X>,<Mag Y>,<Mag Z
 $PLMOT,<last commanded left thrust percentage>,<last commanded right thrust percentage>*
 NMEA sentence from RPi:
 $PICOM,<desired left motor thrust percentage>,<desired right motor thrust percentage>*
+
+#########################################################################
+Calibration Instructions
+#########################################################################
+
+The sensor_calibration_write sketch contains commented-out blocks with 
+the calibrations used for previous boards/IMUs. Obviously don't use these
+but the offset magnitudes should be somewhat similar in comparison.
+
+1. Accelerometer
+   Use the calibrated_orientation sketch and uncomment the accelerometer
+   blocks to view the raw acceleration readings. Note the zero-rate
+   offsets to add to the sensor_calibration_write sketch. When not moving
+   the X and Y values should be ~0 and the Z value should be ~9.8.
+
+2. Gyroscope
+   Use the calibrated_orientation sketch and uncomment the gyroscope
+   block to view the raw gyroscope readings (make sure to use the rad/s
+   block). Also note that the sketch multiplies the gyroscopic rates by
+   100 to make them viewable on the plot. Note the zero-rate offsets to 
+   add to the sensor_calibration_write sketch. When not moving the values 
+   from all three axes should be ~0. 
+
+3. Magnetometer
+   Follow the instructions on this page:
+   https://learn.adafruit.com/how-to-fuse-motion-sensor-data-into-ahrs-orientation-euler-quaternions/magnetic-calibration-with-motioncal
+   
+   In Step 2, you can use the calibration sketch included in this folder
+   (the same sketch as the Adafruit_AHRS example)
+   
+   In Step 3, it is recommended to perform the calibration in the
+   environment that the sensor is actually going to be used. The Send Cal
+   button did not work for me so make sure to record the hard- and soft-
+   iron offsets to add to the sensor_calibration_write sketch. The 
+   matrix of soft-iron offsets in MotionCal maps to the indices in the
+   sensor_calibration_write sketch as follows:
+   [1 2 3
+    4 5 6
+    7 8 9]
