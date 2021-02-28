@@ -1,5 +1,5 @@
 /*
- * SolarHeading_Info.cpp
+ * SunTracking_Info.cpp
  * 
  * Created on: 2/7/2021
  * Author: Ethan Rolland
@@ -8,7 +8,7 @@
 
 #include <cstdlib>
 #include <iostream>
-#include "SolarHeading_Info.h"
+#include "SunTracking_Info.h"
 #include "ColorParse.h"
 
 using namespace std;
@@ -28,7 +28,7 @@ void showHelpAndExit()
 {
   blk("                                                                            ");
   blu("============================================================================");
-  blu("Usage: uSolarHeading file.moos [OPTIONS]                                    ");
+  blu("Usage: uSunTracking file.moos [OPTIONS]                                     ");
   blu("============================================================================");
   blk("                                                                            ");
   showSynopsis();
@@ -51,10 +51,10 @@ void showExampleConfigAndExit()
 {
   blk("                                                                            ");
   blu("============================================================================");
-  blu("uSolarHeading Example MOOS Configuration                                    ");
+  blu("uSunTracking Example MOOS Configuration                                     ");
   blu("============================================================================");
   blk("                                                                            ");
-  blk("ProcessConfig = uSolarHeading                                               ");
+  blk("ProcessConfig = uSunTracking                                                ");
   blk("{                                                                           ");
   blk("  AppTick    = 1                                                            ");
   blk("  CommsTick  = 1                                                            ");
@@ -72,7 +72,7 @@ void showInterfaceAndExit()
 {
   blk("                                                                            ");
   blu("============================================================================");
-  blu("uSolarHeading INTERFACE                                                     ");
+  blu("uSunTracking INTERFACE                                                      ");
   blu("============================================================================");
   blk("                                                                            ");
   showSynopsis();
@@ -87,7 +87,6 @@ void showInterfaceAndExit()
   blk("                                                                            ");
   blk("PUBLICATIONS:    (NOTE: publication conditional on incoming nmea sentences) ");
   blk("------------------------------------                                        ");
-  blk("[prefix]_LATITUDE  double  Latitude parsed from recent NMEA sentence        ");
   blk("[prefix]_SUN_ELEVATION  double  Computed sun elevation angle in degrees     ");
   blk("[prefix]_SUN_AZIMUTH    double  Computed sun azimuth angle in degrees       ");
   blk("[prefix]_HEADING        double  Sun elevation angle plus heading offset     ");

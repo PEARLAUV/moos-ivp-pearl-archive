@@ -232,12 +232,9 @@ bool PearlPID::Iterate()
     return(true);
   }
   
-  if(m_station_keep && m_desired_speed < 0.01) {
-    m_use_solar = true;
+  if(m_use_solar && m_station_keep && m_desired_speed < 0.01) {
     m_desired_heading = m_solar_heading;
   }
-  else
-    m_use_solar = false;
 
   double rudder = 0;
   double thrust = 0;
@@ -444,6 +441,9 @@ bool PearlPID::OnStartUp()
 	m_verbose = "quiet";
       else
 	handled = false;
+    }
+    else if(param == "SUN_TRACKING") {
+      handled = setBooleanOnString(m_use_solar, value);
     }
 
     if(!handled)

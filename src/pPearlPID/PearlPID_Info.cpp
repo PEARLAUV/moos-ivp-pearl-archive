@@ -99,6 +99,8 @@ void showExampleConfigAndExit()
   blk("  speed_factor    = 20   "," // Range [0,inf)                   ");
   blu("  sim_instability = 0    "," // Range [0,inf)                   ");
   blk("                                                                ");
+  blu("  sun_tracking = false                                          ");
+  blk("                                                                ");
   blu("  max_sat_hdg_debug = false                                     ");
   blu("  max_sat_spd_debug = false                                     ");
   blu("  max_sat_dep_debug = false                                     ");
@@ -169,6 +171,7 @@ void showInterfaceAndExit()
   blk("  PID_VERBOSE     = verbose/quiet/terse                         ");
   blk("  MOOS_MANUAL_OVERIDE  = false                                  ");
   blk("  MOOS_MANUAL_OVERRIDE = false                                  ");
+  blk("  STATION_KEEPING = false                                       ");
   blk("                                                                ");
   blk("                                                                ");
   blk("PUBLICATIONS:                                                   ");

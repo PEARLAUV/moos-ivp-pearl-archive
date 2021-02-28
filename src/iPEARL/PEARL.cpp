@@ -653,16 +653,16 @@ bool PEARL::buildReport()
   m_msgs << endl;
   
   if (m_ivpALLSTOP) {
-    m_msgs << "   --- IVPHELM ALLSTOP ENGAGED ---" << endl; 
+    m_msgs << "--- IVPHELM ALLSTOP ENGAGED ---" << endl; 
     m_msgs << endl; }
   else if (!m_ivpALLSTOP) {
-    m_msgs << "   --- IVPHELM ALLSTOP NOT ENGAGED ---" << endl; 
+    m_msgs << "--- IVPHELM ALLSTOP NOT ENGAGED ---" << endl; 
     m_msgs << endl; }
   if (m_autonomous_control) {
-    m_msgs << "   --- AUTONOMOUS MODE ENGAGED ---" << endl;
+    m_msgs << "--- AUTONOMOUS CONTROL ENGAGED ---" << endl;
     m_msgs << endl; }
   else if (!m_autonomous_control) {
-    m_msgs << "   --- AUTONOMOUS CONTROL NOT ENGAGED ---" << endl;
+    m_msgs << "--- AUTONOMOUS CONTROL NOT ENGAGED ---" << endl;
     m_msgs << endl; }
   
   m_msgs << "iPEARL Variables" << endl << "---------------------------------" << endl;

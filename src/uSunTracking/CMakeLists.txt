@@ -1,12 +1,12 @@
 #------------------------------------------
-# The CMakeLists.txt for: uSolarHeading
+# The CMakeLists.txt for: uSunTracking
 #------------------------------------------
 
 FILE(GLOB SRC *.cpp)
 
-ADD_EXECUTABLE(uSolarHeading ${SRC})
+ADD_EXECUTABLE(uSunTracking ${SRC})
 
-TARGET_LINK_LIBRARIES(uSolarHeading
+TARGET_LINK_LIBRARIES(uSunTracking
    ${MOOS_LIBRARIES}
    SimpleSerial
    mbutil

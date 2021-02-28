@@ -1,13 +1,13 @@
 /*
- * SolarHeading.h
+ * SunTracking.h
  * 
  * Created on: 2/7/2021
  * Author: Ethan Rolland
  *
  */
 
-#ifndef SOLARHEADING_H_
-#define SOLARHEADING_H_
+#ifndef SUNTRACKING_H_
+#define SUNTRACKING_H_
 
 #include <string>
 #include <cmath>

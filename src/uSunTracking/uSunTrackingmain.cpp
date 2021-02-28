@@ -1,5 +1,5 @@
 /*
- * uSolarHeadingmain.cpp
+ * uSunTrackingmain.cpp
  * 
  * Created on: 2/7/2021
  * Author: Ethan Rolland
@@ -9,8 +9,8 @@
 #include <string>
 #include "MBUtils.h"
 #include "ColorParse.h"
-#include "SolarHeading.h"
-#include "SolarHeading_Info.h"
+#include "SunTracking.h"
+#include "SunTracking_Info.h"
 
 using namespace std;
 
@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
   if(mission_file == "")
     showHelpAndExit();
   cout << termColor("green");
-  cout << "uSolarHeading launching as " << run_command << endl;
+  cout << "uSunTracking launching as " << run_command << endl;
   cout << termColor() << endl;
   SOLAR SOLAR;
   SOLAR.Run(run_command.c_str(), mission_file.c_str());

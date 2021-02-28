@@ -1,5 +1,5 @@
 /*
- * SolarHeading.cpp
+ * SunTracking.cpp
  * 
  * Created on: 2/7/2021
  * Author: Ethan Rolland
@@ -7,7 +7,7 @@
  */
 
 #include "MBUtils.h"
-#include "SolarHeading.h"
+#include "SunTracking.h"
 #include "NMEAdefs.h"
 
 using namespace std;
@@ -172,7 +172,10 @@ void SOLAR::GetSunData()
   
   curElevation = dElevation;
   curAzimuth   = dAzimuth;
-  curHeading   = dAzimuth + m_heading_offset;
+  if(curElevation<0) {
+    curHeading = 0.0; }
+  else {
+    curHeading   = dAzimuth + m_heading_offset; }
   
   if(m_pub_angles)
     PublishData(curElevation, curAzimuth);
@@ -322,7 +325,7 @@ bool SOLAR::buildReport()
   string sAzimuth    = doubleToString(curAzimuth, 1);
   string sHeading    = doubleToString(curHeading, 1);
   
-  m_msgs << endl << "uSolarHeading Variables" << endl << "---------------------------------" << endl;
+  m_msgs << endl << "uSunTracking Variables" << endl << "---------------------------------" << endl;
 
   m_msgs << "   Day:                 " << sDay << endl;
   m_msgs << "   Month:               " << sMonth << endl;
@@ -333,7 +336,7 @@ bool SOLAR::buildReport()
   m_msgs << "   Local Time:          " << sTimeLocal << endl;
   m_msgs << "   Time Zone:           " << sTimeZone << endl;
   
-  m_msgs << endl << "uSolarHeading Calculations" << endl << "---------------------------------" << endl;
+  m_msgs << endl << "uSunTracking Calculations" << endl << "---------------------------------" << endl;
   m_msgs << "   Sun Elevation:       " << sElevation << endl;
   m_msgs << "   Sun Azimuth:         " << sAzimuth << endl;
   m_msgs << "   Heading:             " << sHeading << endl;
