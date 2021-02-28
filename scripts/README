@@ -14,6 +14,7 @@ Adafruit AHRS
 ArduinoBlue
 Adafruit FXAS21002C
 Adafruit FXOS8700
+IBusBM
 
 #========================================================================
 # sensor_write_calibration (for use on laptop)
@@ -79,7 +80,7 @@ NMEA sentence from RPi:
 $PICOM,<desired left motor thrust percentage>,<desired right motor thrust percentage>*
 
 #========================================================================
-# PEARL_frontseat_rc (for use with Arduino connected to RPi)
+# PEARL_frontseat_manual (for use with Arduino connected to RPi)
 #========================================================================
 Script to be used on PEARL platform during operation, with both RC and 
 bluetooth manual control implemented. Also setup to write commands to 
