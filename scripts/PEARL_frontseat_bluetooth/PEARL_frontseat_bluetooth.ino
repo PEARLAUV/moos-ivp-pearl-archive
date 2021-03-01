@@ -78,12 +78,20 @@ void setup(void)
   while (!Serial1) {
     delay(1);   
   }
-  pinMode(leftMotorPin, OUTPUT);
-  pinMode(rightMotorPin, OUTPUT);
-  pinMode(rightForwardLED, OUTPUT);
-  pinMode(leftForwardLED, OUTPUT);
-  pinMode(rightBackwardLED, OUTPUT);
-  pinMode(leftBackwardLED, OUTPUT);
+  if (TEST_MODE) {
+    pinMode(rightForwardLED, OUTPUT);
+    pinMode(leftForwardLED, OUTPUT);
+    pinMode(rightBackwardLED, OUTPUT);
+    pinMode(leftBackwardLED, OUTPUT);
+    digitalWrite(rightForwardLED, LOW);
+    digitalWrite(leftForwardLED, LOW);
+    digitalWrite(rightBackwardLED, LOW);
+    digitalWrite(leftBackwardLED, LOW);
+  }
+  else {
+    pinMode(leftMotorPin, OUTPUT);
+    pinMode(rightMotorPin, OUTPUT);
+  }
   
   /*------Setup for front seat comms--------*/
   Serial.begin(115200);
