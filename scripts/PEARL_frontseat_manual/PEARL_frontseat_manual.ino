@@ -1,7 +1,25 @@
+
+/*------------------------------*/
+//If true writes thrust commands to specified LED pins
+//If false writes thrust commands to specified motor controller pins
+bool TEST_MODE = true;
+
+//Pin assignments
+int rightForwardLED = 12;
+int leftForwardLED = 13;
+int rightBackwardLED = 10;
+int leftBackwardLED = 11;
+
+int leftMotorPin = 8;
+int rightMotorPin = 9;
+
+/*------------------------------*/
+
 #include <Wire.h>
 #include <Adafruit_Sensor_Calibration.h>
 #include <Adafruit_AHRS.h>
 #include <ArduinoBlue.h>
+#include <IBusBM.h>
 
 /*----------Setup IMU and sensor fusion----------*/
 Adafruit_Sensor *accelerometer, *gyroscope, *magnetometer;
@@ -19,8 +37,7 @@ Adafruit_Madgwick filter;  // faster than NXP
 #else
   Adafruit_Sensor_Calibration_SDFat cal;
 #endif
-
-
+/*-----------------------------------------*/
 
 #define FILTER_UPDATE_RATE_HZ 50
 #define PRINT_EVERY_N_UPDATES 5
@@ -35,7 +52,7 @@ float thrustRight = 0.0;
 int curLeft = 188.0;
 int curRight = 188.0;
 boolean newData = false;
-int manualOverride = 0;   //0 = manual control off, 1 = manual control on
+int manualControl = 0;   //0 = manual control off, 1 = manual control on
 
 const int THROTTLE_ZERO_THRESHOLD = 5;
 const int STILL = 188;
@@ -48,27 +65,76 @@ const int LEFT_FORWARD_MIN = STILL + MIN_THROTTLE;
 const int LEFT_BACKWARD_MIN = STILL - MIN_THROTTLE;
 const int RIGHT_FORWARD_MIN = LEFT_FORWARD_MIN;
 const int RIGHT_BACKWARD_MIN = LEFT_BACKWARD_MIN;
-const int TURN_SPEED = 30;
+const int TURN_SPEED = 10;
+
+//Bluetooth variables
 bool JOYSTICK = false;
-
-//int leftMotorPin = 10;
-//int rightMotorPin = 11;
-
-int sliderVal, button, sliderID;
-
+int button;
 ArduinoBlue phone(Serial1);
 
+//RC variables
+int rotateCH = 0;
+int rotateVal = 0;
+
+int bluetoothCH = 1;
+bool BLUETOOTH;
+
+int throttleCH = 2;
+int throttleVal = 0;
+
+int turnCH = 3;
+int turnVal = 0;
+
+int manualCH = 4;
+bool MANUAL;
+
+int drivemodeCH = 5;
+bool BACKWARD;
+
+int turnMax = 30;
+int turnLeft;
+int turnRight;
+int throttleMap;
+IBusBM ibusRC;
+HardwareSerial& ibusRCSerial = Serial2;
  
 void setup(void) 
 {
-  /*------Setup for motor control--------*/
+  /*------Setup for bluetooth control--------*/
   Serial1.begin(9600);
-  delay(100);
-//  pinMode(leftMotorPin, OUTPUT);
-//  pinMode(rightMotorPin, OUTPUT);
+  while (!Serial1) {
+    delay(1);   
+  }
+
+  /*------Setup for RC control--------*/
+  ibusRC.begin(ibusRCSerial);
+  while (!Serial2) {
+    delay(1);
+  }
+
+  /*------Setup motor pins--------*/
+  if (!TEST_MODE) {
+    pinMode(leftMotorPin, OUTPUT);
+    pinMode(rightMotorPin, OUTPUT);
+  }
+
+  /*------Setup test LED pins--------*/
+  if (TEST_MODE) {
+    pinMode(rightForwardLED, OUTPUT);
+    pinMode(leftForwardLED, OUTPUT);
+    pinMode(rightBackwardLED, OUTPUT);
+    pinMode(leftBackwardLED, OUTPUT);
+    digitalWrite(rightForwardLED, LOW);
+    digitalWrite(leftForwardLED, LOW);
+    digitalWrite(rightBackwardLED, LOW);
+    digitalWrite(leftBackwardLED, LOW);
+  }
   
   /*------Setup for front seat comms--------*/
   Serial.begin(115200);
+  while (!Serial) {
+    delay(1);   
+  }
 
   /*------Setup for IMU--------*/
   cal.begin();
@@ -89,6 +155,7 @@ const String ID_MOTOR  = "MOT";  // Sentence ID for notifying MOOS-IvP of curren
 void loop(void) 
 {
   static uint8_t counter = 0;
+  
   /*------Read IMU data and package in NMEA sentence--------*/
   float roll, pitch, heading;
   float ax, ay, az;
@@ -132,68 +199,22 @@ void loop(void)
   pitch = filter.getPitch();
   heading = filter.getYaw();
 
-  /*------Read commands from bluetooth--------*/
-  button = phone.getButton();  //ID of button pressed
-
-  if (button==1) {     //manual override ON
-    manualOverride = 1;
-    phone.sendMessage("Manual Control ON");
+  /*--------Handle manual control if necessary--------*/
+  BLUETOOTH = readSwitch(bluetoothCH, false);
+  if (BLUETOOTH) {
+    handleBluetooth();
   }
-  else if (button==2) {     //manual override OFF
-    manualOverride = 0;
-    phone.sendMessage("Manual Control OFF");
+  else if (!BLUETOOTH) {
+    handleRC();
   }
 
-  if (manualOverride==1) {
-    if (button==3) {     //rotate right
-      curLeft = LEFT_FORWARD_MIN + TURN_SPEED;
-      curRight = RIGHT_BACKWARD_MIN - TURN_SPEED;
-  //    analogWrite(leftMotorPin, curLeft);
-  //    analogWrite(rightMotorPin, curRight);
-    }
-    else if (button==4) {
-      curLeft = LEFT_BACKWARD_MIN - TURN_SPEED;
-      curRight = RIGHT_FORWARD_MIN + TURN_SPEED;    
-  //    analogWrite(leftMotorPin, curLeft);
-  //    analogWrite(rightMotorPin, curRight);
-    }
-    else if (button==5) {
-      JOYSTICK = true;
-    }
-    else if (button==6) {
-      JOYSTICK = false;
-    }
-  
-    // throttle and steering values go from 0 to 99
-    // throttle 0 -> maximum backwards throttle
-    // throttle 49 -> no throttle (stay still)
-    // throttle 99 -> maximum forwards throttle
-    // steering 0 -> maximum left turn
-    // steering 49 -> no turn (straight)
-    // steering 99 -> maximum right turn
-    if (JOYSTICK) {
-      int throttle = phone.getThrottle();
-      int steering = phone.getSteering();
-      handleDriving(throttle, steering);
-    }
-
-    if (button==7) {
-      curLeft = STILL;
-      curRight = STILL;    
-  //    analogWrite(leftMotorPin, curLeft);
-  //    analogWrite(rightMotorPin, curRight);
-    }
-  }
-
-
-  /*-------Read NMEA sentence from Serial port and parse into thrust values-------*/
-
+  /*-------Read NMEA sentence from serial port, convert to PWM, and send to motor controllers-------*/
   recvWithStartEndMarkers();
   if (newData == true) {
     strcpy(tempChars, receivedChars);
     parseNMEA();
     newData = false;
-    if (manualOverride==0) {
+    if (manualControl==0) {
       float leftVal, rightVal;
       // Map left thrust value to PWM
       if (thrustLeft > 0.05) {
@@ -203,46 +224,66 @@ void loop(void)
         leftVal = mapFloat(thrustLeft, -100.0, 0.0, 120.0, 185.0);
       }
       else {
-        leftVal = 188;
+        leftVal = 188.0;
       }
       // Map right thrust value to PWM
       if (thrustRight > 0.05) {
-        rightVal = mapFloat(thrustRight, 0.0, 100.0, 191, 254);
+        rightVal = mapFloat(thrustRight, 0.0, 100.0, 191.0, 254.0);
       }
       else if (thrustRight < 0.05) {
-        rightVal = mapFloat(thrustRight, -100.0, 0.0, 120, 185);
+        rightVal = mapFloat(thrustRight, -100.0, 0.0, 120.0, 185.0);
       }
       else {
-        rightVal = 188;
+        rightVal = 188.0;
       }
       curLeft = round(leftVal);
       curRight = round(rightVal);
-  
-//      analogWrite(leftMotorPin, curLeft);
-//      analogWrite(rightMotorPin, curRight);
+
+      if (!TEST_MODE) {
+        analogWrite(leftMotorPin, curLeft);
+        analogWrite(rightMotorPin, curRight); }
     }
   }
 
-  // current PWM values to thrust percentages to send to MOOS-IvP
+  // convert PWM values to thrust percentages to report back to MOOS-IvP
+  // if TEST_MODE is true then also commands LED brightness
   float leftSend, rightSend;
   if (curLeft > 190) {
     leftSend = mapFloat(float(curLeft), 191.0, 254.0, 0.0, 100.0);
+    if (TEST_MODE) {
+      analogWrite(leftForwardLED, map(curLeft,191,254,0,255));
+      analogWrite(leftBackwardLED, 0); }
   }
   else if (curLeft < 186) {
     leftSend = mapFloat(float(curLeft), 120.0, 185.0, -100.0, 0.0);
+    if (TEST_MODE) {
+      analogWrite(leftBackwardLED, map(curLeft,185,120,0,255));
+      analogWrite(leftForwardLED, 0); }
   }
   else {
     leftSend = 0.0;
+    if (TEST_MODE) {
+      analogWrite(leftForwardLED, 0);
+      analogWrite(leftBackwardLED, 0); }
   }
   // Map right thrust value to PWM
   if (curRight > 190) {
     rightSend = mapFloat(float(curRight), 191.0, 254.0, 0.0, 100.0);
+    if (TEST_MODE) {
+      analogWrite(rightForwardLED, map(curRight,191,254,0,255));
+      analogWrite(rightBackwardLED, 0); }
   }
   else if (curRight < 186) {
     rightSend = mapFloat(float(curRight), 120.0, 185.0, -100.0, 0.0);
+    if (TEST_MODE) {
+      analogWrite(rightBackwardLED, map(curRight,185,120,0,255));
+      analogWrite(rightForwardLED, 0); }
   }
   else {
     rightSend = 0.0;
+    if (TEST_MODE) {
+      analogWrite(rightForwardLED, 0);
+      analogWrite(rightBackwardLED, 0); }
   }
 
   // only print the calculated output once in a while
@@ -252,35 +293,36 @@ void loop(void)
   // reset the counter
   counter = 0;
 
-  String PAYLOAD_EULER = String(manualOverride) + "," + String(heading) + "," + String(pitch) + "," + String(roll);  
-
+  //Euler angle NMEA string
+  String PAYLOAD_EULER = String(manualControl) + "," + String(heading) + "," + String(pitch) + "," + String(roll);  
   String NMEA_EULER = generateNMEAString(PAYLOAD_EULER, PREFIX, ID_EULER);
-
   Serial.println(NMEA_EULER);
-  
+
+  //Raw IMU data NMEA string
   String PAYLOAD_RAW = String(ax) + "," + String(ay) + "," + String(az) + "," + 
                        String(gx) + "," + String(gy) + "," + String(gz) + "," + 
                        String(mx) + "," + String(my) + "," + String(mz);
-
   String NMEA_RAW = generateNMEAString(PAYLOAD_RAW, PREFIX, ID_RAW);
-
   Serial.println(NMEA_RAW);
-  
+
+  //Last motor commands NMEA string
   String PAYLOAD_MOTOR = String(leftSend) + "," + String(rightSend);
-
   String NMEA_MOTOR = generateNMEAString(PAYLOAD_MOTOR, PREFIX, ID_MOTOR);
-
   Serial.println(NMEA_MOTOR);
+
+//  Serial.print(rotateVal); Serial.print("\t");
+//  Serial.print(BLUETOOTH); Serial.print("\t");
+//  Serial.print(throttleVal); Serial.print("\t");
+//  Serial.print(turnVal); Serial.print("\t");
+//  Serial.print(MANUAL); Serial.print("\t");
+//  Serial.print(BACKWARD); Serial.print("\t");
+//  Serial.println(manualControl);
 
 }
 
 String generateNMEAString(String payload, String prefix, String id)
 {
   String nmea = "";
-  if (prefix.length() != 2)
-    return nmea; // ("Bad prefix [" + prefix + "], must be 2 character long.");
-  if (id.length() != 3)
-    return nmea; // ("Bad ID [" + id + "], must be 3 character long.");
   nmea = prefix + id + "," + payload;
   return "$" + nmea + "*";    // Prefixed with $
 }
@@ -329,6 +371,63 @@ void parseNMEA() {      // split the data into its parts
 
     strtokIndx = strtok(NULL,",");
     thrustRight = atof(strtokIndx);     // convert the third entry to the right thrust percentage command
+}
+
+void handleBluetooth() {
+  button = phone.getButton();  //ID of button pressed
+
+  if (button==1) {     //manual override ON
+    manualControl = 1;
+    phone.sendMessage("Manual Control ON");
+    curLeft = STILL;
+    curRight = STILL;
+  }
+  else if (button==2) {     //manual override OFF
+    manualControl = 0;
+    phone.sendMessage("Manual Control OFF");
+  }
+
+  if (manualControl==1) {
+    if (button==3) {     //rotate right
+      curLeft = LEFT_FORWARD_MIN + TURN_SPEED;
+      curRight = RIGHT_BACKWARD_MIN - TURN_SPEED;
+    }
+    else if (button==4) {
+      curLeft = LEFT_BACKWARD_MIN - TURN_SPEED;
+      curRight = RIGHT_FORWARD_MIN + TURN_SPEED;
+    }
+    else if (button==5) {
+      JOYSTICK = true;
+      phone.sendMessage("Joystick ON");
+    }
+    else if (button==6) {
+      JOYSTICK = false;
+      phone.sendMessage("Joystick OFF");
+    }
+  
+    // throttle and steering values go from 0 to 99
+    // throttle 0 -> maximum backwards throttle
+    // throttle 49 -> no throttle (stay still)
+    // throttle 99 -> maximum forwards throttle
+    // steering 0 -> maximum left turn
+    // steering 49 -> no turn (straight)
+    // steering 99 -> maximum right turn
+    if (JOYSTICK) {
+      int throttle = phone.getThrottle();
+      int steering = phone.getSteering();
+      handleDriving(throttle, steering);
+    }
+
+    if (button==7) {
+      curLeft = STILL;
+      curRight = STILL;
+    }
+    
+    if (!TEST_MODE) {
+      analogWrite(leftMotorPin, curLeft);
+      analogWrite(rightMotorPin, curRight);
+    }
+  }
 }
 
 // Re-maps a float number from one range to another.
@@ -391,8 +490,85 @@ void handleDriving(int throttle, int steering) {
 
   curLeft = leftVal;
   curRight = rightVal;
+}
+
+void handleRC() {
+  MANUAL = readSwitch(manualCH, false);
+  if (MANUAL) {manualControl = 1;}
+  else if (!MANUAL) {manualControl = 0;}
+
+  BACKWARD = readSwitch(drivemodeCH, false);
+
+  rotateVal = readChannel(rotateCH, -100, 100, 0);
+  throttleVal = readChannel(throttleCH, -100, 100, 0);
   
-//  analogWrite(leftMotorPin, leftVal);
-//  analogWrite(rightMotorPin, rightVal);
-  
+  /*--------Handle turn commands--------*/
+  turnVal = readChannel(turnCH, -100, 100, 0);
+  if (turnVal>0) {
+    turnRight = map(turnVal, 1, 100, 0, turnMax);
+    turnLeft = 0;
+  }
+  else if (turnVal<0) {
+    turnRight = 0;
+    turnLeft = map(turnVal, -1, -100, 0, turnMax);
+  }
+  else {
+    turnRight = 0;
+    turnLeft = 0;
+  }
+  /*------------------------------------*/
+
+  if (manualControl==1) {
+    if (rotateVal>0) {
+      curLeft = map(rotateVal, 1, 100, LEFT_FORWARD_MIN, LEFT_FORWARD_MAX);
+      curRight = map(rotateVal, 1, 100, RIGHT_BACKWARD_MIN, RIGHT_BACKWARD_MAX);
+    }
+    else if (rotateVal<0) {
+      curLeft = map(rotateVal, -1, -100, LEFT_BACKWARD_MIN, LEFT_BACKWARD_MAX);
+      curRight = map(rotateVal, -1, -100, RIGHT_FORWARD_MIN, RIGHT_FORWARD_MAX);
+    }
+    else {
+      if (!BACKWARD) {
+        throttleMap = map(throttleVal, -95, 100, LEFT_FORWARD_MIN, LEFT_FORWARD_MAX);
+        if (throttleMap>=LEFT_FORWARD_MIN) {
+          curLeft = throttleMap - turnLeft;
+          curRight = throttleMap - turnRight;
+        }
+        else {
+          curLeft = STILL;
+          curRight = STILL;
+        }
+      }
+      else if (BACKWARD) {
+        throttleMap = map(throttleVal, -95, 100, LEFT_BACKWARD_MIN, LEFT_BACKWARD_MAX);
+        if (throttleMap<=LEFT_BACKWARD_MIN) {
+          curLeft = throttleMap + turnLeft;
+          curRight = throttleMap + turnRight;
+        }
+        else {
+          curLeft = STILL;
+          curRight = STILL;
+        }
+      }
+    }
+    if (!TEST_MODE) {
+      analogWrite(leftMotorPin, curLeft);
+      analogWrite(rightMotorPin, curRight);
+    }
+  }
+}
+
+// Read the number of a given channel and convert to the range provided.
+// If the channel is off, return the default value
+int readChannel(byte channelInput, int minLimit, int maxLimit, int defaultValue){
+  uint16_t ch = ibusRC.readChannel(channelInput);
+  if (ch < 100) return defaultValue;
+  return map(ch, 1000, 2000, minLimit, maxLimit);
+}
+
+// Red the channel and return a boolean value
+bool readSwitch(byte channelInput, bool defaultValue){
+  int intDefaultValue = (defaultValue)? 100: 0;
+  int ch = readChannel(channelInput, 0, 100, intDefaultValue);
+  return (ch > 50);
 }

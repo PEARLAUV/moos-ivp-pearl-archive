@@ -14,6 +14,7 @@ Adafruit AHRS
 ArduinoBlue
 Adafruit FXAS21002C
 Adafruit FXOS8700
+IBusBM
 
 #========================================================================
 # sensor_write_calibration (for use on laptop)
@@ -29,13 +30,13 @@ You can use the sketch at File>Examples>Adafruit Sensor Calibration>sensor_calib
 to view the current calibrations stored on the board.
 
 #========================================================================
-# calibration (for use on laptop)
+# calibration (for use with Arduino connected to laptop)
 #========================================================================
 Script for producing the raw sensor data necessary to complete the 
 magnetometer calibration with MotionCal (see instructions below).
 
 #========================================================================
-# calibrated_orientation (for use on laptop)
+# calibrated_orientation (for use with Arduino connected to laptop)
 #========================================================================
 Use this script to plot or print to the serial monitor the following:
 -X,Y,Z acceleration in m/s^2
@@ -49,7 +50,7 @@ outputs of the sensor fusion filter. The code contains instructions for
 which block to uncomment for each output.
 
 #========================================================================
-# PEARL_Arduino_LED_test (for use on PEARL)
+# PEARL_Arduino_LED_test (for use with Arduino connected to RPi)
 #========================================================================
 Script for testing/troubleshooting Arduino-Raspberry Pi comms. Posts
 NMEA-format sentence with Euler angles to serial port and reads NMEA-
@@ -63,13 +64,12 @@ NMEA sentence from RPi:
 $PICOM,<desired left motor thrust percentage>,<desired right motor thrust percentage>*
 
 #========================================================================
-# PEARL_frontseat_bluetooth (for use on PEARL)
+# PEARL_frontseat_bluetooth (for use with Arduino connected to RPi)
 #========================================================================
 Script to be used on PEARL platform during operation, with bluetooth 
-manual control implemented. Also setup to write commands to LEDs for 
-testing, so double-check that these lines are commented out and the 
-commands to write to the motor controller pins are uncommented 
-(see instructions in sketch).
+manual control only implemented. Also setup to write commands to LEDs for 
+testing, so double-check that the TEST_MODE variable at the top of the
+sketch is false before running on PEARL.
 
 
 NMEA sentence from Arduino:
@@ -80,13 +80,12 @@ NMEA sentence from RPi:
 $PICOM,<desired left motor thrust percentage>,<desired right motor thrust percentage>*
 
 #========================================================================
-# PEARL_frontseat_rc (for use on PEARL)
+# PEARL_frontseat_manual (for use with Arduino connected to RPi)
 #========================================================================
-Script to be used on PEARL platform during operation, with RC manual
-control implemented. Also setup to write commands to LEDs for 
-testing, so double-check that these lines are commented out and the 
-commands to write to the motor controller pins are uncommented 
-(see instructions in sketch).
+Script to be used on PEARL platform during operation, with both RC and 
+bluetooth manual control implemented. Also setup to write commands to 
+LEDs for testing, so double-check that the TEST_MODE variable at the top 
+of the sketch is false before running on PEARL.
 
 
 NMEA sentence from Arduino:
