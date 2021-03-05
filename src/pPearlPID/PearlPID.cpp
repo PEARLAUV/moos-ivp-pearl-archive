@@ -52,6 +52,7 @@ PearlPID::PearlPID()
   m_use_solar       = false;
   m_station_keep    = false;
   m_solar_heading   = 0;
+  m_deadband        = 0;
 
   m_desired_heading = 0;
   m_desired_speed   = 0;
@@ -233,7 +234,8 @@ bool PearlPID::Iterate()
   }
   
   if(m_use_solar && m_station_keep && m_desired_speed < 0.01) {
-    m_desired_heading = m_solar_heading;
+    if (abs(m_current_heading - m_solar_heading) <= (2 * m_deadband)) {
+      m_desired_heading = m_solar_heading; }
   }
 
   double rudder = 0;
@@ -283,8 +285,8 @@ bool PearlPID::Iterate()
 
   m_paused = false;
 
-//  if(thrust == 0)
-//    rudder = 0;
+  if(thrust == 0 && !m_use_solar)
+    rudder = 0;
   Notify("DESIRED_RUDDER", rudder);
   Notify("DESIRED_THRUST", thrust);
   m_current_thrust = thrust;
@@ -444,6 +446,9 @@ bool PearlPID::OnStartUp()
     }
     else if(param == "SUN_TRACKING") {
       handled = setBooleanOnString(m_use_solar, value);
+    }
+    else if(param == "HEADING_DEADBAND") {
+      m_deadband = dval;
     }
 
     if(!handled)
@@ -683,6 +688,7 @@ bool PearlPID::buildReport()
   string sSolarHeading = doubleToString(m_solar_heading, 2);
   string sAllstop      = boolToString(m_allstop_posted);
   string sSpeedFactor  = doubleToString(m_speed_factor, 1);
+  string sDeadband     = doubleToString(m_deadband, 1);
   
   m_msgs << endl << "pPearlPID Variables and Status" << endl << "-------------------------" << endl;
   
@@ -694,8 +700,9 @@ bool PearlPID::buildReport()
   m_msgs << "   Current Rudder:         " << sRudder << endl;
   m_msgs << "   Current Thrust:         " << sThrust << endl;
   m_msgs << "   STATION-KEEPING:        " << sStation << endl;
-  m_msgs << "   Using Solar Heading:    " << sUseSolar << endl;
-  m_msgs << "   Solar Heading:          " << sSolarHeading << endl;
+  m_msgs << "   Sun-tracking Mode ON:   " << sUseSolar << endl;
+  m_msgs << "   Sun Heading:            " << sSolarHeading << endl;
+  m_msgs << "   Sun Heading Deadband:   +/-" << sDeadband << endl;
   
   
   return(true);

@@ -10,11 +10,12 @@ ProcessConfig = pPearlPID
   DEPTH_CONTROL = false
   ACTIVE_START  = true
   
-  SUN_TRACKING = true
+  SUN_TRACKING = false
+  HEADING_DEADBAND = 5   //if current heading within +/-HEADING_DEADBAND, PEARL does not adjust heading
   
   // Yaw PID controller
-  YAW_PID_KP             = 0.4
-  YAW_PID_KD             = 0.1
+  YAW_PID_KP             = 0.2
+  YAW_PID_KD             = 0.0
   YAW_PID_KI             = 0.0
   YAW_PID_INTEGRAL_LIMIT = 0.07
   
