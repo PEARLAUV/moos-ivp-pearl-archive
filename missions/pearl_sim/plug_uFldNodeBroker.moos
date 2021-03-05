@@ -10,6 +10,10 @@ ProcessConfig = uFldNodeBroker
   
   bridge  = src=AUTONOMOUS_CONTROL, alias=AUTONOMOUS_CONTROL
   
+  bridge  = src=VIEW_POLYGON
+  bridge  = src=VIEW_POINT
+  bridge  = src=VIEW_SEGLIST
+  bridge  = src=VIEW_CIRCLE
   bridge  = src=APPCAST
   bridge  = src=NODE_REPORT_LOCAL,  alias=NODE_REPORT
   bridge  = src=NODE_MESSAGE_LOCAL, alias=NODE_MESSAGE

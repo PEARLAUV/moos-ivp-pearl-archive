@@ -50,17 +50,10 @@ ProcessConfig = uFldShoreBroker
   AppTick   = 1
   CommsTick = 1
 
+  qbridge = DEPLOY, RETURN, STATION_KEEP, MOOS_MANUAL_OVERRIDE
+  qbridge = STAR, PERIMETER, FIGURE_EIGHT
+  qbridge = WIND_GUSTS
   qbridge = NODE_REPORT, NODE_MESSAGE, APPCAST_REQ
-
-  bridge  = src=DEPLOY_PEARL,                 alias=DEPLOY
-  bridge  = src=RETURN_PEARL,                 alias=RETURN
-  bridge  = src=STATION_KEEP_PEARL,           alias=STATION_KEEP
-  bridge  = src=MOOS_MANUAL_OVERRIDE_PEARL,   alias=MOOS_MANUAL_OVERRIDE
-  bridge  = src=STAR_PEARL,                   alias=STAR
-  bridge  = src=PERIMETER_PEARL,              alias=PERIMETER
-  bridge  = src=FIGURE_EIGHT_PEARL,           alias=FIGURE_EIGHT
-  
-  bridge  = src=WIND_GUSTS_PEARL,             alias=WIND_GUSTS
 
   bridge  = src=REGION_INFO,  alias=REGION_INFO
 }
@@ -77,7 +70,6 @@ ProcessConfig = pMarineViewer
   //set_pan_y            = 0
   zoom                 = 1.5
   vehicles_shape_scale = 1.5
-  vehicles_name_mode   = names+shortmode
 
   appcast_viewable     = true
   appcast_color_scheme = indigo
@@ -94,30 +86,30 @@ ProcessConfig = pMarineViewer
   stale_remove_thresh = 30
 
   scope = PHI_HOST_INFO
-  scope = DEPLOY_PEARL
-  scope = RETURN_PEARL
-  scope = STATION_KEEP_PEARL
-  scope = MOOS_MANUAL_OVERRIDE_PEARL
+  scope = DEPLOY_ALL
+  scope = RETURN_ALL
+  scope = STATION_KEEP_ALL
+  scope = MOOS_MANUAL_OVERRIDE_ALL
   scope = AUTONOMOUS_CONTROL
-  scope = STAR_PEARL
-  scope = PERIMETER_PEARL
-  scope = FIGURE_EIGHT_PEARL
-  scope = WIND_GUSTS_PEARL
+  scope = STAR_ALL
+  scope = PERIMETER_ALL
+  scope = FIGURE_EIGHT_ALL
+  scope = WIND_GUSTS_ALL
   
-  ACTION  = MENU_KEY=star-burst   # STAR_PEARL=true  # PERIMETER_PEARL=false
-  ACTION+ = MENU_KEY=star-burst   # FIGURE_EIGHT_PEARL=false
-  ACTION  = MENU_KEY=perimeter    # STAR_PEARL=false # PERIMETER_PEARL=true
-  ACTION+ = MENU_KEY=perimeter    # FIGURE_EIGHT_PEARL=false
-  ACTION  = MENU_KEY=figure-eight # STAR_PEARL=false # PERIMETER_PEARL=false
-  ACTION+ = MENU_KEY=figure-eight # FIGURE_EIGHT_PEARL=true
+  ACTION  = MENU_KEY=star-burst   # STAR_ALL=true  # PERIMETER_ALL=false
+  ACTION+ = MENU_KEY=star-burst   # FIGURE_EIGHT_ALL=false
+  ACTION  = MENU_KEY=perimeter    # STAR_ALL=false # PERIMETER_ALL=true
+  ACTION+ = MENU_KEY=perimeter    # FIGURE_EIGHT_ALL=false
+  ACTION  = MENU_KEY=figure-eight # STAR_ALL=false # PERIMETER_ALL=false
+  ACTION+ = MENU_KEY=figure-eight # FIGURE_EIGHT_ALL=true
   
-  ACTION   = WIND_GUSTS_PEARL = true
-  ACTION+  = WIND_GUSTS_PEARL = false
+  ACTION   = WIND_GUSTS_ALL = true
+  ACTION+  = WIND_GUSTS_ALL = false
 
-  BUTTON_ONE   = DEPLOY       # DEPLOY_PEARL=true   # RETURN_PEARL=false # STATION_KEEP_PEARL=false # MOOS_MANUAL_OVERRIDE_PEARL=false
-  BUTTON_TWO   = RETURN       # DEPLOY_PEARL=true   # RETURN_PEARL=true  # STATION_KEEP_PEARL=false # MOOS_MANUAL_OVERRIDE_PEARL=false
-  BUTTON_THREE = STATION-KEEP # DEPLOY_PEARL=true   # RETURN_PEARL=false # STATION_KEEP_PEARL=true  # MOOS_MANUAL_OVERRIDE_PEARL=false
-  BUTTON_FOUR  = ALLSTOP      # DEPLOY_PEARL=false  # RETURN_PEARL=false # STATION_KEEP_PEARL=false # MOOS_MANUAL_OVERRIDE_PEARL=true
+  BUTTON_ONE   = DEPLOY       # DEPLOY_ALL=true   # RETURN_ALL=false # STATION_KEEP_ALL=false # MOOS_MANUAL_OVERRIDE_ALL=false
+  BUTTON_TWO   = RETURN       # DEPLOY_ALL=true   # RETURN_ALL=true  # STATION_KEEP_ALL=false # MOOS_MANUAL_OVERRIDE_ALL=false
+  BUTTON_THREE = STATION-KEEP # DEPLOY_ALL=true   # RETURN_ALL=false # STATION_KEEP_ALL=true  # MOOS_MANUAL_OVERRIDE_ALL=false
+  BUTTON_FOUR  = ALLSTOP      # DEPLOY_ALL=false  # RETURN_ALL=false # STATION_KEEP_ALL=false # MOOS_MANUAL_OVERRIDE_ALL=true
   
   //left_context[view_point]  = VIEW_POINT = x=$(XPOS),y=$(YPOS),label=hello
 }
