@@ -54,23 +54,23 @@ ProcessConfig = uFldShoreBroker
   //qbridge = STAR, PERIMETER, FIGURE_EIGHT
   qbridge = NODE_REPORT, NODE_MESSAGE, APPCAST_REQ
   
-  //bridge  = src=RETURN_ALL,               alias=RETURN
-  //bridge  = src=DEPLOY_ALL,               alias=DEPLOY
-  //bridge  = src=STATION_KEEP_ALL,         alias=STATION_KEEP
-  //bridge  = src=MOOS_MANUAL_OVERRIDE_ALL, alias=MOOS_MANUAL_OVERRIDE
-  //bridge  = src=STAR_ALL,                 alias=STAR
-  //bridge  = src=PERIMETER_ALL,            alias=PERIMETER
-  //bridge  = src=FIGURE_EIGHT_ALL,         alias=FIGURE_EIGHT
+  bridge  = src=RETURN_ALL,               alias=RETURN
+  bridge  = src=DEPLOY_ALL,               alias=DEPLOY
+  bridge  = src=STATION_KEEP_ALL,         alias=STATION_KEEP
+  bridge  = src=MOOS_MANUAL_OVERRIDE_ALL, alias=MOOS_MANUAL_OVERRIDE
+  bridge  = src=STAR_ALL,                 alias=STAR
+  bridge  = src=PERIMETER_ALL,            alias=PERIMETER
+  bridge  = src=FIGURE_EIGHT_ALL,         alias=FIGURE_EIGHT
 
-  bridge  = src=DEPLOY_PEARL,                 alias=DEPLOY
-  bridge  = src=RETURN_PEARL,                 alias=RETURN
-  bridge  = src=STATION_KEEP_PEARL,           alias=STATION_KEEP
-  bridge  = src=MOOS_MANUAL_OVERRIDE_PEARL,   alias=MOOS_MANUAL_OVERRIDE
-  bridge  = src=STAR_PEARL,                   alias=STAR
-  bridge  = src=PERIMETER_PEARL,              alias=PERIMETER
-  bridge  = src=FIGURE_EIGHT_PEARL,           alias=FIGURE_EIGHT
+  //bridge  = src=DEPLOY_PEARL,                 alias=DEPLOY
+  //bridge  = src=RETURN_PEARL,                 alias=RETURN
+  //bridge  = src=STATION_KEEP_PEARL,           alias=STATION_KEEP
+  //bridge  = src=MOOS_MANUAL_OVERRIDE_PEARL,   alias=MOOS_MANUAL_OVERRIDE
+  //bridge  = src=STAR_PEARL,                   alias=STAR
+  //bridge  = src=PERIMETER_PEARL,              alias=PERIMETER
+  //bridge  = src=FIGURE_EIGHT_PEARL,           alias=FIGURE_EIGHT
   
-  bridge  = src=WIND_GUSTS_PEARL,             alias=WIND_GUSTS
+  bridge  = src=WIND_GUSTS_ALL,             alias=WIND_GUSTS
 
   //bridge  = src=NODE_REPORT,  alias=NODE_REPORT
   //bridge  = src=NODE_MESSAGE, alias=NODE_MESSAGE
@@ -134,7 +134,7 @@ ProcessConfig = pMarineViewer
   BUTTON_ONE   = DEPLOY       # DEPLOY_PEARL=true   # RETURN_PEARL=false # STATION_KEEP_PEARL=false # MOOS_MANUAL_OVERRIDE_PEARL=false
   BUTTON_TWO   = RETURN       # DEPLOY_PEARL=true   # RETURN_PEARL=true  # STATION_KEEP_PEARL=false # MOOS_MANUAL_OVERRIDE_PEARL=false
   BUTTON_THREE = STATION-KEEP # DEPLOY_PEARL=true   # RETURN_PEARL=false # STATION_KEEP_PEARL=true  # MOOS_MANUAL_OVERRIDE_PEARL=false
-  BUTTON_FOUR  = ALLSTOP      # DEPLOY_PEARL=false  # RETURN_PEARL=false # STATION_KEEP_PEARL=false # MOOS_MANUAL_OVERRIDE_PEARL=false
+  BUTTON_FOUR  = ALLSTOP      # DEPLOY_PEARL=false  # RETURN_PEARL=false # STATION_KEEP_PEARL=false # MOOS_MANUAL_OVERRIDE_PEARL=true
   
   //left_context[view_point]  = VIEW_POINT = x=$(XPOS),y=$(YPOS),label=hello
 }
