@@ -495,10 +495,6 @@ bool PearlPID::handleYawSettings()
     MOOSDebugWrite("YAW_PID_INTEGRAL_LIMIT not found in Mission File");
     ok = false;
   }
-  if(!m_MissionReader.GetConfigurationParam("MAXRUDDER",m_max_rudder)) {
-    MOOSDebugWrite("MAXRUDDER not found in Mission File");
-    ok = false;
-  }
   
   ScalarPID crsPID;
   crsPID.SetGains(yaw_pid_Kp, yaw_pid_Kd, yaw_pid_Ki);
@@ -541,11 +537,6 @@ bool PearlPID::handleSpeedSettings()
   }
   if(!m_MissionReader.GetConfigurationParam("SPEED_PID_INTEGRAL_LIMIT", spd_pid_ilim)) {
     MOOSDebugWrite("SPEED_PID_INTEGRAL_LIMIT not found in Mission File");
-    ok = false;
-  }
-  if(!m_MissionReader.GetConfigurationParam("MAXTHRUST",m_max_thrust))
-  {
-    MOOSDebugWrite("MAXTHRUST not found in Mission File");
     ok = false;
   }
 

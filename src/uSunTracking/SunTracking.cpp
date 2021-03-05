@@ -16,7 +16,7 @@ SOLAR::SOLAR()
 {  
    //MOOS file parameters 
    m_prefix               = "SOLAR";
-   m_heading_offset       = 0.0;
+   m_sun_heading_offset       = 0.0;
    m_pub_angles           = false;
   
    //Variables read in from MOOSDB
@@ -96,9 +96,9 @@ bool SOLAR::OnStartUp()
     string param  = toupper(biteStringX(line, '='));
     string value  = line;
 
-    if      (param == "PREFIX")          handled = SetParam_PREFIX(value);
-    else if (param == "HEADING_OFFSET")  handled = SetParam_HEADING_OFFSET(value);
-    else if (param == "PUBLISH_ANGLES")  handled = SetParam_PUBLISH_ANGLES(value);
+    if      (param == "PREFIX")              handled = SetParam_PREFIX(value);
+    else if (param == "SUN_HEADING_OFFSET")  handled = SetParam_SUN_HEADING_OFFSET(value);
+    else if (param == "PUBLISH_ANGLES")      handled = SetParam_PUBLISH_ANGLES(value);
     else
       reportUnhandledConfigWarning(orig); }
 
@@ -175,7 +175,7 @@ void SOLAR::GetSunData()
   if(curElevation<0) {
     curHeading = 0.0; }
   else {
-    curHeading   = dAzimuth + m_heading_offset; }
+    curHeading   = dAzimuth + m_sun_heading_offset; }
   
   if(m_pub_angles)
     PublishData(curElevation, curAzimuth);
@@ -224,16 +224,16 @@ bool SOLAR::SetParam_PREFIX(std::string sVal)
   return true;
 }
 
-bool SOLAR::SetParam_HEADING_OFFSET(std::string sVal)
+bool SOLAR::SetParam_SUN_HEADING_OFFSET(std::string sVal)
 {
   stringstream ssMsg;
   if (!isNumber(sVal))
-    ssMsg << "Param HEADING_OFFSET must be a number in range (-180.0 180.0). Defaulting to 0.0.";
+    ssMsg << "Param SUN_HEADING_OFFSET must be a number in range (-180.0 180.0). Defaulting to 0.0.";
   else 
-    m_heading_offset = stod(sVal);
-  if (m_heading_offset <= -180.0 || m_heading_offset >= 180.0) {
-    ssMsg << "Param HEADING_OFFSET cannot be " << m_heading_offset << ". Must be in range (-180.0, 180.0). Defaulting to 0.0.";
-    m_heading_offset = 0.0; }
+    m_sun_heading_offset = stod(sVal);
+  if (m_sun_heading_offset <= -180.0 || m_sun_heading_offset >= 180.0) {
+    ssMsg << "Param SUN_HEADING_OFFSET cannot be " << m_sun_heading_offset << ". Must be in range (-180.0, 180.0). Defaulting to 0.0.";
+    m_sun_heading_offset = 0.0; }
   string msg = ssMsg.str();
   if (!msg.empty())
     reportConfigWarning(msg);

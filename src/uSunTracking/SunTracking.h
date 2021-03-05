@@ -30,7 +30,7 @@ class SOLAR : public AppCastingMOOSApp
    
    //Handle Config Params
    bool   SetParam_PREFIX(std::string sVal);              //m_prefix
-   bool   SetParam_HEADING_OFFSET(std::string sVal);      //m_heading_offset
+   bool   SetParam_SUN_HEADING_OFFSET(std::string sVal);      //m_heading_offset
    bool   SetParam_PUBLISH_ANGLES(std::string sVal);
    
    void   GetSunData();
@@ -43,7 +43,7 @@ class SOLAR : public AppCastingMOOSApp
    
    //MOOS file parameters 
    std::string  m_prefix;
-   double       m_heading_offset;
+   double       m_sun_heading_offset;
    bool         m_pub_angles;
   
    //Variables read in from MOOSDB
