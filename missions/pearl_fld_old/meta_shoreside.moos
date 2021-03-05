@@ -70,6 +70,7 @@ ProcessConfig = pMarineViewer
   //set_pan_y            = 0
   zoom                 = 1.5
   vehicles_shape_scale = 1.5
+  vehicles_name_mode   = names+shortmode
 
   appcast_viewable     = true
   appcast_color_scheme = indigo
@@ -94,7 +95,6 @@ ProcessConfig = pMarineViewer
   scope = STAR_ALL
   scope = PERIMETER_ALL
   scope = FIGURE_EIGHT_ALL
-  scope = WIND_GUSTS_ALL
   
   ACTION  = MENU_KEY=star-burst   # STAR_ALL=true  # PERIMETER_ALL=false
   ACTION+ = MENU_KEY=star-burst   # FIGURE_EIGHT_ALL=false
@@ -102,14 +102,10 @@ ProcessConfig = pMarineViewer
   ACTION+ = MENU_KEY=perimeter    # FIGURE_EIGHT_ALL=false
   ACTION  = MENU_KEY=figure-eight # STAR_ALL=false # PERIMETER_ALL=false
   ACTION+ = MENU_KEY=figure-eight # FIGURE_EIGHT_ALL=true
-  
-  ACTION   = WIND_GUSTS_ALL = true
-  ACTION+  = WIND_GUSTS_ALL = false
 
   BUTTON_ONE   = DEPLOY       # DEPLOY_ALL=true   # RETURN_ALL=false # STATION_KEEP_ALL=false # MOOS_MANUAL_OVERRIDE_ALL=false
   BUTTON_TWO   = RETURN       # DEPLOY_ALL=true   # RETURN_ALL=true  # STATION_KEEP_ALL=false # MOOS_MANUAL_OVERRIDE_ALL=false
   BUTTON_THREE = STATION-KEEP # DEPLOY_ALL=true   # RETURN_ALL=false # STATION_KEEP_ALL=true  # MOOS_MANUAL_OVERRIDE_ALL=false
   BUTTON_FOUR  = ALLSTOP      # DEPLOY_ALL=false  # RETURN_ALL=false # STATION_KEEP_ALL=false # MOOS_MANUAL_OVERRIDE_ALL=true
-  
-  //left_context[view_point]  = VIEW_POINT = x=$(XPOS),y=$(YPOS),label=hello
+
 }

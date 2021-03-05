@@ -7,7 +7,7 @@ ProcessConfig = uFldNodeBroker
   CommsTick = 1
 
   try_shore_host = pshare_route=$(SHORE_IP):$(SHORE_LISTEN)
-  
+
   bridge  = src=AUTONOMOUS_CONTROL, alias=AUTONOMOUS_CONTROL
   
   bridge  = src=VIEW_POLYGON

@@ -5,7 +5,7 @@ ProcessConfig = pEchoVar
 {
   AppTick   = 10
   CommsTick = 10
-
+    
   Echo  = GPS_LATITUDE  -> NAV_LAT
   Echo  = GPS_LONGITUDE -> NAV_LONG
   Echo  = GPS_X         -> NAV_X
@@ -15,5 +15,4 @@ ProcessConfig = pEchoVar
   Echo  = IMU_PITCH     -> NAV_PITCH
   Echo  = IMU_ROLL      -> NAV_ROLL
   Echo  = GPS_SPEED     -> NAV_SPEED
-
 }

@@ -6,11 +6,6 @@ ProcessConfig = pEchoVar
   AppTick   = 10
   CommsTick = 10
 
-    //Echo  = USM_X         -> NAV_X
-    //Echo  = USM_Y         -> NAV_Y
-    //Echo  = USM_HEADING   -> NAV_HEADING
-    //Echo  = USM_SPEED     -> NAV_SPEED
-    
   Echo  = GPS_LATITUDE  -> NAV_LAT
   Echo  = GPS_LONGITUDE -> NAV_LONG
   Echo  = GPS_X         -> NAV_X
@@ -20,4 +15,5 @@ ProcessConfig = pEchoVar
   Echo  = IMU_PITCH     -> NAV_PITCH
   Echo  = IMU_ROLL      -> NAV_ROLL
   Echo  = GPS_SPEED     -> NAV_SPEED
+
 }

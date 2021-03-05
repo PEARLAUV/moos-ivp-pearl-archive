@@ -13,13 +13,12 @@ VNAME="pearl"
 REGION="deep_pond"
 START_POS="0,0"  
 
-PEARL_IP="192.168.0.103"  #IP address of the RPi on PEARL
-SHORE_IP="192.168.0.102"  #IP address of the shoreside laptop
+PEARL_IP="192.168.0.103"
+SHORE_IP="192.168.0.102"
 VEHICLE_PORT="9001"
 VEHICLE_LISTEN="9301"
 SHORE_LISTEN="9300"
 
-CRUISESPEED="0.3"  #speed to traverse waypoints in m/s
 
 #--------------------------------------------------------------
 #  Part 2: Check for and handle command-line arguments
@@ -29,14 +28,14 @@ for ARGI; do
 	echo "launch_vehicle.sh [SWITCHES] [time_warp]               "
 	echo "  --just_make, -j                                      "
 	echo "  --auto, -a        Auto-launched. uMAC not used.      "
-	echo "  --vname=VNAME     Vehicle name (Default is 'pearl')  "
-	echo "  --deep_pond       Set region to be Deep Pond (Default is Deep Pond)"
+	echo "  --vname=VNAME     Vehicle name                       "
+	echo "  --deep_pond       Set region to be Deep Pond         "
 	echo "  --startpos=X,Y    (Default is 0,0)                   "
 	echo "  --ip=<addr>       (Default is 192.168.0.103)         "
 	echo "  --shore=<addr>    (Default is 192.168.0.102)         "
-	echo "  --vport=<port>    (Default is 9001)                  "
-	echo "  --vlisten=<port>  (Default is 9301)                  "
-	echo "  --slisten=<port>  (Default is 9300)                  "
+	echo "  --vport=<port>      (Default is 9001)                "
+	echo "  --vlisten=<port>    (Default is 9301)                "
+	echo "  --slisten=<port>    (Default is 9300)                "
 	echo "  --help, -h                                           " 
 	exit 0;
     elif [ "${ARGI//[^0-9]/}" = "$ARGI" -a "$TIME_WARP" = 1 ]; then 
@@ -72,6 +71,8 @@ done
 #  Part 3: Create the .moos and .bhv files. 
 #--------------------------------------------------------------
 # What is nsplug? Type "nsplug --help" or "nsplug --manual"
+
+CRUISESPEED="0.5"
 
 NSFLAGS="-s -f"
 if [ "${AUTO}" = "" ]; then
