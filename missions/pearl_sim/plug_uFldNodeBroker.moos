@@ -7,14 +7,8 @@ ProcessConfig = uFldNodeBroker
   CommsTick = 1
 
   try_shore_host = pshare_route=$(SHORE_IP):$(SHORE_LISTEN)
-
-  //bridge  = src=DEPLOY,                 alias=DEPLOY
-  //bridge  = src=RETURN,                 alias=RETURN
-  //bridge  = src=STATION_KEEP,           alias=STATION_KEEP
-  //bridge  = src=MOOS_MANUAL_OVERRIDE,   alias=MOOS_MANUAL_OVERRIDE
-  //bridge  = src=STAR,                   alias=STAR
-  //bridge  = src=PERIMETER,              alias=PERIMETER
-  //bridge  = src=FIGURE_EIGHT,           alias=FIGURE_EIGHT
+  
+  bridge  = src=AUTONOMOUS_CONTROL, alias=AUTONOMOUS_CONTROL
   
   bridge  = src=APPCAST
   bridge  = src=NODE_REPORT_LOCAL,  alias=NODE_REPORT
