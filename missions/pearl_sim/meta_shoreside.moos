@@ -50,9 +50,9 @@ ProcessConfig = uFldShoreBroker
   AppTick   = 1
   CommsTick = 1
 
-  //qbridge = DEPLOY, RETURN, STATION_KEEP, NODE_REPORT, NODE_MESSAGE
+  //qbridge = DEPLOY, RETURN, STATION_KEEP, MOOS_MANUAL_OVERRIDE
   //qbridge = STAR, PERIMETER, FIGURE_EIGHT
-  //qbridge = MOOS_MANUAL_OVERRIDE, APPCAST_REQ
+  qbridge = NODE_REPORT, NODE_MESSAGE, APPCAST_REQ
   
   //bridge  = src=RETURN_ALL,               alias=RETURN
   //bridge  = src=DEPLOY_ALL,               alias=DEPLOY
@@ -72,9 +72,9 @@ ProcessConfig = uFldShoreBroker
   
   bridge  = src=WIND_GUSTS,             alias=WIND_GUSTS
 
-  bridge  = src=NODE_REPORT,  alias=NODE_REPORT
-  bridge  = src=NODE_MESSAGE, alias=NODE_MESSAGE
-  bridge  = src=APPCAST_REQ,  alias=APPCAST_REQ
+  //bridge  = src=NODE_REPORT,  alias=NODE_REPORT
+  //bridge  = src=NODE_MESSAGE, alias=NODE_MESSAGE
+  //bridge  = src=APPCAST_REQ,  alias=APPCAST_REQ
   bridge  = src=REGION_INFO,  alias=REGION_INFO
 }
 
