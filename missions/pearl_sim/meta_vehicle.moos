@@ -17,7 +17,6 @@ Processconfig = ANTLER
   Run = MOOSDB            @ NewConsole = false
   //Run = pLogger           @ NewConsole = false
   Run = pEchoVar          @ NewConsole = false
-  //Run = iRemote           @ NewConsole = false
   Run = pNodeReporter     @ NewConsole = false
   Run = pPearlPID         @ NewConsole = false
   Run = pHelmIvP          @ NewConsole = false
@@ -25,7 +24,7 @@ Processconfig = ANTLER
   Run = iGPS              @ NewConsole = false
   Run = iPEARL            @ NewConsole = false
   Run = iChargeController @ NewConsole = false
-  Run = uSolarHeading     @ NewConsole = false
+  Run = uSunTracking      @ NewConsole = false
   Run = uTimerScript      @ NewConsole = false
   
   Run = uSimMarine        @ NewConsole = false
@@ -37,7 +36,6 @@ Processconfig = ANTLER
 
 //#include plug_pLogger.moos
 #include plug_pEchoVar.moos
-//#include plug_iRemote.moos
 #include plug_pNodeReporter.moos
 #include plug_pPearlPID.moos
 #include plug_pHelmIvP.moos
@@ -45,7 +43,7 @@ Processconfig = ANTLER
 #include plug_iGPS.moos
 #include plug_iPEARL.moos
 #include plug_iChargeController.moos
-#include plug_uSolarHeading.moos
+#include plug_uSunTracking.moos
 #include plug_uTimerScript.moos
 
 #include plug_uSimMarine.moos

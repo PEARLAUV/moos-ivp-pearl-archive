@@ -86,7 +86,7 @@ ProcessConfig = pHelmIvP
 
   behaviors  = pearl.bhv
   domain     = course:0:359:360
-  domain     = speed:0:2:21
+  domain     = speed:0:0.5:11
 }
 
 //------------------------------------------

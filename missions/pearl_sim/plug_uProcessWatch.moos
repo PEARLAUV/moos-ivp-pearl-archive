@@ -9,15 +9,15 @@ ProcessConfig = uProcessWatch
   nowatch = uMAC*  
   nowatch = uXMS*
   
+  //watch  = pLogger
+  watch  = pEchoVar
+  watch  = pNodeReporter
+  watch  = pPearlPID
   watch  = pHelmIvP
   watch  = iGPS
   watch  = iPEARL
   watch  = iChargeController
-  watch  = pEchoVar
-  watch  = pPearlPID
-  //watch  = pLogger
-  watch  = pNodeReporter
-  watch  = uSolarHeading : USH_OK
+  watch  = uSunTracking
   
   watch  = uSimMarine
 }

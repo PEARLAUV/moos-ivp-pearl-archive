@@ -40,8 +40,8 @@ Behavior = BHV_StationKeep
 	inner_radius       = 5
 	outer_radius       = 10
 	hibernation_radius = 10
-	outer_speed        = 0.5
-	transit_speed      = 0.5
+	outer_speed        = $(SPEED)   //meters per second
+	transit_speed      = $(SPEED)   //meters per second
 	swing_time         = 3
 	visual_hints       = vertex_size=0, edge_color=blue
 }

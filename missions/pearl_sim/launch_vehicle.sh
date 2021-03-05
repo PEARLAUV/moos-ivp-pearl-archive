@@ -13,12 +13,13 @@ VNAME="pearl"
 REGION="deep_pond"
 START_POS="0,0"  
 
-PEARL_IP="192.168.0.103"
-SHORE_IP="192.168.0.102"
+PEARL_IP="192.168.0.103"  #IP address of the RPi on PEARL
+SHORE_IP="192.168.0.102"  #IP address of the shoreside laptop
 VEHICLE_PORT="9001"
 VEHICLE_LISTEN="9301"
 SHORE_LISTEN="9300"
 
+CRUISESPEED="0.3"  #speed to traverse waypoints in m/s
 
 #--------------------------------------------------------------
 #  Part 2: Check for and handle command-line arguments
@@ -71,8 +72,6 @@ done
 #  Part 3: Create the .moos and .bhv files. 
 #--------------------------------------------------------------
 # What is nsplug? Type "nsplug --help" or "nsplug --manual"
-
-CRUISESPEED="0.5"
 
 NSFLAGS="-s -f"
 if [ "${AUTO}" = "" ]; then
