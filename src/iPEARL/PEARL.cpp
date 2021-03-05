@@ -371,8 +371,8 @@ bool PEARL::SetPublishNames()
   m_pubNamePitch     = m_prefix + m_pubNamePitch;
   m_pubNameRoll      = m_prefix + m_pubNameRoll;
   m_pubNameAccX      = m_prefix + m_pubNameAccX;
-  m_pubNameAccX      = m_prefix + m_pubNameAccX;
-  m_pubNameAccX      = m_prefix + m_pubNameAccX;
+  m_pubNameAccY      = m_prefix + m_pubNameAccY;
+  m_pubNameAccZ      = m_prefix + m_pubNameAccZ;
   m_pubNameGyroX     = m_prefix + m_pubNameGyroX;
   m_pubNameGyroY     = m_prefix + m_pubNameGyroY;
   m_pubNameGyroZ     = m_prefix + m_pubNameGyroZ;
@@ -641,6 +641,16 @@ bool PEARL::buildReport()
   string sLThr    = doubleToString(arduinoThrustLeft, 1);
   string sRThr    = doubleToString(arduinoThrustRight, 1);
   
+//  string accx     = doubleToString(currAccX, 2);
+//  string accy     = doubleToString(currAccY, 2);
+//  string accz     = doubleToString(currAccZ, 2);
+//  string gyrox     = doubleToString(currGyroX, 2);
+//  string gyroy     = doubleToString(currGyroY, 2);
+//  string gyroz     = doubleToString(currGyroZ, 2);
+//  string magx     = doubleToString(currMagX, 2);
+//  string magy     = doubleToString(currMagY, 2);
+//  string magz     = doubleToString(currMagZ, 2);
+  
   m_msgs << endl << "SETUP" << endl << "-----" << endl;
   m_msgs << "     PORT (BAUDRATE):         " << m_serial_port << "(" << m_baudrate << ")" << endl;
   m_msgs << "     Publish PREFIX:          " << m_prefix << endl;
@@ -681,6 +691,15 @@ bool PEARL::buildReport()
   m_msgs << "   Yaw:                           " << sYaw << endl;
   m_msgs << "   Pitch:                         " << sPitch << endl;
   m_msgs << "   Roll:                          " << sRoll << endl;
+//  m_msgs << "   AccX:                          " << accx << endl;
+//  m_msgs << "   AccY:                          " << accy << endl;
+//  m_msgs << "   AccZ:                          " << accz << endl;
+//  m_msgs << "   GyroX:                          " << gyrox << endl;
+//  m_msgs << "   GyroY:                          " << gyroy << endl;
+//  m_msgs << "   GyroZ:                          " << gyroz << endl;
+//  m_msgs << "   MagX:                          " << magx << endl;
+//  m_msgs << "   MagY:                          " << magy << endl;
+//  m_msgs << "   MagZ:                          " << magz << endl;
   m_msgs << endl;
   
   return true;
