@@ -50,29 +50,11 @@ ProcessConfig = uFldShoreBroker
   AppTick   = 1
   CommsTick = 1
 
-  //qbridge = DEPLOY, RETURN, STATION_KEEP, NODE_REPORT, NODE_MESSAGE
-  //qbridge = STAR, PERIMETER, FIGURE_EIGHT
-  //qbridge = MOOS_MANUAL_OVERRIDE, APPCAST_REQ
-  
-  //bridge  = src=RETURN_ALL,               alias=RETURN
-  //bridge  = src=DEPLOY_ALL,               alias=DEPLOY
-  //bridge  = src=STATION_KEEP_ALL,         alias=STATION_KEEP
-  //bridge  = src=MOOS_MANUAL_OVERRIDE_ALL, alias=MOOS_MANUAL_OVERRIDE
-  //bridge  = src=STAR_ALL,                 alias=STAR
-  //bridge  = src=PERIMETER_ALL,            alias=PERIMETER
-  //bridge  = src=FIGURE_EIGHT_ALL,         alias=FIGURE_EIGHT
+  qbridge = DEPLOY, RETURN, STATION_KEEP, MOOS_MANUAL_OVERRIDE
+  qbridge = STAR, PERIMETER, FIGURE_EIGHT
+  qbridge = WIND_GUSTS
+  qbridge = NODE_REPORT, NODE_MESSAGE, APPCAST_REQ
 
-  bridge  = src=DEPLOY,                 alias=DEPLOY
-  bridge  = src=RETURN,                 alias=RETURN
-  bridge  = src=STATION_KEEP,           alias=STATION_KEEP
-  bridge  = src=MOOS_MANUAL_OVERRIDE,   alias=MOOS_MANUAL_OVERRIDE
-  bridge  = src=STAR,                   alias=STAR
-  bridge  = src=PERIMETER,              alias=PERIMETER
-  bridge  = src=FIGURE_EIGHT,           alias=FIGURE_EIGHT
-
-  bridge  = src=NODE_REPORT,  alias=NODE_REPORT
-  bridge  = src=NODE_MESSAGE, alias=NODE_MESSAGE
-  bridge  = src=APPCAST_REQ,  alias=APPCAST_REQ
   bridge  = src=REGION_INFO,  alias=REGION_INFO
 }
 
@@ -109,6 +91,7 @@ ProcessConfig = pMarineViewer
   scope = RETURN_ALL
   scope = STATION_KEEP_ALL
   scope = MOOS_MANUAL_OVERRIDE_ALL
+  scope = AUTONOMOUS_CONTROL
   scope = STAR_ALL
   scope = PERIMETER_ALL
   scope = FIGURE_EIGHT_ALL
@@ -119,7 +102,7 @@ ProcessConfig = pMarineViewer
   ACTION+ = MENU_KEY=perimeter    # FIGURE_EIGHT_ALL=false
   ACTION  = MENU_KEY=figure-eight # STAR_ALL=false # PERIMETER_ALL=false
   ACTION+ = MENU_KEY=figure-eight # FIGURE_EIGHT_ALL=true
-  
+
   BUTTON_ONE   = DEPLOY       # DEPLOY_ALL=true   # RETURN_ALL=false # STATION_KEEP_ALL=false # MOOS_MANUAL_OVERRIDE_ALL=false
   BUTTON_TWO   = RETURN       # DEPLOY_ALL=true   # RETURN_ALL=true  # STATION_KEEP_ALL=false # MOOS_MANUAL_OVERRIDE_ALL=false
   BUTTON_THREE = STATION-KEEP # DEPLOY_ALL=true   # RETURN_ALL=false # STATION_KEEP_ALL=true  # MOOS_MANUAL_OVERRIDE_ALL=false
