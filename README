@@ -36,7 +36,7 @@ battery charge levels and adjusts the maximum possible thrust/rudder
 parameters to preserve battery life. 
 
 #=============================================================================
-# MOOS App 4: uSolarHeading
+# MOOS App 4: uSunTracking
 #=============================================================================
 MOOS-IvP app built to compute the best possible orientation for PEARL to
 collect solar energy. Implements equations from the NOAA Solar Position
