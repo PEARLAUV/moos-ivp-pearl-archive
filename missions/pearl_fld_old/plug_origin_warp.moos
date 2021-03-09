@@ -1,7 +1,0 @@
-MOOSTimeWarp = $(WARP)
-
-//LatOrigin    = 41.739191
-//LongOrigin   = -69.992287
-
-LatOrigin = 35.384233
-LongOrigin = -80.922027

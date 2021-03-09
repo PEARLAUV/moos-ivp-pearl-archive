@@ -19,7 +19,6 @@ Processconfig = ANTLER
   Run = pEchoVar          @ NewConsole = false
   Run = pNodeReporter     @ NewConsole = false
   Run = pPearlPID         @ NewConsole = false
-  Run = pHelmIvP          @ NewConsole = false
   Run = uProcessWatch     @ NewConsole = false
   Run = iGPS              @ NewConsole = false
   Run = iPEARL            @ NewConsole = false
@@ -32,6 +31,8 @@ Processconfig = ANTLER
   Run = pShare            @ NewConsole = false
   Run = pHostInfo         @ NewConsole = false
   Run = uFldNodeBroker    @ NewConsole = false
+  
+  Run = pHelmIvP          @ NewConsole = false
 }
 
 //#include plug_pLogger.moos
