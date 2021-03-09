@@ -17,26 +17,20 @@ Adafruit FXOS8700
 IBusBM
 
 #========================================================================
-# sensor_write_calibration (for use on laptop)
+# sensor_write_calibration
 #========================================================================
 Script for writing calibrations to the Arduino, which are stored in 
 permanent memory on the board. Inputs within the scripts are:
 -Hard iron offsets (uTesla)
--Soft iron offsets (uTesla)
+-Soft iron offsets (uTesla) (don't need to change these)
 -Gyro zero-rate offsets (rad/s)
 -Accelerometer zero-rate offsets (m/s^2)
 
-You can use the sketch at File>Examples>Adafruit Sensor Calibration>sensor_calibration_read
+You can use the sketch at Examples->Adafruit Sensor Calibration->sensor_calibration_read
 to view the current calibrations stored on the board.
 
 #========================================================================
-# calibration (for use with Arduino connected to laptop)
-#========================================================================
-Script for producing the raw sensor data necessary to complete the 
-magnetometer calibration with MotionCal (see instructions below).
-
-#========================================================================
-# calibrated_orientation (for use with Arduino connected to laptop)
+# calibrated_orientation
 #========================================================================
 Use this script to plot or print to the serial monitor the following:
 -X,Y,Z acceleration in m/s^2
@@ -50,7 +44,7 @@ outputs of the sensor fusion filter. The code contains instructions for
 which block to uncomment for each output.
 
 #========================================================================
-# PEARL_Arduino_LED_test (for use with Arduino connected to RPi)
+# PEARL_Arduino_LED_test
 #========================================================================
 Script for testing/troubleshooting Arduino-Raspberry Pi comms. Posts
 NMEA-format sentence with Euler angles to serial port and reads NMEA-
@@ -64,7 +58,7 @@ NMEA sentence from RPi:
 $PICOM,<desired left motor thrust percentage>,<desired right motor thrust percentage>*
 
 #========================================================================
-# PEARL_frontseat_bluetooth (for use with Arduino connected to RPi)
+# PEARL_frontseat_bluetooth
 #========================================================================
 Script to be used on PEARL platform during operation, with bluetooth 
 manual control only implemented. Also setup to write commands to LEDs for 
@@ -80,7 +74,7 @@ NMEA sentence from RPi:
 $PICOM,<desired left motor thrust percentage>,<desired right motor thrust percentage>*
 
 #========================================================================
-# PEARL_frontseat_manual (for use with Arduino connected to RPi)
+# PEARL_frontseat_manual
 #========================================================================
 Script to be used on PEARL platform during operation, with both RC and 
 bluetooth manual control implemented. Also setup to write commands to 
@@ -88,7 +82,7 @@ LEDs for testing, so double-check that the TEST_MODE variable at the top
 of the sketch is false before running on PEARL.
 
 
-NMEA sentence from Arduino:
+NMEA sentences from Arduino:
 $PLIMU,<manual control flag>,<yaw>,<pitch>,<roll>*
 $PLRAW,<Acc X>,<Acc Y>,<Acc Z>,<Gyro X>,<Gyro Y>,<Gyro Z>,<Mag X>,<Mag Y>,<Mag Z>*
 $PLMOT,<last commanded left thrust percentage>,<last commanded right thrust percentage>*
@@ -105,31 +99,42 @@ but the offset magnitudes should be somewhat similar in comparison.
 
 1. Accelerometer
    Use the calibrated_orientation sketch and uncomment the accelerometer
-   blocks to view the raw acceleration readings. Note the zero-rate
-   offsets to add to the sensor_calibration_write sketch. When not moving
+   blocks to view the raw acceleration readings. Enter the zero-rate
+   offsets in the sensor_calibration_write sketch. When not moving
    the X and Y values should be ~0 and the Z value should be ~9.8.
+   
+   Accelerometer offsets for my NXP board:
+   X: 0.05
+   Y: -0.52
+   Z: 0.25
 
 2. Gyroscope
    Use the calibrated_orientation sketch and uncomment the gyroscope
    block to view the raw gyroscope readings (make sure to use the rad/s
-   block). Also note that the sketch multiplies the gyroscopic rates by
-   100 to make them viewable on the plot. Note the zero-rate offsets to 
-   add to the sensor_calibration_write sketch. When not moving the values 
+   block). Note that the sketch multiplies the gyroscopic rates by
+   100 to make them viewable on the plot. Enter the zero-rate offsets
+   in the sensor_calibration_write sketch. When not moving the values 
    from all three axes should be ~0. 
+ 
+   Gyro offsets for my NXP board:
+   X: 0.01
+   Y: 0.0074
+   Z: 0.0189
 
 3. Magnetometer
-   Follow the instructions on this page:
-   https://learn.adafruit.com/how-to-fuse-motion-sensor-data-into-ahrs-orientation-euler-quaternions/magnetic-calibration-with-motioncal
+   The IMU is fixed relative to its surroundings on PEARL, so it is only
+   necessary to calibrate the magnetometer using hard-iron offsets. Also, 
+   because PEARL is relatively stable in the pitch and roll axes, only
+   the X and Y axes need to be calibrated. 
    
-   In Step 2, you can use the calibration sketch included in this folder
-   (the same sketch as the Adafruit_AHRS example)
-   
-   In Step 3, it is recommended to perform the calibration in the
-   environment that the sensor is actually going to be used. The Send Cal
-   button did not work for me so make sure to record the hard- and soft-
-   iron offsets to add to the sensor_calibration_write sketch. The 
-   matrix of soft-iron offsets in MotionCal maps to the indices in the
-   sensor_calibration_write sketch as follows:
-   [1 2 3
-    4 5 6
-    7 8 9]
+   -Run the sketch in Examples->Adafruit Sensor Lab->calibration->mag_hardiron_simplecal.
+   -Open the serial monitor.
+   -Rotate the board around the Z axis until the Field: X and Y values settle close to 
+    each other (with my board they settled around 20 uTesla). 
+   -The Hard offset: X, Y, and Z values are the hard iron offsets that get input
+    to the sensor_write_calibration sketch.
+    
+   Hard iron offsets for my NXP board:
+   X: 1.05
+   Y: -20.2
+   Z: -98.2
