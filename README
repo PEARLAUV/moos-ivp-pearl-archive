@@ -4,13 +4,28 @@
 # DESCRIPTION: Contains important information regarding the moos-ivp-pearl
 #              repository.
 ##############################################################################
-
 #=============================================================================
 # Introduction
 #=============================================================================
 The moos-ivp-pearl repository contains an interface for extending the MOOS-IvP
 autonomy system to work on the MIT PEARL autonomous platform. Implemented on 
 a Raspberry Pi 4B board running Raspbian OS.
+
+#=============================================================================
+# Directory Structure
+#=============================================================================
+The directory structure for the moos-ivp-extend is decribed below:
+
+bin              - Directory for generated executable files
+build.sh         - Script for building moos-ivp-extend
+CMakeLists.txt   - CMake configuration file for the project
+data             - Directory for storing data
+missions         - Directory for mission files
+README           - Contains helpful information - (this file).
+scripts          - Directory for script files, including front seat Arduino
+                   sketches and documentation
+src              - Directory for source code
+
 
 #=============================================================================
 # MOOS App 1: iGPS
@@ -51,23 +66,6 @@ produces the desired heading which is fed into pPearlPID.
 This app is a near direct copy of the pMarinePID controller app found in the
 baseline MOOS-IvP package. Modified to read desired heading from uSolarHeading
 app when PEARL is station-keeping.
-
-#=============================================================================
-# Directory Structure
-#=============================================================================
-The directory structure for the moos-ivp-extend is decribed below:
-
-bin              - Directory for generated executable files
-build            - Directory for build object files
-build.sh         - Script for building moos-ivp-extend
-CMakeLists.txt   - CMake configuration file for the project
-data             - Directory for storing data
-lib              - Directory for generated library files
-missions         - Directory for mission files
-README           - Contains helpful information - (this file).
-scripts          - Directory for script files, including front seat Arduino
-                   sketches and documentation
-src              - Directory for source code
 
 
 #=============================================================================
