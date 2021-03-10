@@ -94,8 +94,7 @@ Calibration Instructions
 #########################################################################
 
 The sensor_calibration_write sketch contains commented-out blocks with 
-the calibrations used for previous boards/IMUs. Obviously don't use these
-but the offset magnitudes should be somewhat similar in comparison.
+the calibrations used for previous boards/IMUs for comparison. 
 
 1. Accelerometer
    Use the calibrated_orientation sketch and uncomment the accelerometer
