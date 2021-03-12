@@ -8,9 +8,11 @@ the Madgwick filter for sensor fusion. Therefore the NXP_FXOS_FXAS.h
 header file and the Adafruit_Madgwick filter are uncommented in the 
 relevant sketches below.
 
-The following Arduino libraries are required:
+The following Arduino libraries are required (some of these libraries 
+have other library dependencies that will be installed at the same time):
 Adafruit Sensor Calibration
 Adafruit AHRS
+Adafruit Sensor Lab
 ArduinoBlue
 IBusBM
 
