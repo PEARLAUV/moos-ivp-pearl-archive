@@ -7,7 +7,7 @@ ProcessConfig = uSimMarine
   CommsTick = 10
 
   START_POS = $(START_POS), speed=0, heading=180
-  PREFIX    = USM
+  PREFIX    = NAV
   
   thrust_reflect = true
 }
