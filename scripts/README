@@ -12,8 +12,6 @@ The following Arduino libraries are required:
 Adafruit Sensor Calibration
 Adafruit AHRS
 ArduinoBlue
-Adafruit FXAS21002C
-Adafruit FXOS8700
 IBusBM
 
 #========================================================================
