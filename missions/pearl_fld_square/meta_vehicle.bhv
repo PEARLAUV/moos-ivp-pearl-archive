@@ -3,7 +3,6 @@
 initialize  DEPLOY               = false
 initialize  RETURN               = false
 initialize  STATION_KEEP         = false
-initialize  AUTONOMOUS_CONTROL   = false
 initialize  MOOS_MANUAL_OVERRIDE = true
 
 //-----------------------------------------
@@ -14,7 +13,6 @@ Behavior = BHV_StationKeep
   condition = DEPLOY=true
   condition = RETURN=false
   condition = STATION_KEEP=true
-  condition = AUTONOMOUS_CONTROL=true
   condition = MOOS_MANUAL_OVERRIDE=false
 
 	center_activate    = true
@@ -34,7 +32,6 @@ Behavior = BHV_Waypoint
   condition = DEPLOY=true
   condition = RETURN=false
   condition = STATION_KEEP=false
-  condition = AUTONOMOUS_CONTROL=true
   condition = MOOS_MANUAL_OVERRIDE=false
   endflag   = RETURN=true
   UPDATES   = WPT_UPDATE
@@ -66,7 +63,6 @@ Behavior = BHV_Waypoint
   condition = DEPLOY=true
   condition = RETURN=true
   condition = STATION_KEEP=false
-  condition = AUTONOMOUS_CONTROL=true
   condition = MOOS_MANUAL_OVERRIDE=false
   perpetual = true
   endflag   = RETURN=false

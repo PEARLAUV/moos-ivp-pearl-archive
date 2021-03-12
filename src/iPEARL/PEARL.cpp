@@ -457,13 +457,15 @@ bool PEARL::HandlePLIMU(string toParse)
       if (m_autonomous_control != m_manual_control_flag) {
         m_Comms.Notify("MOOS_MANUAL_OVERRIDE", "false");
         m_manual_control_flag = m_autonomous_control; }
-      m_Comms.Notify("AUTONOMOUS_CONTROL", "true"); }
+      //m_Comms.Notify("AUTONOMOUS_CONTROL", "true"); 
+      }
     else if (moValStr=="1") {
       m_autonomous_control = false;
       if (m_autonomous_control != m_manual_control_flag) {
         m_Comms.Notify("MOOS_MANUAL_OVERRIDE", "true");
         m_manual_control_flag = m_autonomous_control; }
-      m_Comms.Notify("AUTONOMOUS_CONTROL", "false"); }
+      //m_Comms.Notify("AUTONOMOUS_CONTROL", "false"); 
+      }
     else
       reportRunWarning("Manual override command from front seat not 0 (false) or 1 (true): " + moValStr);
     }
