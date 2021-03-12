@@ -7,5 +7,5 @@ ProcessConfig = pNodeReporter
   CommsTick   = 2
   
   platform_type = ship
-  platform_length = 3
+  platform_length = 2.2
 }

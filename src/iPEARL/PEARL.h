@@ -43,10 +43,9 @@ class PEARL : public AppCastingMOOSApp
    bool SetParam_BAUDRATE(std::string sVal);            //m_baudrate
    bool SetParam_PREFIX(std::string sVal);              //m_prefix
    bool SetParam_HEADING_OFFSET(std::string sVal);      //m_heading_offset
-   bool SetParam_PUBLISH_RAW(std::string sVal);         //m_pub_raw
    
    bool SetPublishNames();
-   void PublishIMUEuler(double dHeading, double dYaw, double dPitch, double dRoll);
+   void PublishIMUEuler(double dHeading, double dPitch, double dRoll);
    void PublishIMURaw(double dAccX, double dAccY, double dAccZ, double dGyroX, double dGyroY, double dGyroZ, double dMagX, double dMagY, double dMagZ);
 
    //NMEA Processing
@@ -61,14 +60,12 @@ class PEARL : public AppCastingMOOSApp
    int           m_baudrate;
    std::string   m_prefix;
    double        m_heading_offset;
-   bool          m_pub_raw;
    
    SerialComms*  m_serial;
    bool          m_bValidSerialConn;
 
    //Publish names
    std::string   m_pubNameHeading;
-   std::string   m_pubNameYaw;
    std::string   m_pubNamePitch;
    std::string   m_pubNameRoll;
    std::string   m_pubNameAccX;
@@ -82,7 +79,6 @@ class PEARL : public AppCastingMOOSApp
    std::string   m_pubNameMagZ;
    
    double        currHeading;
-   double        currYaw;
    double        currPitch;
    double        currRoll;
    double        currAccX;

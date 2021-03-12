@@ -52,7 +52,6 @@ ProcessConfig = uFldShoreBroker
 
   qbridge = DEPLOY, RETURN, STATION_KEEP, MOOS_MANUAL_OVERRIDE
   qbridge = STAR, PERIMETER, FIGURE_EIGHT
-  qbridge = WIND_GUSTS
   qbridge = NODE_REPORT, NODE_MESSAGE, APPCAST_REQ
 
   bridge  = src=REGION_INFO,  alias=REGION_INFO
@@ -94,7 +93,6 @@ ProcessConfig = pMarineViewer
   scope = STAR_ALL
   scope = PERIMETER_ALL
   scope = FIGURE_EIGHT_ALL
-  scope = WIND_GUSTS_ALL
   
   ACTION  = MENU_KEY=star-burst   # STAR_ALL=true  # PERIMETER_ALL=false
   ACTION+ = MENU_KEY=star-burst   # FIGURE_EIGHT_ALL=false
@@ -102,9 +100,6 @@ ProcessConfig = pMarineViewer
   ACTION+ = MENU_KEY=perimeter    # FIGURE_EIGHT_ALL=false
   ACTION  = MENU_KEY=figure-eight # STAR_ALL=false # PERIMETER_ALL=false
   ACTION+ = MENU_KEY=figure-eight # FIGURE_EIGHT_ALL=true
-  
-  ACTION   = WIND_GUSTS_ALL = true
-  ACTION+  = WIND_GUSTS_ALL = false
 
   BUTTON_ONE   = DEPLOY       # DEPLOY_ALL=true   # RETURN_ALL=false # STATION_KEEP_ALL=false # MOOS_MANUAL_OVERRIDE_ALL=false
   BUTTON_TWO   = RETURN       # DEPLOY_ALL=true   # RETURN_ALL=true  # STATION_KEEP_ALL=false # MOOS_MANUAL_OVERRIDE_ALL=false

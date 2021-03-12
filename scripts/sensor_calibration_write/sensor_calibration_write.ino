@@ -26,6 +26,32 @@ void setup() {
     Serial.println("Loaded existing calibration");
   }
 
+  // in uTesla
+  cal.mag_hardiron[0] = 2.85;
+  cal.mag_hardiron[1] = -29.00;
+  cal.mag_hardiron[2] = -92.00;
+
+  // in uTesla
+  cal.mag_softiron[0] = 1;
+  cal.mag_softiron[1] = 0;
+  cal.mag_softiron[2] = 0;  
+  cal.mag_softiron[3] = 0;
+  cal.mag_softiron[4] = 1;
+  cal.mag_softiron[5] = 0;  
+  cal.mag_softiron[6] = 0;
+  cal.mag_softiron[7] = 0;
+  cal.mag_softiron[8] = 1;  
+
+  // in Radians/s
+  cal.gyro_zerorate[0] = 0.01;
+  cal.gyro_zerorate[1] = 0.0074;
+  cal.gyro_zerorate[2] = 0.0189;
+
+  cal.accel_zerog[0] = 0.05;
+  cal.accel_zerog[1] = -0.52;
+  cal.accel_zerog[2] = 0.25;
+  
+
 
 //---------- Previous Calibrations -----------//
 //LSM9DS1 calibrations with Uno

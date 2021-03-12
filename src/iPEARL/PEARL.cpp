@@ -11,6 +11,7 @@
 #include "MBUtils.h"
 #include "AngleUtils.h"
 #include "PEARL.h"
+#include <cmath>
 
 using namespace std;
 
@@ -27,15 +28,13 @@ PEARL::PEARL()
   m_serial_port           = "/dev/ttyAMC0";
   m_baudrate              = 115200;
   m_prefix                = "IMU";
-  m_heading_offset        = 0.0;
-  m_pub_raw               = false;   
+  m_heading_offset        = 0.0;  
   
   m_serial                = NULL;
   m_bValidSerialConn      = false;
 
   //Publish names
   m_pubNameHeading        = "HEADING";
-  m_pubNameYaw            = "YAW";
   m_pubNamePitch          = "PITCH";
   m_pubNameRoll           = "ROLL";
   m_pubNameAccX           = "ACCX";
@@ -49,7 +48,6 @@ PEARL::PEARL()
   m_pubNameMagZ           = "MAGZ";
   
   currHeading             = 0.0;
-  currYaw                 = 0.0;
   currPitch               = 0.0;
   currRoll                = 0.0;
   currAccX                = 0.0;
@@ -155,7 +153,6 @@ bool PEARL::OnStartUp()
     else if (param == "BAUDRATE")        handled = SetParam_BAUDRATE(value);
     else if (param == "PREFIX")          handled = SetParam_PREFIX(value);
     else if (param == "HEADING_OFFSET")  handled = SetParam_HEADING_OFFSET(value);
-    else if (param == "PUBLISH_RAW")     handled = SetParam_PUBLISH_RAW(value);
     else
       reportUnhandledConfigWarning(orig); }
 
@@ -342,25 +339,6 @@ bool PEARL::SetParam_HEADING_OFFSET(std::string sVal)
     
 }
 
-bool PEARL::SetParam_PUBLISH_RAW(std::string sVal)
-{
-  sVal = removeWhite(sVal);
-  if (sVal.empty())
-    sVal = "blank";
-  stringstream ssMsg;
-  sVal = tolower(sVal);
-  if (sVal == "true" || sVal == "false")
-    m_pub_raw = (sVal == "true");
-  else {
-    ssMsg << "Param PUBLISH_RAW cannot be " << sVal << ". It must be TRUE or FALSE. Defaulting to FALSE.";
-    m_pub_raw = false; }
-  string msg = ssMsg.str();
-  if (!msg.empty())
-    reportConfigWarning(msg);
-  
-  return true;
-}
-
 bool PEARL::SetPublishNames()
 {
   m_prefix = toupper(m_prefix);
@@ -368,7 +346,6 @@ bool PEARL::SetPublishNames()
   if (strLen > 0 && m_prefix.at(strLen - 1) != '_')
     m_prefix += "_";
   m_pubNameHeading   = m_prefix + m_pubNameHeading;
-  m_pubNameYaw       = m_prefix + m_pubNameYaw;
   m_pubNamePitch     = m_prefix + m_pubNamePitch;
   m_pubNameRoll      = m_prefix + m_pubNameRoll;
   m_pubNameAccX      = m_prefix + m_pubNameAccX;
@@ -384,16 +361,12 @@ bool PEARL::SetPublishNames()
   return true;
 }
 
-void PEARL::PublishIMUEuler(double dHeading, double dYaw, double dPitch, double dRoll)
+void PEARL::PublishIMUEuler(double dHeading, double dPitch, double dRoll)
 {
   if (dHeading != BAD_DOUBLE)
-    m_Comms.Notify(m_pubNameHeading, dHeading);
+    m_Comms.Notify(m_pubNameHeading, round(dHeading));
   else
     reportRunWarning("Did not receive heading data.");
-  if (dYaw != BAD_DOUBLE)
-    m_Comms.Notify(m_pubNameYaw, dYaw);
-  else
-    reportRunWarning("Did not receive yaw data.");
   if (dPitch != BAD_DOUBLE)
     m_Comms.Notify(m_pubNamePitch, dPitch);
   else
@@ -433,9 +406,6 @@ bool PEARL::ParseNMEAString(string nmea)
   if (nmea.empty()) {
     reportRunWarning("Received empty data string from front seat.");
     return false; }
-    
-  if (m_pub_raw)
-    m_Comms.Notify("PEARL_RAW_NMEA", nmea);
     
   if (!(nmea.at(0) == '$')) {
       reportRunWarning("Line from front seat does not properly start with '$': " + nmea);
@@ -478,7 +448,6 @@ bool PEARL::HandlePLIMU(string toParse)
   string rValStr  = parts[4];
   
   double dHeading  = BAD_DOUBLE;
-  double dYaw      = BAD_DOUBLE;
   double dPitch    = BAD_DOUBLE;
   double dRoll     = BAD_DOUBLE;
   
@@ -501,13 +470,11 @@ bool PEARL::HandlePLIMU(string toParse)
   
   if (!yValStr.empty()) {
     dHeading = stod(yValStr) + m_heading_offset;
-    dYaw     = stod(yValStr);
     if (dHeading > 360.0)
       dHeading -= 360.0;
     if (dHeading < 0.0)
       dHeading += 360.0;
     currHeading = dHeading;
-    currYaw     = dYaw;
     }
   if (!pValStr.empty()) {
     dPitch = stod(pValStr);
@@ -518,7 +485,7 @@ bool PEARL::HandlePLIMU(string toParse)
     currRoll = dRoll;
     }
       
-  PublishIMUEuler(dHeading,dYaw,dPitch,dRoll);
+  PublishIMUEuler(dHeading,dPitch,dRoll);
   
   return true;
 }
@@ -640,7 +607,6 @@ bool PEARL::buildReport()
   string sCommL   = doubleToString(m_commanded_L, 1);
   string sCommR   = doubleToString(m_commanded_R, 1);
   string sHeading = doubleToString(currHeading, 1);
-  string sYaw     = doubleToString(currYaw, 1);
   string sPitch   = doubleToString(currPitch, 1);
   string sRoll    = doubleToString(currRoll, 1);
   string sLThr    = doubleToString(arduinoThrustLeft, 1);
@@ -693,7 +659,6 @@ bool PEARL::buildReport()
   m_msgs << "   DESIRED_THRUST count:          " << m_des_count_thrust << endl;
   m_msgs << "   DESIRED_RUDDER count:          " << m_des_count_rudder << endl;
   m_msgs << "   Heading:                       " << sHeading << endl;
-  m_msgs << "   Yaw:                           " << sYaw << endl;
   m_msgs << "   Pitch:                         " << sPitch << endl;
   m_msgs << "   Roll:                          " << sRoll << endl;
 //  m_msgs << "   AccX:                          " << accx << endl;

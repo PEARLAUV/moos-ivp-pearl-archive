@@ -21,8 +21,10 @@ void showSynopsis()
   blk("  Connects with the an Arduino on PEARL via a serial port. Receives NMEA    ");
   blk("  sentences from the Arduino that contain data from the onboard IMU,        ");
   blk("  parses the sentences, then publishes relevant MOOS messages.              ");
-  blk("  Sentences currently parsed:                                               ");
-  grn("   PLIMU: Roll, Pitch, Yaw   (custom NMEA sentence created on the Arduino)  ");
+  blk("  Sentences from Arduino currently parsed:                                  ");
+  grn("   PLIMU: Manual control flag, Heading, Pitch, Roll                         ");
+  grn("   PLRAW: Acc, Gyro, Mag measurements                                       ");
+  grn("   PLMOT: Left/right motor thrust percentage (reported for double-checking) ");
   blk("  Subscribes to desired heading and thrust messages published by pPearlPID, ");
   blk("  converts to necessary left and right thrust commands, and sends over USB  ");
   blk("  serial port to Arduino front seat.                                        ");
@@ -98,10 +100,8 @@ void showInterfaceAndExit()
   blk("PUBLICATIONS:    (NOTE: publication conditional on incoming nmea sentences) ");
   blk("------------------------------------                                        ");
   blk("[prefix]_HEADING   double  Measured yaw + heading offset (degrees)          ");
-  blk("[prefix]_YAW       double  Measured yaw (degrees)                           ");
   blk("[prefix]_PITCH     double  Measured pitch (degrees)                         ");
   blk("[prefix]_ROLL      double  Measured roll (degrees)                          ");
-  blk("PEARL_RAW_NMEA     string  Received NMEA sentences                          ");
   blk("                                                                            ");
   exit(0);
 }

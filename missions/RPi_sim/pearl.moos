@@ -103,10 +103,11 @@ ProcessConfig = pPearlPID
   depth_control = false
   
   SUN_TRACKING = false
+  HEADING_DEADBAND = 5
 
   // Yaw PID controller
   yaw_pid_kp		 = 0.4
-  yaw_pid_kd		 = 0.1
+  yaw_pid_kd		 = 0.0
   yaw_pid_ki		 = 0.0
   yaw_pid_integral_limit = 0.07
 
@@ -152,7 +153,6 @@ ProcessConfig = iPEARL
   BAUDRATE          = 115200
   PREFIX            = IMU
   HEADING_OFFSET    = 0.0
-  PUBLISH_RAW       = true
 }
 
 //-------------------
