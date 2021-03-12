@@ -115,6 +115,12 @@ class PEARL : public AppCastingMOOSApp
    bool          m_autonomous_control;
    bool          m_manual_control_flag;
    
+   double        m_direct_thrust_mode;
+   bool          m_direct_thrust_up;
+   bool          m_direct_thrust_down;
+   double        m_direct_L;
+   double        m_direct_R;
+   
    double        m_max_thrust;
    double        m_max_rudder;
    

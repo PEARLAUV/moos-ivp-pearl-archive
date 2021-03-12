@@ -82,6 +82,12 @@ PEARL::PEARL()
   m_autonomous_control    = false;
   m_manual_control_flag   = false;
   
+  m_direct_thrust_mode    = 0;
+  m_direct_thrust_up      = false;
+  m_direct_thrust_down    = false;
+  m_direct_L              = 0.0;
+  m_direct_R              = 0.0;
+  
   m_max_thrust            = 0.0;
   m_max_rudder            = 0.0;  
 
@@ -112,6 +118,16 @@ bool PEARL::OnNewMail(MOOSMSG_LIST &NewMail)
       if (dVal > 0.0) {
         m_des_count_rudder++; }
       m_des_rudder = dVal; }
+    else if (key == "DIRECT_THRUST_MODE") {
+      m_direct_thrust_mode = dVal; }
+    
+    else if (key == "DESIRED_THRUST_INCREASE") {
+      sVal = toupper(sVal);
+      m_direct_thrust_up = (sVal == "TRUE"); }
+      
+    else if (key == "DESIRED_THRUST_DECREASE") {
+      sVal = toupper(sVal);
+      m_direct_thrust_down = (sVal == "TRUE"); }
       
     else if (key == "CHG_MAX_THRUST") {
       m_max_thrust = dVal; }
@@ -127,8 +143,9 @@ void PEARL::RegisterForMOOSMessages()
   AppCastingMOOSApp::RegisterVariables();
   Register("DESIRED_THRUST");
   Register("DESIRED_RUDDER");
-  Register("DESIRED_THRUST_L");
-  Register("DESIRED_THRUST_R");
+  Register("DIRECT_THRUST_MODE");
+  Register("DESIRED_THRUST_DECREASE");
+  Register("DESIRED_THRUST_INCREASE");
   Register("IVPHELM_ALLSTOP");
   Register("CHG_MAX_THRUST");
   Register("CHG_MAX_RUDDER");
@@ -224,17 +241,49 @@ bool PEARL::SendToFront()
   ThrustRudderToLR();
   
   string message = "$";
-  m_commanded_L = m_des_L;
-  m_commanded_R = m_des_R;
-  message += "PICOM,";
-  message += doubleToString(m_des_L);
-  message += ",";
-  message += doubleToString(m_des_R);
-  message += "*";
+  
+  if (m_direct_thrust_mode == 0) {
+    m_direct_L = 0;
+    m_direct_R = 0; }
+  else if (m_direct_thrust_mode == 1) {
+    m_direct_L += 10; }
+  else if (m_direct_thrust_mode == 2) {
+    m_direct_R += 10; }
+  else if (m_direct_thrust_mode == 3) {
+    m_direct_L += 10;
+    m_direct_R += 10; }
+  else if (m_direct_thrust_mode == 4) {
+    m_direct_L += 10;
+    m_direct_R -= 10; }
+  else if (m_direct_thrust_mode == 5) {
+    m_direct_L -= 10;
+    m_direct_R += 10; }
+  
+  if (m_direct_thrust_mode > 0 ) {
+    m_direct_L = clamp(m_direct_L, 0, 100);
+    m_direct_R = clamp(m_direct_R, 0, 100);    
+    m_commanded_L = m_direct_L;
+    m_commanded_R = m_direct_R;
+    message += "PICOM,";
+    message += doubleToString(m_direct_L);
+    message += ",";
+    message += doubleToString(m_direct_R);
+    message += "*"; }
+  else {
+    m_commanded_L = m_des_L;
+    m_commanded_R = m_des_R;
+    message += "PICOM,";
+    message += doubleToString(m_des_L);
+    message += ",";
+    message += doubleToString(m_des_R);
+    message += "*"; }
   
   m_last_msg_to_front = message;
   
   m_serial->WriteToSerialPort(message);
+  
+  m_Comms.Notify("DIRECT_THRUST_INCREASE", "false");
+  m_Comms.Notify("DIRECT_THRUST_DECREASE", "false");
   
   return true;
 }
@@ -647,6 +696,10 @@ bool PEARL::buildReport()
   else if (!m_autonomous_control) {
     m_msgs << "--- AUTONOMOUS CONTROL NOT ENGAGED ---" << endl;
     m_msgs << endl; }
+  if (m_direct_thrust_mode == 1.0) {
+    m_msgs << "--- DIRECT THRUST MODE ENGAGED ---" << endl;
+    m_msgs << "Left motor thrust:  " << sCommL << endl;
+    m_msgs << "Right motor thrust: " << sCommR << endl; }
   
   m_msgs << "iPEARL Variables" << endl << "---------------------------------" << endl;
   m_msgs << "   Requested rudder, thrust:      " << sDesRud << ", " << sDesThr << endl;
