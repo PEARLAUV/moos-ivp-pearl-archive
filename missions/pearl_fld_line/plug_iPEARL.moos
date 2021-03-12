@@ -10,5 +10,4 @@ ProcessConfig = iPEARL
   BAUDRATE       = 115200
   PREFIX         = IMU
   HEADING_OFFSET = 0.0
-  PUBLISH_RAW    = true
 }

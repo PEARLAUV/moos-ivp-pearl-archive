@@ -6,7 +6,7 @@ ProcessConfig = uSunTracking
   AppTick     = 10
   CommsTick   = 10
 
-  PREFIX          = SOLAR
+  PREFIX              = SOLAR
   SUN_HEADING_OFFSET  = 0.0
-  PUBLISH_ANGLES  = true
+  PUBLISH_ANGLES      = true
 }

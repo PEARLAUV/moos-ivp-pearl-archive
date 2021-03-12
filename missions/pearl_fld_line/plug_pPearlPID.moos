@@ -14,13 +14,13 @@ ProcessConfig = pPearlPID
   HEADING_DEADBAND = 5
   
   // Yaw PID controller
-  YAW_PID_KP             = 0.2
+  YAW_PID_KP             = 1.0
   YAW_PID_KD             = 0.0
   YAW_PID_KI             = 0.0
   YAW_PID_INTEGRAL_LIMIT = 0.07
   
   // Speed PID controller
-  SPEED_PID_KP           = 0.2
+  SPEED_PID_KP           = 1.0
   SPEED_PID_KD           = 0.0
   SPEED_PID_KI           = 0.0
   SPEED_PID_INTEGRAL_LIMIT = 0.07

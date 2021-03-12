@@ -85,6 +85,7 @@ ProcessConfig = pMarineViewer
   stale_remove_thresh = 30
 
   scope = PHI_HOST_INFO
+  scope = DEPLOY
   scope = DEPLOY_ALL
   scope = RETURN_ALL
   scope = STATION_KEEP_ALL

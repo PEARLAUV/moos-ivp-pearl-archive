@@ -13,8 +13,8 @@ ProcessConfig = iGPS
   HEADING_SOURCE    = none
   HEADING_OFFSET    = 0.0
   
-  PUBLISH_HDOP         = true
-  PUBLISH_RAW          = true
+  PUBLISH_HDOP      = true
+  PUBLISH_RAW       = true
   
-  TRIGGER_MSG          = GPGGA
+  TRIGGER_MSG       = GPGGA
 }
