@@ -90,7 +90,6 @@ PEARL::PEARL()
   
   m_max_thrust            = 0.0;
   m_max_rudder            = 0.0;  
-
 }
 
 bool PEARL::OnNewMail(MOOSMSG_LIST &NewMail)
@@ -118,16 +117,15 @@ bool PEARL::OnNewMail(MOOSMSG_LIST &NewMail)
       if (dVal > 0.0) {
         m_des_count_rudder++; }
       m_des_rudder = dVal; }
+      
     else if (key == "DIRECT_THRUST_MODE") {
       m_direct_thrust_mode = dVal; }
     
-    else if (key == "DESIRED_THRUST_INCREASE") {
-      sVal = toupper(sVal);
-      m_direct_thrust_up = (sVal == "TRUE"); }
-      
-    else if (key == "DESIRED_THRUST_DECREASE") {
-      sVal = toupper(sVal);
-      m_direct_thrust_down = (sVal == "TRUE"); }
+    else if (key == "DIRECT_THRUST_INCREASE") {
+      m_direct_thrust_up = (toupper(sVal) == "TRUE"); }
+    
+    else if (key == "DIRECT_THRUST_DECREASE") {
+      m_direct_thrust_down = (toupper(sVal) == "TRUE"); }
       
     else if (key == "CHG_MAX_THRUST") {
       m_max_thrust = dVal; }
@@ -144,8 +142,8 @@ void PEARL::RegisterForMOOSMessages()
   Register("DESIRED_THRUST");
   Register("DESIRED_RUDDER");
   Register("DIRECT_THRUST_MODE");
-  Register("DESIRED_THRUST_DECREASE");
-  Register("DESIRED_THRUST_INCREASE");
+  Register("DIRECT_THRUST_DECREASE");
+  Register("DIRECT_THRUST_INCREASE");
   Register("IVPHELM_ALLSTOP");
   Register("CHG_MAX_THRUST");
   Register("CHG_MAX_RUDDER");
@@ -246,22 +244,37 @@ bool PEARL::SendToFront()
     m_direct_L = 0;
     m_direct_R = 0; }
   else if (m_direct_thrust_mode == 1) {
-    m_direct_L += 10; }
+    if (m_direct_thrust_up)
+      m_direct_L += 10;
+    else if (m_direct_thrust_down)
+      m_direct_L -= 10;
+    }
   else if (m_direct_thrust_mode == 2) {
-    m_direct_R += 10; }
+    if (m_direct_thrust_up)
+      m_direct_R += 10;
+    else if (m_direct_thrust_down)
+      m_direct_R -= 10;
+    }
   else if (m_direct_thrust_mode == 3) {
-    m_direct_L += 10;
-    m_direct_R += 10; }
+    if (m_direct_thrust_up) {
+      m_direct_L += 10;
+      m_direct_R += 10; }
+    else if (m_direct_thrust_down) {
+      m_direct_L -= 10;
+      m_direct_R -= 10; }
+    }
   else if (m_direct_thrust_mode == 4) {
-    m_direct_L += 10;
-    m_direct_R -= 10; }
-  else if (m_direct_thrust_mode == 5) {
-    m_direct_L -= 10;
-    m_direct_R += 10; }
+    if (m_direct_thrust_up) {
+      m_direct_L += 10;
+      m_direct_R -= 10; }
+    else if (m_direct_thrust_down) {
+      m_direct_L -= 10;
+      m_direct_R += 10; }
+    }
   
   if (m_direct_thrust_mode > 0 ) {
-    m_direct_L = clamp(m_direct_L, 0, 100);
-    m_direct_R = clamp(m_direct_R, 0, 100);    
+    m_direct_L = clamp(m_direct_L, -100, 100);
+    m_direct_R = clamp(m_direct_R, -100, 100);    
     m_commanded_L = m_direct_L;
     m_commanded_R = m_direct_R;
     message += "PICOM,";
@@ -674,48 +687,60 @@ bool PEARL::buildReport()
 //  string magz     = doubleToString(currMagZ, 2);
   
   m_msgs << endl << "SETUP" << endl << "-----" << endl;
-  m_msgs << "     PORT (BAUDRATE):         " << m_serial_port << "(" << m_baudrate << ")" << endl;
+  m_msgs << "     PORT (BAUDRATE):         " << m_serial_port << " (" << m_baudrate << ")" << endl;
   m_msgs << "     Publish PREFIX:          " << m_prefix << endl;
   m_msgs << "     HEADING OFFSET:          " << sOffset << endl;
-  m_msgs << endl;
-  
-  m_msgs << "PARAMETERS FROM CHARGE CONTROLLER" << endl << "---------------------------------" << endl;
   m_msgs << "     MAX RUDDER:           +/-" << sMaxRud << endl;
   m_msgs << "     MAX THRUST:           +/-" << sMaxThr << "%" << endl;
   m_msgs << endl;
   
   if (m_ivpALLSTOP) {
-    m_msgs << "--- IVPHELM ALLSTOP ENGAGED ---" << endl; 
+    m_msgs << "--- IVPHELM ALLSTOP ON     ---" << endl; 
     m_msgs << endl; }
   else if (!m_ivpALLSTOP) {
-    m_msgs << "--- IVPHELM ALLSTOP NOT ENGAGED ---" << endl; 
+    m_msgs << "--- IVPHELM ALLSTOP OFF    ---" << endl; 
     m_msgs << endl; }
   if (m_autonomous_control) {
-    m_msgs << "--- AUTONOMOUS CONTROL ENGAGED ---" << endl;
+    m_msgs << "--- MANUAL CONTROL OFF     ---" << endl;
     m_msgs << endl; }
   else if (!m_autonomous_control) {
-    m_msgs << "--- AUTONOMOUS CONTROL NOT ENGAGED ---" << endl;
+    m_msgs << "--- MANUAL CONTROL ON      ---" << endl;
     m_msgs << endl; }
-  if (m_direct_thrust_mode == 1.0) {
-    m_msgs << "--- DIRECT THRUST MODE ENGAGED ---" << endl;
-    m_msgs << "Left motor thrust:  " << sCommL << endl;
-    m_msgs << "Right motor thrust: " << sCommR << endl; }
+  if (m_direct_thrust_mode != 0) {
+    m_msgs << "--- DIRECT THRUST MODE ON  ---";
+    switch((int)m_direct_thrust_mode) {
+      case 1 :
+      m_msgs << "  LEFT MOTOR ONLY" << endl;
+      break;
+      case 2 :
+      m_msgs << "  RIGHT MOTOR ONLY" << endl;
+      break;
+      case 3 :
+      m_msgs << "  BOTH MOTORS" << endl;
+      break;
+      case 4 :
+      m_msgs << "  ROTATE (+ is CLOCKWISE/- is COUNTERCLOCKWISE)" << endl;
+      break; } 
+      m_msgs << endl; }
+  else if (m_direct_thrust_mode == 0) {
+    m_msgs << "--- DIRECT THRUST MODE OFF ---" << endl;
+    m_msgs << endl; }
   
-  m_msgs << "iPEARL Variables" << endl << "---------------------------------" << endl;
-  m_msgs << "   Requested rudder, thrust:      " << sDesRud << ", " << sDesThr << endl;
+  m_msgs << "Frontseat Variables" << endl << "-------------------" << endl;
   m_msgs << "   Commanded to motors L, R:      " << sCommL << ", " << sCommR << endl;
   m_msgs << "   Reported thrust L, R:          " << sLThr << ", " << sRThr << endl;
+  m_msgs << endl;
+  m_msgs << "   Requested rudder, thrust:      " << sDesRud << ", " << sDesThr << endl;
+  m_msgs << "   Heading:                       " << sHeading << endl;
+  m_msgs << "   Pitch:                         " << sPitch << endl;
+  m_msgs << "   Roll:                          " << sRoll << endl;
+  m_msgs << endl;
   m_msgs << "   Messages from front seat:      " << m_msgs_from_front << endl;
   m_msgs << "   Messages to front seat:        " << m_msgs_to_front << endl;
   m_msgs << "   Last PLIMU message from front: " << m_last_PLIMU_from_front << endl;
   m_msgs << "   Last PLRAW message from front: " << m_last_PLRAW_from_front << endl;
   m_msgs << "   Last PLMOT message from front: " << m_last_PLMOT_from_front << endl;
   m_msgs << "   Last message to front seat:    " << m_last_msg_to_front << endl;
-  m_msgs << "   DESIRED_THRUST count:          " << m_des_count_thrust << endl;
-  m_msgs << "   DESIRED_RUDDER count:          " << m_des_count_rudder << endl;
-  m_msgs << "   Heading:                       " << sHeading << endl;
-  m_msgs << "   Pitch:                         " << sPitch << endl;
-  m_msgs << "   Roll:                          " << sRoll << endl;
 //  m_msgs << "   AccX:                          " << accx << endl;
 //  m_msgs << "   AccY:                          " << accy << endl;
 //  m_msgs << "   AccZ:                          " << accz << endl;

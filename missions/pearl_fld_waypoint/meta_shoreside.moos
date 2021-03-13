@@ -50,7 +50,7 @@ ProcessConfig = uFldShoreBroker
   AppTick   = 1
   CommsTick = 1
 
-  qbridge = DEPLOY, RETURN, STATION_KEEP, MOOS_MANUAL_OVERRIDE
+  qbridge = DEPLOY, RETURN, STATION_KEEP
   qbridge = STAR, PERIMETER, FIGURE_EIGHT
   qbridge = NODE_REPORT, NODE_MESSAGE, APPCAST_REQ
 
@@ -88,8 +88,7 @@ ProcessConfig = pMarineViewer
   scope = DEPLOY_ALL
   scope = RETURN_ALL
   scope = STATION_KEEP_ALL
-  scope = MOOS_MANUAL_OVERRIDE_ALL
-  scope = AUTONOMOUS_CONTROL
+  scope = MOOS_MANUAL_OVERRIDE
   scope = STAR_ALL
   scope = PERIMETER_ALL
   scope = FIGURE_EIGHT_ALL
@@ -101,10 +100,10 @@ ProcessConfig = pMarineViewer
   ACTION  = MENU_KEY=figure-eight # STAR_ALL=false # PERIMETER_ALL=false
   ACTION+ = MENU_KEY=figure-eight # FIGURE_EIGHT_ALL=true
 
-  BUTTON_ONE   = DEPLOY       # DEPLOY_ALL=true   # RETURN_ALL=false # STATION_KEEP_ALL=false # MOOS_MANUAL_OVERRIDE_ALL=false
-  BUTTON_TWO   = RETURN       # DEPLOY_ALL=true   # RETURN_ALL=true  # STATION_KEEP_ALL=false # MOOS_MANUAL_OVERRIDE_ALL=false
-  BUTTON_THREE = STATION-KEEP # DEPLOY_ALL=true   # RETURN_ALL=false # STATION_KEEP_ALL=true  # MOOS_MANUAL_OVERRIDE_ALL=false
-  BUTTON_FOUR  = ALLSTOP      # DEPLOY_ALL=false  # RETURN_ALL=false # STATION_KEEP_ALL=false # MOOS_MANUAL_OVERRIDE_ALL=true
+  BUTTON_ONE   = DEPLOY       # DEPLOY_ALL=true   # RETURN_ALL=false # STATION_KEEP_ALL=false
+  BUTTON_TWO   = RETURN       # DEPLOY_ALL=true   # RETURN_ALL=true  # STATION_KEEP_ALL=false
+  BUTTON_THREE = STATION-KEEP # DEPLOY_ALL=true   # RETURN_ALL=false # STATION_KEEP_ALL=true
+  BUTTON_FOUR  = ALLSTOP      # DEPLOY_ALL=false  # RETURN_ALL=false # STATION_KEEP_ALL=false
   
   //left_context[view_point]  = VIEW_POINT = x=$(XPOS),y=$(YPOS),label=hello
 }

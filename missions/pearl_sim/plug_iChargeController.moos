@@ -10,6 +10,6 @@ ProcessConfig = iChargeController
   BAUDRATE       = 115200
   PREFIX         = CHG
   READ_DATA      = false
-  MAX_THRUST     = 80.0
-  MAX_RUDDER     = 40.0
+  MAX_THRUST     = 100.0
+  MAX_RUDDER     = 50.0
 }
