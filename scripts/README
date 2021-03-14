@@ -74,7 +74,7 @@ NMEA sentence from RPi:
 $PICOM,<desired left motor thrust percentage>,<desired right motor thrust percentage>*
 
 #========================================================================
-# PEARL_frontseat_manual
+# PEARL_frontseat
 #========================================================================
 Script to be used on PEARL platform during operation, with both RC and 
 bluetooth manual control implemented. Also setup to write commands to 
