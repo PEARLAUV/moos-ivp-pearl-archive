@@ -110,10 +110,11 @@ the calibrations used for previous boards/IMUs for comparison.
 2. Gyroscope
    Use the calibrated_orientation sketch and uncomment the gyroscope
    block to view the raw gyroscope readings (make sure to use the rad/s
-   block). Note that the sketch multiplies the gyroscopic rates by
-   100 to make them viewable on the plot. Enter the zero-rate offsets
-   in the sensor_calibration_write sketch. When not moving the values 
-   from all three axes should be ~0. 
+   block). Enter the zero-rate offsets in the sensor_calibration_write
+   sketch. When not moving the values from all three axes should be ~0. 
+   ***Note that the sketch multiplies the gyroscopic rates by
+   100 to make them viewable on the serial plotter within the Arduino
+   IDE, so divide the offsets by 100 before using them***. 
  
    Gyro offsets for my NXP board:
    X: 0.01
