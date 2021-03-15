@@ -5,12 +5,12 @@
 bool TEST_MODE = true;
 
 //Pin assignments
-int rightForwardLED = 8;
-int leftForwardLED = 9;
-int rightBackwardLED = 10;
-int leftBackwardLED = 11;
-int leftMotorPin = 12;
-int rightMotorPin = 13;
+int rightForwardLED = 10;
+int leftForwardLED = 11;
+int rightBackwardLED = 12;
+int leftBackwardLED = 13;
+int leftMotorPin = 8;
+int rightMotorPin = 9;
 /*--------------------*/
 
 #include <Wire.h>
@@ -266,39 +266,39 @@ void loop(void)
   if (curLeft > 190) {
     leftSend = mapFloat(float(curLeft), 191.0, 254.0, 0.0, 100.0);
     if (TEST_MODE) {
-      analogWrite(9, map(curLeft,191,254,0,255));
-      analogWrite(11, 0); }
+      analogWrite(leftForwardLED, map(curLeft,191,254,0,255));
+      analogWrite(leftBackwardLED, 0); }
   }
   else if (curLeft < 186) {
     leftSend = mapFloat(float(curLeft), 120.0, 185.0, -100.0, 0.0);
     if (TEST_MODE) {
-      analogWrite(11, map(curLeft,185,120,0,255));
-      analogWrite(9, 0); }
+      analogWrite(leftBackwardLED, map(curLeft,185,120,0,255));
+      analogWrite(leftForwardLED, 0); }
   }
   else {
     leftSend = 0.0;
     if (TEST_MODE) {
-      analogWrite(9, 0);
-      analogWrite(11, 0); }
+      analogWrite(leftForwardLED, 0);
+      analogWrite(leftBackwardLED, 0); }
   }
   // Map right thrust value to PWM
   if (curRight > 190) {
     rightSend = mapFloat(float(curRight), 191.0, 254.0, 0.0, 100.0);
     if (TEST_MODE) {
-      analogWrite(8, map(curRight,191,254,0,255));
-      analogWrite(10, 0); }
+      analogWrite(rightForwardLED, map(curRight,191,254,0,255));
+      analogWrite(rightBackwardLED, 0); }
   }
   else if (curRight < 186) {
     rightSend = mapFloat(float(curRight), 120.0, 185.0, -100.0, 0.0);
     if (TEST_MODE) {
-      analogWrite(10, map(curRight,185,120,0,255));
-      analogWrite(8, 0); }
+      analogWrite(rightBackwardLED, map(curRight,185,120,0,255));
+      analogWrite(rightForwardLED, 0); }
   }
   else {
     rightSend = 0.0;
     if (TEST_MODE) {
-      analogWrite(8, 0);
-      analogWrite(10, 0); }
+      analogWrite(rightForwardLED, 0);
+      analogWrite(rightBackwardLED, 0); }
   }
 
   // only print the calculated output once in a while
@@ -311,19 +311,20 @@ void loop(void)
   //Euler angle NMEA string
   String PAYLOAD_EULER = String(manualControl) + "," + String(heading) + "," + String(pitch) + "," + String(roll);  
   String NMEA_EULER = generateNMEAString(PAYLOAD_EULER, PREFIX, ID_EULER);
-  Serial.println(NMEA_EULER);
+//  Serial.println(NMEA_EULER);
 
   //Raw IMU data NMEA string
   String PAYLOAD_RAW = String(ax) + "," + String(ay) + "," + String(az) + "," + 
                        String(gx) + "," + String(gy) + "," + String(gz) + "," + 
                        String(mx) + "," + String(my) + "," + String(mz);
   String NMEA_RAW = generateNMEAString(PAYLOAD_RAW, PREFIX, ID_RAW);
-  Serial.println(NMEA_RAW);
+//  Serial.println(NMEA_RAW);
 
   //Last motor commands NMEA string
   String PAYLOAD_MOTOR = String(leftSend) + "," + String(rightSend);
   String NMEA_MOTOR = generateNMEAString(PAYLOAD_MOTOR, PREFIX, ID_MOTOR);
   Serial.println(NMEA_MOTOR);
+//  Serial.print(String(curLeft));Serial.print("\t");Serial.println(String(curRight));
 
 }
 
