@@ -19,13 +19,12 @@ ProcessConfig = ANTLER
 
   Run = MOOSDB          @ NewConsole = false
   //Run = pLogger         @ NewConsole = false
-  Run = uSimMarine	    @ NewConsole = false
+  Run = uSimMarine	@ NewConsole = false
   Run = pMarinePID      @ NewConsole = false
   Run = pHelmIvP        @ NewConsole = false
-  Run = pMarineViewer	  @ NewConsole = true
-  Run = uProcessWatch	  @ NewConsole = false
-  Run = pNodeReporter	  @ NewConsole = false
-  Run = uTimerScript    @ NewConsole = false
+  Run = pMarineViewer	@ NewConsole = true
+  Run = uProcessWatch	@ NewConsole = false
+  Run = pNodeReporter	@ NewConsole = false
 }                               
 
 //------------------------------------------
@@ -102,7 +101,7 @@ ProcessConfig = pMarinePID
 
   // Yaw PID controller
   yaw_pid_kp		 = 0.4
-  yaw_pid_kd		 = 0.1
+  yaw_pid_kd		 = 0.0
   yaw_pid_ki		 = 0.0
   yaw_pid_integral_limit = 0.07
 
@@ -118,7 +117,7 @@ ProcessConfig = pMarinePID
 
   // A non-zero SPEED_FACTOR overrides use of SPEED_PID
   // Will set DESIRED_THRUST = DESIRED_SPEED * SPEED_FACTOR
-  speed_factor = 20
+  speed_factor = 0
 }
 
 //------------------------------------------
@@ -143,14 +142,12 @@ ProcessConfig = pMarineViewer
 	procs_font_size      = large
 	nodes_font_size      = xlarge
   
-  ACTION = MENU_KEY=star-burst # STAR=true  
-  ACTION = MENU_KEY=star-burst # PERIMETER=false 
-  ACTION = MENU_KEY=star-burst # FIGURE_EIGHT=false
-  ACTION = MENU_KEY=perimeter    # STAR=false # PERIMETER=true  # FIGURE_EIGHT=false
-  ACTION = MENU_KEY=figure-eight # STAR=false # PERIMETER=false # FIGURE_EIGHT=true
-  
-  ACTION   = WIND_GUSTS = true
-  ACTION+  = WIND_GUSTS = false
+  ACTION  = MENU_KEY=star-burst   # STAR=true  # PERIMETER=false
+  ACTION+ = MENU_KEY=star-burst   # FIGURE_EIGHT=false
+  ACTION  = MENU_KEY=perimeter    # STAR=false # PERIMETER=true
+  ACTION+ = MENU_KEY=perimeter    # FIGURE_EIGHT=false
+  ACTION  = MENU_KEY=figure-eight # STAR=false # PERIMETER=false
+  ACTION+ = MENU_KEY=figure-eight # FIGURE_EIGHT=true
   
   BUTTON_ONE   = DEPLOY       # DEPLOY=true   # RETURN=false # STATION_KEEP=false # MOOS_MANUAL_OVERRIDE=false
   BUTTON_TWO   = RETURN       # DEPLOY=true   # RETURN=true  # STATION_KEEP=false # MOOS_MANUAL_OVERRIDE=false
