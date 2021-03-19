@@ -133,8 +133,8 @@ void setup(void)
   }
   
   /*------Setup for front seat comms--------*/
-  Serial.begin(115200);
-  while (!Serial) {
+  Serial3.begin(115200);
+  while (!Serial3) {
     delay(1);   
   }
 
@@ -298,19 +298,19 @@ void loop(void)
   //Euler angle NMEA string
   String PAYLOAD_EULER = String(manualControl) + "," + String(heading) + "," + String(pitch) + "," + String(roll);  
   String NMEA_EULER = generateNMEAString(PAYLOAD_EULER, PREFIX, ID_EULER);
-  Serial.println(NMEA_EULER);
+  Serial3.println(NMEA_EULER);
 
   //Raw IMU data NMEA string
   String PAYLOAD_RAW = String(ax) + "," + String(ay) + "," + String(az) + "," + 
                        String(gx) + "," + String(gy) + "," + String(gz) + "," + 
                        String(mx) + "," + String(my) + "," + String(mz);
   String NMEA_RAW = generateNMEAString(PAYLOAD_RAW, PREFIX, ID_RAW);
-  Serial.println(NMEA_RAW);
+  Serial3.println(NMEA_RAW);
 
   //Last motor commands NMEA string
   String PAYLOAD_MOTOR = String(leftSend) + "," + String(rightSend);
   String NMEA_MOTOR = generateNMEAString(PAYLOAD_MOTOR, PREFIX, ID_MOTOR);
-  Serial.println(NMEA_MOTOR);
+  Serial3.println(NMEA_MOTOR);
 
 //  Serial.print(rotateVal); Serial.print("\t");
 //  Serial.print(BLUETOOTH); Serial.print("\t");
@@ -336,8 +336,8 @@ void recvWithStartEndMarkers() {
     char endMarker = '*';
     char rc;
  
-    while (Serial.available() > 0 && newData == false) {
-        rc = Serial.read();
+    while (Serial3.available() > 0 && newData == false) {
+        rc = Serial3.read();
 
         if (recvInProgress == true) {
             if (rc != endMarker) {

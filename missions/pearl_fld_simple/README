@@ -1,5 +1,11 @@
-Single vehicle mission designed to be a 'hardware-in-the-loop' simulation. 
-Utilizes shoreside-vehicle communication structure, with the simulator running onboard the Raspberry Pi.
+Single vehicle mission to be used on PEARL in the field. Has the following 2 capabilities:
+-A waypoint mission with a single waypoint. Used for commanding PEARL to move in a straight
+ line. DEPLOY commands PEARL to move to the waypoint, and RETURN commands her back to the
+ starting point.
+
+-Manual motor thrust control. Pressing spacebar in pMarineViewer brings up a menu that allows
+ you to increment the thrust on each motor up or down by 10%. Each motor can be commanded
+ individually, both at the same time, or both in the opposite directions. 
 
 Launch instructions:
 
