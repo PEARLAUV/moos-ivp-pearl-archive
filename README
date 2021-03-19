@@ -67,9 +67,33 @@ This app is a near direct copy of the pMarinePID controller app found in the
 baseline MOOS-IvP package. Modified to read desired heading from uSolarHeading
 app when PEARL is station-keeping.
 
+#=============================================================================
+# Installation Instructions -- for MacOS
+#=============================================================================
+#--------------------
+# moos-ivp setup
+#--------------------
+To set up MOOS-IvP, execute the following from the terminal:
+
+	$ cd ~
+	$ sudo port install cmake
+	$ sudo port install subversion
+	$ sudo port install wget
+	$ sudo port install tiff
+	$ sudo port install fltk-devel
+	$ svn co https://oceanai.mit.edu/svn/moos-ivp-aro/trunk/ moos-ivp
+	$ cd ~/moos-ivp/
+	$ svn update
+	$ ./build-moos.sh
+	$ ./build-ivp.sh
+	Add this line to the end of the .bashrc file: 
+	export PATH=$PATH:~/moos-ivp/bin
+	$ source ~/.bashrc
+	
+Setup guide from 2.680 labs: https://oceanai.mit.edu/ivpman/pmwiki/pmwiki.php?n=Lab.ClassSetup
 
 #=============================================================================
-# Installation Instructions -- Linux Users
+# Installation Instructions -- for Linux
 #=============================================================================
 #--------------------
 # moos-ivp setup
@@ -86,12 +110,13 @@ To set up MOOS-IvP, execute the following from the terminal:
 	$ cd ~/moos-ivp/
 	$ ./build-moos.sh
 	$ ./build-ivp.sh
-	$ echo 'export PATH=$PATH:~/moos-ivp/bin'  >> ~/.bashrc
+	Add this line to the end of the .bashrc file: 
+	export PATH=$PATH:~/moos-ivp/bin
 	$ source ~/.bashrc
 
-#------------------------------------
-# moos-ivp-pearl extension setup
-#------------------------------------
+#----------------------------------------------------------------
+# moos-ivp-pearl extension setup -- same for MacOS and Linux
+#----------------------------------------------------------------
 Next, to set up the moos-ivp-pearl extension, execute the following from the terminal:
 
 	$ cd ~
@@ -100,7 +125,8 @@ Next, to set up the moos-ivp-pearl extension, execute the following from the ter
 	$ mkdir build
 	$ mkdir lib
 	$ ./build.sh
-	$ echo 'export PATH=$PATH:~/moos-ivp-pearl/bin'  >> ~/.bashrc
+	Add this line to the end of the .bashrc file: 
+	export PATH=$PATH:~/moos-ivp-pearl/bin
 	$ source ~/.bashrc
 
 #=============================================================================
