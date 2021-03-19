@@ -90,6 +90,8 @@ To set up MOOS-IvP, execute the following from the terminal:
 	export PATH=$PATH:~/moos-ivp/bin
 	$ source ~/.bashrc
 	
+	Follow the moos-ivp-pearl installation instructions below.
+	
 Setup guide from 2.680 labs: https://oceanai.mit.edu/ivpman/pmwiki/pmwiki.php?n=Lab.ClassSetup
 
 #=============================================================================
