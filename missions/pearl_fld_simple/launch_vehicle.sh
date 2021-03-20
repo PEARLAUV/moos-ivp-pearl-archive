@@ -13,8 +13,8 @@ VNAME="pearl"
 REGION="deep_pond"
 START_POS="0,0"  
 
-PEARL_IP="192.168.0.103"  #IP address of the RPi on PEARL
-SHORE_IP="192.168.0.102"  #IP address of the shoreside laptop
+PEARL_IP="192.168.20.137"  #IP address of the RPi on PEARL
+SHORE_IP="192.168.20.158"  #IP address of the shoreside laptop
 VEHICLE_PORT="9001"
 VEHICLE_LISTEN="9301"
 SHORE_LISTEN="9300"
@@ -32,8 +32,8 @@ for ARGI; do
 	echo "  --vname=VNAME     Vehicle name (Default is 'pearl')  "
 	echo "  --deep_pond       Set region to be Deep Pond (Default is Deep Pond)"
 	echo "  --startpos=X,Y    (Default is 0,0)                   "
-	echo "  --ip=<addr>       (Default is 192.168.0.103)         "
-	echo "  --shore=<addr>    (Default is 192.168.0.102)         "
+	echo "  --ip=<addr>       (Default is 192.168.20.137)        "
+	echo "  --shore=<addr>    (Default is 192.168.20.158)        "
 	echo "  --vport=<port>    (Default is 9001)                  "
 	echo "  --vlisten=<port>  (Default is 9301)                  "
 	echo "  --slisten=<port>  (Default is 9300)                  "

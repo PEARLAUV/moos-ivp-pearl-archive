@@ -6,7 +6,7 @@ ProcessConfig = iPEARL
   AppTick     = 10
   CommsTick   = 10
 
-  PORT           = /dev/ttyUSB1
+  PORT           = /dev/ttyUSB0
   BAUDRATE       = 115200
   PREFIX         = IMU
   HEADING_OFFSET = 0.0
