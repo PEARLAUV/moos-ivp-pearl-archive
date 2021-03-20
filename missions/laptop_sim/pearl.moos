@@ -142,9 +142,9 @@ ProcessConfig = pMarineViewer
 	procs_font_size      = large
 	nodes_font_size      = xlarge
   
-  ACTION  = MENU_KEY=simple       # SIMPLE=false # SQUARE = false # STAR=true  # PERIMETER=false
+  ACTION  = MENU_KEY=simple       # SIMPLE=true  # SQUARE = false # STAR=false  # PERIMETER=false
   ACTION+ = MENU_KEY=simple       # FIGURE_EIGHT=false
-  ACTION  = MENU_KEY=square       # SIMPLE=false # SQUARE = false # STAR=true  # PERIMETER=false
+  ACTION  = MENU_KEY=square       # SIMPLE=false # SQUARE = true  # STAR=false  # PERIMETER=false
   ACTION+ = MENU_KEY=square       # FIGURE_EIGHT=false    
   ACTION  = MENU_KEY=star         # SIMPLE=false # SQUARE = false # STAR=true  # PERIMETER=false
   ACTION+ = MENU_KEY=star         # FIGURE_EIGHT=false
