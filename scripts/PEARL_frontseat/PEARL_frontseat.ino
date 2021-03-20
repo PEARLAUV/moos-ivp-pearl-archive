@@ -54,18 +54,21 @@ int curRight = 188.0;
 boolean newData = false;
 int manualControl = 0;   //0 = manual control off, 1 = manual control on
 
-const int THROTTLE_ZERO_THRESHOLD = 5;
-const int STILL = 188;
-const int MIN_THROTTLE = 3;
-const int LEFT_FORWARD_MAX = 254;
-const int LEFT_BACKWARD_MAX = 120;
-const int RIGHT_FORWARD_MAX = LEFT_FORWARD_MAX;
-const int RIGHT_BACKWARD_MAX = LEFT_BACKWARD_MAX;
-const int LEFT_FORWARD_MIN = STILL + MIN_THROTTLE;
-const int LEFT_BACKWARD_MIN = STILL - MIN_THROTTLE;
-const int RIGHT_FORWARD_MIN = LEFT_FORWARD_MIN;
-const int RIGHT_BACKWARD_MIN = LEFT_BACKWARD_MIN;
-const int TURN_SPEED = 10;
+const float THROTTLE_ZERO_THRESHOLD = 5;
+int LIMIT = 32; //this is the PWM step limit, must be <= 65
+//forward PWM values are 191-254 (63 steps), and then limited to 191 + LIMIT
+//backward PWM values are 120-185 (65 steps), and then limited to 185 - LIMIT
+const float STILL = 188;
+const float MIN_THROTTLE = 1;
+const float LEFT_FORWARD_MIN = STILL + MIN_THROTTLE;
+const float LEFT_BACKWARD_MIN = STILL - MIN_THROTTLE;
+const float RIGHT_FORWARD_MIN = LEFT_FORWARD_MIN;
+const float RIGHT_BACKWARD_MIN = LEFT_BACKWARD_MIN;
+const float LEFT_FORWARD_MAX = LEFT_FORWARD_MIN + LIMIT;
+const float LEFT_BACKWARD_MAX = LEFT_BACKWARD_MIN - LIMIT;
+const float RIGHT_FORWARD_MAX = RIGHT_FORWARD_MIN + LIMIT;
+const float RIGHT_BACKWARD_MAX = LEFT_BACKWARD_MIN - LIMIT;
+const float TURN_SPEED = 10;
 
 //Bluetooth variables
 bool JOYSTICK = false;
@@ -220,23 +223,23 @@ void loop(void)
       float leftVal, rightVal;
       // Map left thrust value to PWM
       if (thrustLeft > 0.05) {
-        leftVal = mapFloat(thrustLeft, 0.0, 100.0, 191.0, 254.0);
+        leftVal = mapFloat(thrustLeft, 0.0, 100.0, LEFT_FORWARD_MIN, LEFT_FORWARD_MAX);
       }
       else if (thrustLeft < 0.05) {
-        leftVal = mapFloat(thrustLeft, -100.0, 0.0, 120.0, 185.0);
+        leftVal = mapFloat(thrustLeft, -100.0, 0.0, LEFT_BACKWARD_MAX, LEFT_BACKWARD_MIN);
       }
       else {
-        leftVal = 188.0;
+        leftVal = STILL;
       }
       // Map right thrust value to PWM
       if (thrustRight > 0.05) {
-        rightVal = mapFloat(thrustRight, 0.0, 100.0, 191.0, 254.0);
+        rightVal = mapFloat(thrustRight, 0.0, 100.0, RIGHT_FORWARD_MIN, RIGHT_FORWARD_MAX);
       }
       else if (thrustRight < 0.05) {
-        rightVal = mapFloat(thrustRight, -100.0, 0.0, 120.0, 185.0);
+        rightVal = mapFloat(thrustRight, -100.0, 0.0, RIGHT_BACKWARD_MAX, RIGHT_BACKWARD_MIN);
       }
       else {
-        rightVal = 188.0;
+        rightVal = STILL;
       }
       curLeft = round(leftVal);
       curRight = round(rightVal);
@@ -251,15 +254,15 @@ void loop(void)
   // if TEST_MODE is true then also commands LED brightness
   float leftSend, rightSend;
   if (curLeft > 190) {
-    leftSend = mapFloat(float(curLeft), 191.0, 254.0, 0.0, 100.0);
+    leftSend = mapFloat(float(curLeft), LEFT_FORWARD_MIN, LEFT_FORWARD_MAX, 0.0, 100.0);
     if (TEST_MODE) {
-      analogWrite(leftForwardLED, map(curLeft,191,254,0,255));
+      analogWrite(leftForwardLED, map(curLeft,LEFT_FORWARD_MIN,LEFT_FORWARD_MAX,0,255));
       analogWrite(leftBackwardLED, 0); }
   }
   else if (curLeft < 186) {
-    leftSend = mapFloat(float(curLeft), 120.0, 185.0, -100.0, 0.0);
+    leftSend = mapFloat(float(curLeft), LEFT_BACKWARD_MAX, LEFT_BACKWARD_MIN, -100.0, 0.0);
     if (TEST_MODE) {
-      analogWrite(leftBackwardLED, map(curLeft,185,120,0,255));
+      analogWrite(leftBackwardLED, map(curLeft,LEFT_BACKWARD_MIN,LEFT_BACKWARD_MAX,0,255));
       analogWrite(leftForwardLED, 0); }
   }
   else {
@@ -270,15 +273,15 @@ void loop(void)
   }
   // Map right thrust value to PWM
   if (curRight > 190) {
-    rightSend = mapFloat(float(curRight), 191.0, 254.0, 0.0, 100.0);
+    rightSend = mapFloat(float(curRight), RIGHT_FORWARD_MIN, RIGHT_FORWARD_MAX, 0.0, 100.0);
     if (TEST_MODE) {
-      analogWrite(rightForwardLED, map(curRight,191,254,0,255));
+      analogWrite(rightForwardLED, map(curRight,RIGHT_FORWARD_MIN,RIGHT_FORWARD_MAX,0,255));
       analogWrite(rightBackwardLED, 0); }
   }
   else if (curRight < 186) {
-    rightSend = mapFloat(float(curRight), 120.0, 185.0, -100.0, 0.0);
+    rightSend = mapFloat(float(curRight), RIGHT_BACKWARD_MAX, RIGHT_BACKWARD_MIN, -100.0, 0.0);
     if (TEST_MODE) {
-      analogWrite(rightBackwardLED, map(curRight,185,120,0,255));
+      analogWrite(rightBackwardLED, map(curRight,RIGHT_BACKWARD_MIN,RIGHT_BACKWARD_MAX,0,255));
       analogWrite(rightForwardLED, 0); }
   }
   else {
@@ -312,13 +315,7 @@ void loop(void)
   String NMEA_MOTOR = generateNMEAString(PAYLOAD_MOTOR, PREFIX, ID_MOTOR);
   Serial3.println(NMEA_MOTOR);
 
-//  Serial.print(rotateVal); Serial.print("\t");
-//  Serial.print(BLUETOOTH); Serial.print("\t");
-//  Serial.print(throttleVal); Serial.print("\t");
-//  Serial.print(turnVal); Serial.print("\t");
-//  Serial.print(MANUAL); Serial.print("\t");
-//  Serial.print(BACKWARD); Serial.print("\t");
-//  Serial.println(manualControl);
+//  Serial3.print(curLeft);Serial3.print("\t");Serial3.println(curRight);
 
 }
 

@@ -17,14 +17,14 @@ ProcessConfig = ANTLER
 {
   MSBetweenLaunches = 200
 
-  Run = MOOSDB          @ NewConsole = false
+  Run = MOOSDB         @ NewConsole = false
   //Run = pLogger         @ NewConsole = false
-  Run = uSimMarine	@ NewConsole = false
-  Run = pMarinePID      @ NewConsole = false
-  Run = pHelmIvP        @ NewConsole = false
-  Run = pMarineViewer	@ NewConsole = true
-  Run = uProcessWatch	@ NewConsole = false
-  Run = pNodeReporter	@ NewConsole = false
+  Run = uSimMarine	   @ NewConsole = false
+  Run = pMarinePID     @ NewConsole = false
+  Run = pHelmIvP       @ NewConsole = false
+  Run = pMarineViewer	 @ NewConsole = true
+  Run = uProcessWatch	 @ NewConsole = false
+  Run = pNodeReporter	 @ NewConsole = false
 }                               
 
 //------------------------------------------
@@ -100,7 +100,7 @@ ProcessConfig = pMarinePID
   depth_control = false
 
   // Yaw PID controller
-  yaw_pid_kp		 = 0.4
+  yaw_pid_kp		 = 1.0
   yaw_pid_kd		 = 0.0
   yaw_pid_ki		 = 0.0
   yaw_pid_integral_limit = 0.07
@@ -142,11 +142,15 @@ ProcessConfig = pMarineViewer
 	procs_font_size      = large
 	nodes_font_size      = xlarge
   
-  ACTION  = MENU_KEY=star-burst   # STAR=true  # PERIMETER=false
-  ACTION+ = MENU_KEY=star-burst   # FIGURE_EIGHT=false
-  ACTION  = MENU_KEY=perimeter    # STAR=false # PERIMETER=true
+  ACTION  = MENU_KEY=simple       # SIMPLE=false # SQUARE = false # STAR=true  # PERIMETER=false
+  ACTION+ = MENU_KEY=simple       # FIGURE_EIGHT=false
+  ACTION  = MENU_KEY=square       # SIMPLE=false # SQUARE = false # STAR=true  # PERIMETER=false
+  ACTION+ = MENU_KEY=square       # FIGURE_EIGHT=false    
+  ACTION  = MENU_KEY=star         # SIMPLE=false # SQUARE = false # STAR=true  # PERIMETER=false
+  ACTION+ = MENU_KEY=star         # FIGURE_EIGHT=false
+  ACTION  = MENU_KEY=perimeter    # SIMPLE=false # SQUARE = false # STAR=false # PERIMETER=true
   ACTION+ = MENU_KEY=perimeter    # FIGURE_EIGHT=false
-  ACTION  = MENU_KEY=figure-eight # STAR=false # PERIMETER=false
+  ACTION  = MENU_KEY=figure-eight # SIMPLE=false # SQUARE = false # STAR=false # PERIMETER=false
   ACTION+ = MENU_KEY=figure-eight # FIGURE_EIGHT=true
   
   BUTTON_ONE   = DEPLOY       # DEPLOY=true   # RETURN=false # STATION_KEEP=false # MOOS_MANUAL_OVERRIDE=false

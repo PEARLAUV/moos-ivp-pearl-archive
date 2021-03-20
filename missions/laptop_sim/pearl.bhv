@@ -5,7 +5,9 @@ initialize  RETURN               = false
 initialize  STATION_KEEP         = false
 initialize  MOOS_MANUAL_OVERRIDE = true
 
-initialize  STAR                 = true
+initialize  SIMPLE               = true
+initialize  SQUARE               = false
+initialize  STAR                 = false
 initialize  PERIMETER            = false
 initialize  FIGURE_EIGHT         = false
 
@@ -31,12 +33,84 @@ Behavior = BHV_StationKeep
 //-----------------------------------------
 Behavior = BHV_Waypoint
 {
+  name      = waypt_simple
+  pwt       = 100
+  condition = DEPLOY=true
+  condition = RETURN=false
+  condition = STATION_KEEP=false
+  condition = MOOS_MANUAL_OVERRIDE=false
+  condition = SIMPLE=true
+  condition = SQUARE=false
+  condition = STAR=false
+  condition = PERIMETER=false
+  condition = FIGURE_EIGHT=false
+  endflag   = RETURN=true
+  UPDATES   = WPT_UPDATE
+  
+	lead           = 8
+	lead_damper    = 1
+	speed          = 0.3   //meters per second
+	capture_line   = true
+	capture_radius = 5
+	slip_radius    = 10
+
+	points      = 20,0
+	
+	repeat         = 1
+	order          = normal
+
+	visual_hints = nextpt_color=yellow
+	visual_hints = nextpt_vertex_size=8
+	visual_hints = nextpt_lcolor=gray70
+	visual_hints = vertex_color=dodger_blue, edge_color=white
+	visual_hints = vertex_size=5, edge_size=1
+}
+//-----------------------------------------
+Behavior = BHV_Waypoint
+{
+  name      = waypt_square
+  pwt       = 100
+  condition = DEPLOY=true
+  condition = RETURN=false
+  condition = STATION_KEEP=false
+  condition = MOOS_MANUAL_OVERRIDE=false
+  condition = SIMPLE=false
+  condition = SQUARE=true
+  condition = STAR=false
+  condition = PERIMETER=false
+  condition = FIGURE_EIGHT=false
+  endflag   = RETURN=true
+  UPDATES   = WPT_UPDATE
+  
+	lead           = 8
+	lead_damper    = 1
+	speed          = 0.3   //meters per second
+	capture_line   = true
+	capture_radius = 5
+	slip_radius    = 10
+
+	points      = -40,0 : -40,-30 : -10,-30 : -10,0
+	
+	repeat         = 1
+	order          = normal
+
+	visual_hints = nextpt_color=yellow
+	visual_hints = nextpt_vertex_size=8
+	visual_hints = nextpt_lcolor=gray70
+	visual_hints = vertex_color=dodger_blue, edge_color=white
+	visual_hints = vertex_size=5, edge_size=1
+}
+//-----------------------------------------
+Behavior = BHV_Waypoint
+{
   name      = waypt_star
   pwt       = 100
   condition = DEPLOY=true
   condition = RETURN=false
   condition = STATION_KEEP=false
   condition = MOOS_MANUAL_OVERRIDE=false
+  condition = SIMPLE=false
+  condition = SQUARE=false
   condition = STAR=true
   condition = PERIMETER=false
   condition = FIGURE_EIGHT=false
@@ -70,6 +144,8 @@ Behavior = BHV_Waypoint
   condition = RETURN=false
   condition = STATION_KEEP=false
   condition = MOOS_MANUAL_OVERRIDE=false
+  condition = SIMPLE=false
+  condition = SQUARE=false
   condition = STAR=false
   condition = PERIMETER=true
   condition = FIGURE_EIGHT=false
@@ -103,6 +179,8 @@ Behavior = BHV_Waypoint
   condition = RETURN=false
   condition = STATION_KEEP=false
   condition = MOOS_MANUAL_OVERRIDE=false
+  condition = SIMPLE=false
+  condition = SQUARE=false
   condition = STAR=false
   condition = PERIMETER=false
   condition = FIGURE_EIGHT=true

@@ -1,7 +1,11 @@
-Single vehicle mission designed to be a 'hardware-in-the-loop' simulation. 
-Utilizes shoreside-vehicle communication structure, with the simulator running onboard the Raspberry Pi.
+Single vehicle mission for running various waypoint missions. Mission options include:
+-perimeter circuit
+-star pattern
+-figure-eight pattern
 
+----------------------------------------------------------------------------------
 Launch instructions:
+----------------------------------------------------------------------------------
 
 (shoreside terminal)
 >> ./launch_shoreside.sh
@@ -17,8 +21,13 @@ either in the launch_shoreside.sh executable or at the command line. Type
 either in the launch_vehicle.sh executable or at the command line. Type
 ./launch_vehicle.sh -h for a full list of possible command line arguments.
 
+Once both MOOS communities are running, the manual control switch (SwD) on the RC
+controller must be flipped ON and OFF in order to run missions and behaviors. PEARL 
+starts up in manual override mode by default for safety.
 
+-----------------------------------------------------------------------------------
 Variables/Parameters to adjust:
+-----------------------------------------------------------------------------------
 
 -Shoreside laptop and PEARL RPi IP addresses (Variable names: SHORE_IP, PEARL_IP)
 	Location: launch_vehicle.sh, launch_shoreside.sh
@@ -42,6 +51,7 @@ they are just in case.
 
 -PID controller gains
 	Location: plug_pPearlPID.moos
+	Currently set as: P=1, I=0, D=0
 
 -PEARL/IMU heading offset (HEADING_OFFSET)
 	Location: plug_iPEARL.moos
@@ -62,6 +72,17 @@ they are just in case.
 	Location: plug_iChargeController.moos
 	MAX_THRUST is the maximum thrust percentage that can be commanded to the
 	motors. MAX_RUDDER is typically set as MAX_THRUST/2.
+
+-Origin set point (Lat, Long)
+	Location: plug_origin_warp.moos
+	This is the latitude and longitude that corresponds to the point (0,0) on the 
+	local grid. The local grid uses units of meters.
+
+-Waypoint/return point locations (points)
+	Location: meta_vehicle.bhv
+	This are the locations of the waypoints on the local grid (so they are in 
+	units of meters). Each waypoint behavior in the meta_vehicle.bhv file has
+	a specified set of points.
 
 
 
