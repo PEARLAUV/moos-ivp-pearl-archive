@@ -89,7 +89,13 @@ PEARL::PEARL()
   m_direct_R              = 0.0;
   
   m_max_thrust            = 0.0;
-  m_max_rudder            = 0.0;  
+  m_max_rudder            = 0.0;
+  
+  node_broker_msg        = "";
+  last_node_ack          = 0;
+  new_node_ack           = 0;
+  node_ack_counter       = 0;
+  m_bStaleShore          = true;
 }
 
 bool PEARL::OnNewMail(MOOSMSG_LIST &NewMail)
@@ -131,7 +137,11 @@ bool PEARL::OnNewMail(MOOSMSG_LIST &NewMail)
       m_max_thrust = dVal; }
       
     else if (key == "CHG_MAX_RUDDER") {
-      m_max_rudder = dVal; } }
+      m_max_rudder = dVal; } 
+      
+    else if (key == "NODE_BROKER_ACK") {
+      node_broker_msg = sVal; }
+    }
       
   return UpdateMOOSVariables(NewMail);
 }
@@ -147,6 +157,7 @@ void PEARL::RegisterForMOOSMessages()
   Register("IVPHELM_ALLSTOP");
   Register("CHG_MAX_THRUST");
   Register("CHG_MAX_RUDDER");
+  Register("NODE_BROKER_ACK");
 }
 
 bool PEARL::OnStartUp()
@@ -190,6 +201,18 @@ bool PEARL::OnConnectToServer()
 bool PEARL::Iterate()
 {
 	AppCastingMOOSApp::Iterate();
+  
+  m_bStaleShore = StaleShoreCheck(node_broker_msg);
+  
+  if(m_bStaleShore) {
+    m_Comms.Notify("IVPHELM_ALLSTOP", "NothingToDo");
+    m_Comms.Notify("DEPLOY", "false");
+    m_Comms.Notify("RETURN", "false");
+    m_Comms.Notify("STATION_KEEP", "false");
+    m_des_thrust = 0;
+    m_des_rudder = 0;
+    m_direct_thrust_mode = 0;
+  }
   
   if (m_bValidSerialConn) {
     bool send_ok = SendToFront();
@@ -624,6 +647,31 @@ bool PEARL::HandlePLMOT(string toParse)
   return true;
 }
 
+bool PEARL::StaleShoreCheck(string node_msg)
+{
+  if (node_msg.length() > 0) {
+    vector<string> parts = parseString(node_msg, ',');
+    string id_msg = parts[7];
+    new_node_ack = stoi(id_msg.erase(0,3));
+    
+    //handle startup case
+    if (last_node_ack == 0) {
+      last_node_ack = new_node_ack; }
+    
+    if (new_node_ack == last_node_ack) {
+      node_ack_counter++; 
+      if (node_ack_counter > 150) {
+        return true; }
+      else {return false;} }
+        
+    else {
+      node_ack_counter = 0;
+      last_node_ack = new_node_ack;
+      return false; } }
+      
+  else {return false; }
+}
+
 bool PEARL::NMEAChecksumIsValid(string nmea)
 {
   unsigned char xCheckSum = 0;
@@ -676,6 +724,11 @@ bool PEARL::buildReport()
   string sLThr    = doubleToString(arduinoThrustLeft, 1);
   string sRThr    = doubleToString(arduinoThrustRight, 1);
   
+  string newAck   = intToString(new_node_ack);
+  string lastAck  = intToString(last_node_ack);
+  string nodeCounter = intToString(node_ack_counter);
+  string stale    = boolToString(m_bStaleShore);
+  
 //  string accx     = doubleToString(currAccX, 2);
 //  string accy     = doubleToString(currAccY, 2);
 //  string accz     = doubleToString(currAccZ, 2);
@@ -694,6 +747,10 @@ bool PEARL::buildReport()
   m_msgs << "     MAX THRUST:           +/-" << sMaxThr << "%" << endl;
   m_msgs << endl;
   
+  if (m_bStaleShore) {
+    m_msgs << "--- NO COMMS WITH SHORE    ---" << endl;
+    m_msgs << endl;
+  }
   if (m_ivpALLSTOP) {
     m_msgs << "--- IVPHELM ALLSTOP ON     ---" << endl; 
     m_msgs << endl; }
@@ -741,6 +798,7 @@ bool PEARL::buildReport()
   m_msgs << "   Last PLRAW message from front: " << m_last_PLRAW_from_front << endl;
   m_msgs << "   Last PLMOT message from front: " << m_last_PLMOT_from_front << endl;
   m_msgs << "   Last message to front seat:    " << m_last_msg_to_front << endl;
+  
 //  m_msgs << "   AccX:                          " << accx << endl;
 //  m_msgs << "   AccY:                          " << accy << endl;
 //  m_msgs << "   AccZ:                          " << accz << endl;

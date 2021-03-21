@@ -37,6 +37,7 @@ class PEARL : public AppCastingMOOSApp
    bool SerialSetup();
    void GetData();
    bool SendToFront();
+   bool StaleShoreCheck(std::string node_msg);
 
    //Handle Config Params
    bool SetParam_PORT(std::string sVal);                //m_serial_port
@@ -123,6 +124,12 @@ class PEARL : public AppCastingMOOSApp
    
    double        m_max_thrust;
    double        m_max_rudder;
+   
+   std::string   node_broker_msg;
+   int           last_node_ack;
+   int           new_node_ack;
+   int           node_ack_counter;
+   bool          m_bStaleShore;
    
    //Stores number of messages processed, keyed on NMEA sentence name
    std::map<std::string, unsigned int>  m_counters;
