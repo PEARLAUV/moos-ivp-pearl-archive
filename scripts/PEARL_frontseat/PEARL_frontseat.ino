@@ -2,7 +2,7 @@
 /*------------------------------*/
 //If true writes thrust commands to specified LED pins
 //If false writes thrust commands to specified motor controller pins
-bool TEST_MODE = true;
+bool TEST_MODE = false;
 
 //Pin assignments
 int rightMotorPin = 8;

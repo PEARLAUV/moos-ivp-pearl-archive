@@ -10,7 +10,7 @@ TIME_WARP=1
 JUST_MAKE="no"
 AUTO=""
 REGION="deep_pond"
-SHORE_IP="192.168.0.102"  #IP address of the shoreside laptop
+SHORE_IP="192.168.20.158"  #IP address of the shoreside laptop
 SHORESIDE_PORT="9000"
 SHORE_LISTEN="9300"
 
@@ -24,7 +24,7 @@ for ARGI; do
 	echo "  --just_make, -j                                 "
 	echo "  --auto, -a        Auto-launched. uMAC not used. "
 	echo "  --deep_pond       Set region to be Deep Pond (Default is Deep Pond)"
-	echo "  --ip=<addr>       (Default is 192.168.0.102)    "
+	echo "  --ip=<addr>       (Default is 192.168.20.158)   "
 	echo "  --sport=<port>    (Default is 9000)             "
 	echo "  --slisten=<port>  (Default is 9300)             " 
         echo "  --help, -h                                      "

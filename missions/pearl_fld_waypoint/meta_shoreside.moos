@@ -81,8 +81,8 @@ ProcessConfig = pMarineViewer
   vehicles_active_color    = green
   vehicles_inactive_color  = red
 
-  stale_report_thresh = 2
-  stale_remove_thresh = 30
+  stale_report_thresh = 5    //seconds
+  stale_remove_thresh = 120    //seconds
 
   scope = PHI_HOST_INFO
   scope = DEPLOY_ALL
@@ -93,8 +93,8 @@ ProcessConfig = pMarineViewer
   scope = PERIMETER_ALL
   scope = FIGURE_EIGHT_ALL
   
-  ACTION  = MENU_KEY=star-burst   # STAR_ALL=true  # PERIMETER_ALL=false
-  ACTION+ = MENU_KEY=star-burst   # FIGURE_EIGHT_ALL=false
+  ACTION  = MENU_KEY=star         # STAR_ALL=true  # PERIMETER_ALL=false
+  ACTION+ = MENU_KEY=star         # FIGURE_EIGHT_ALL=false
   ACTION  = MENU_KEY=perimeter    # STAR_ALL=false # PERIMETER_ALL=true
   ACTION+ = MENU_KEY=perimeter    # FIGURE_EIGHT_ALL=false
   ACTION  = MENU_KEY=figure-eight # STAR_ALL=false # PERIMETER_ALL=false
