@@ -76,11 +76,12 @@ ProcessConfig = pMarineViewer
 	nodes_font_size      = xlarge
 	
   comms_pulse_viewable_all = false
-  vehicles_name_mode       = names
+  vehicles_name_mode       = names+mode
   vehicles_active_color    = green
   vehicles_inactive_color  = red
+  trails_length            = 10000
 
-  stale_report_thresh = 5    //seconds
+  stale_report_thresh = 15    //seconds
   stale_remove_thresh = 120    //seconds
 
   scope = PHI_HOST_INFO
