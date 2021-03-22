@@ -29,6 +29,8 @@ PEARL::PEARL()
   m_baudrate              = 115200;
   m_prefix                = "IMU";
   m_heading_offset        = 0.0;  
+  m_left_motor_offset     = 0.0;
+  m_right_motor_offset    = 0.0;
   
   m_serial                = NULL;
   m_bValidSerialConn      = false;
@@ -179,6 +181,8 @@ bool PEARL::OnStartUp()
     else if (param == "BAUDRATE")        handled = SetParam_BAUDRATE(value);
     else if (param == "PREFIX")          handled = SetParam_PREFIX(value);
     else if (param == "HEADING_OFFSET")  handled = SetParam_HEADING_OFFSET(value);
+    else if (param == "LEFT_MOTOR_FRAC")    handled = SetParam_LEFT_MOTOR_FRAC(value);
+    else if (param == "RIGHT_MOTOR_FRAC")   handled = SetParam_RIGHT_MOTOR_FRAC(value);
     else
       reportUnhandledConfigWarning(orig); }
 
@@ -268,31 +272,31 @@ bool PEARL::SendToFront()
     m_direct_R = 0; }
   else if (m_direct_thrust_mode == 1) {
     if (m_direct_thrust_up)
-      m_direct_L += 10;
+      m_direct_L += 5;
     else if (m_direct_thrust_down)
-      m_direct_L -= 10;
+      m_direct_L -= 5;
     }
   else if (m_direct_thrust_mode == 2) {
     if (m_direct_thrust_up)
-      m_direct_R += 10;
+      m_direct_R += 5;
     else if (m_direct_thrust_down)
-      m_direct_R -= 10;
+      m_direct_R -= 5;
     }
   else if (m_direct_thrust_mode == 3) {
     if (m_direct_thrust_up) {
-      m_direct_L += 10;
-      m_direct_R += 10; }
+      m_direct_L += 5;
+      m_direct_R += 5; }
     else if (m_direct_thrust_down) {
-      m_direct_L -= 10;
-      m_direct_R -= 10; }
+      m_direct_L -= 5;
+      m_direct_R -= 5; }
     }
   else if (m_direct_thrust_mode == 4) {
     if (m_direct_thrust_up) {
-      m_direct_L += 10;
-      m_direct_R -= 10; }
+      m_direct_L += 5;
+      m_direct_R -= 5; }
     else if (m_direct_thrust_down) {
-      m_direct_L -= 10;
-      m_direct_R += 10; }
+      m_direct_L -= 5;
+      m_direct_R += 5; }
     }
   
   if (m_direct_thrust_mode > 0 ) {
@@ -306,12 +310,12 @@ bool PEARL::SendToFront()
     message += doubleToString(m_direct_R);
     message += "*"; }
   else {
-    m_commanded_L = m_des_L;
-    m_commanded_R = m_des_R;
+    m_commanded_L = m_left_motor_offset * m_des_L;
+    m_commanded_R = m_right_motor_offset * m_des_R;
     message += "PICOM,";
-    message += doubleToString(m_des_L);
+    message += doubleToString(m_commanded_L);
     message += ",";
-    message += doubleToString(m_des_R);
+    message += doubleToString(m_commanded_R);
     message += "*"; }
   
   m_last_msg_to_front = message;
@@ -421,7 +425,36 @@ bool PEARL::SetParam_HEADING_OFFSET(std::string sVal)
     reportConfigWarning(msg);
   
   return true;
-    
+}
+
+bool PEARL::SetParam_LEFT_MOTOR_FRAC(std::string sVal)
+{
+  stringstream ssMsg;
+  if (!isNumber(sVal))
+    ssMsg << "Param LEFT_MOTOR_FRAC must be a number in range (0.0, 1.0].";
+  else
+    m_left_motor_offset = strtod(sVal.c_str(), 0);
+  if (m_left_motor_offset <= 0.0 || m_left_motor_offset > 1.0)
+    ssMsg << "Param LEFT_MOTOR_FRAC cannot be " << m_left_motor_offset << ". Must be in range (0.0, 1.0].";
+  string msg = ssMsg.str();
+  if (!msg.empty())
+    reportConfigWarning(msg);
+  return true;
+}
+
+bool PEARL::SetParam_RIGHT_MOTOR_FRAC(std::string sVal)
+{
+  stringstream ssMsg;
+  if (!isNumber(sVal))
+    ssMsg << "Param RIGHT_MOTOR_FRAC must be a number in range (0.0, 1.0].";
+  else
+    m_right_motor_offset = strtod(sVal.c_str(), 0);
+  if (m_right_motor_offset <= 0.0 || m_right_motor_offset > 1.0)
+    ssMsg << "Param RIGHT_MOTOR_FRAC cannot be " << m_right_motor_offset << ". Must be in range (0.0, 1.0].";
+  string msg = ssMsg.str();
+  if (!msg.empty())
+    reportConfigWarning(msg);
+  return true;
 }
 
 bool PEARL::SetPublishNames()
@@ -723,26 +756,17 @@ bool PEARL::buildReport()
   string sRoll    = doubleToString(currRoll, 1);
   string sLThr    = doubleToString(arduinoThrustLeft, 1);
   string sRThr    = doubleToString(arduinoThrustRight, 1);
+  string sLMotor  = doubleToString(m_left_motor_offset, 1);
+  string sRMotor  = doubleToString(m_right_motor_offset, 1);
   
-  string newAck   = intToString(new_node_ack);
-  string lastAck  = intToString(last_node_ack);
-  string nodeCounter = intToString(node_ack_counter);
-  string stale    = boolToString(m_bStaleShore);
-  
-//  string accx     = doubleToString(currAccX, 2);
-//  string accy     = doubleToString(currAccY, 2);
-//  string accz     = doubleToString(currAccZ, 2);
-//  string gyrox     = doubleToString(currGyroX, 2);
-//  string gyroy     = doubleToString(currGyroY, 2);
-//  string gyroz     = doubleToString(currGyroZ, 2);
-//  string magx     = doubleToString(currMagX, 2);
-//  string magy     = doubleToString(currMagY, 2);
-//  string magz     = doubleToString(currMagZ, 2);
   
   m_msgs << endl << "SETUP" << endl << "-----" << endl;
   m_msgs << "     PORT (BAUDRATE):         " << m_serial_port << " (" << m_baudrate << ")" << endl;
   m_msgs << "     Publish PREFIX:          " << m_prefix << endl;
   m_msgs << "     HEADING OFFSET:          " << sOffset << endl;
+  m_msgs << "     LEFT MOTOR %:            " << sLMotor << endl;
+  m_msgs << "     RIGHT MOTOR %:           " << sRMotor << endl;
+  m_msgs << endl;
   m_msgs << "     MAX RUDDER:           +/-" << sMaxRud << endl;
   m_msgs << "     MAX THRUST:           +/-" << sMaxThr << "%" << endl;
   m_msgs << endl;
@@ -798,16 +822,6 @@ bool PEARL::buildReport()
   m_msgs << "   Last PLRAW message from front: " << m_last_PLRAW_from_front << endl;
   m_msgs << "   Last PLMOT message from front: " << m_last_PLMOT_from_front << endl;
   m_msgs << "   Last message to front seat:    " << m_last_msg_to_front << endl;
-  
-//  m_msgs << "   AccX:                          " << accx << endl;
-//  m_msgs << "   AccY:                          " << accy << endl;
-//  m_msgs << "   AccZ:                          " << accz << endl;
-//  m_msgs << "   GyroX:                          " << gyrox << endl;
-//  m_msgs << "   GyroY:                          " << gyroy << endl;
-//  m_msgs << "   GyroZ:                          " << gyroz << endl;
-//  m_msgs << "   MagX:                          " << magx << endl;
-//  m_msgs << "   MagY:                          " << magy << endl;
-//  m_msgs << "   MagZ:                          " << magz << endl;
   m_msgs << endl;
   
   return true;

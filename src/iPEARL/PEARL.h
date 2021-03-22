@@ -44,6 +44,8 @@ class PEARL : public AppCastingMOOSApp
    bool SetParam_BAUDRATE(std::string sVal);            //m_baudrate
    bool SetParam_PREFIX(std::string sVal);              //m_prefix
    bool SetParam_HEADING_OFFSET(std::string sVal);      //m_heading_offset
+   bool SetParam_LEFT_MOTOR_FRAC(std::string sVal);     //m_left_motor_offset
+   bool SetParam_RIGHT_MOTOR_FRAC(std::string sVal);    //m_right_motor_offset
    
    bool SetPublishNames();
    void PublishIMUEuler(double dHeading, double dPitch, double dRoll);
@@ -61,6 +63,8 @@ class PEARL : public AppCastingMOOSApp
    int           m_baudrate;
    std::string   m_prefix;
    double        m_heading_offset;
+   double        m_left_motor_offset;
+   double        m_right_motor_offset;
    
    SerialComms*  m_serial;
    bool          m_bValidSerialConn;
