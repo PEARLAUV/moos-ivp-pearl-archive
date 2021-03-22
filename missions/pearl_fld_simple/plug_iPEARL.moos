@@ -9,5 +9,5 @@ ProcessConfig = iPEARL
   PORT           = /dev/ttyUSB0
   BAUDRATE       = 115200
   PREFIX         = IMU
-  HEADING_OFFSET = 0.0
+  HEADING_OFFSET = 13.0
 }
