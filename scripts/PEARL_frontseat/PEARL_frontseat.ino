@@ -162,7 +162,7 @@ void loop(void)
   static uint8_t counter = 0;
   
   /*------Read IMU data and package in NMEA sentence--------*/
-  float roll, pitch, heading, new_heading;
+  float roll, pitch, heading;
   float ax, ay, az;
   float gx, gy, gz;
   float mx, my, mz;
@@ -299,9 +299,7 @@ void loop(void)
   counter = 0;
 
   //Euler angle NMEA string
-  new_heading = heading * -1;
-  
-  String PAYLOAD_EULER = String(manualControl) + "," + String(new_heading) + "," + String(pitch) + "," + String(roll);  
+  String PAYLOAD_EULER = String(manualControl) + "," + String(heading) + "," + String(pitch) + "," + String(roll);  
   String NMEA_EULER = generateNMEAString(PAYLOAD_EULER, PREFIX, ID_EULER);
   Serial3.println(NMEA_EULER);
 

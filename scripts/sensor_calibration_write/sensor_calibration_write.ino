@@ -26,10 +26,10 @@ void setup() {
     Serial.println("Loaded existing calibration");
   }
 
-  // in uTesla - updated by MNH on 3/21/2021 at 3pm after data analysis
-  cal.mag_hardiron[0] = -6.7;
-  cal.mag_hardiron[1] = -13.3;
-  cal.mag_hardiron[2] = -103.65;
+  // in uTesla
+  cal.mag_hardiron[0] = -15.5;
+  cal.mag_hardiron[1] = -20.6;
+  cal.mag_hardiron[2] = -109.1;
 
   // in uTesla
   cal.mag_softiron[0] = 1;

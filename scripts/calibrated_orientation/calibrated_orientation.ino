@@ -34,17 +34,17 @@ Adafruit_Madgwick filter;  // faster than NXP
 uint32_t timestamp;
 
 void setup() {
-  Serial3.begin(115200);
-  while (!Serial3) yield();
+  Serial.begin(115200);
+  while (!Serial) yield();
 
   if (!cal.begin()) {
-    Serial3.println("Failed to initialize calibration helper");
+    Serial.println("Failed to initialize calibration helper");
   } else if (! cal.loadCalibration()) {
-    Serial3.println("No calibration loaded/found");
+    Serial.println("No calibration loaded/found");
   }
 
   if (!init_sensors()) {
-    Serial3.println("Failed to find sensors");
+    Serial.println("Failed to find sensors");
     while (1) delay(10);
   }
 
@@ -116,22 +116,13 @@ void loop() {
 //  Serial.println(gyro.gyro.z*100, 4);
 
   //-----Uncomment below to plot magnetometer data-----//
-  Serial3.print(mag.magnetic.x, 4); Serial3.print("\t");
-  Serial3.print(mag.magnetic.y, 4); Serial3.print("\t");
-  Serial3.println(mag.magnetic.z, 4);
+//  Serial.print(mag.magnetic.x, 4); Serial.print("\t");
+//  Serial.print(mag.magnetic.y, 4); Serial.print("\t");
+//  Serial.println(mag.magnetic.z, 4);
 
   //-----Uncomment below to plot Euler angle data-----//
-  int new_heading = round((heading * -1) + 180);
-  if (new_heading > 360) {
-    new_heading -= 360;
-  }
-  if (new_heading < 0) {
-    new_heading += 360;
-  }
-
-//  Serial3.print(heading); Serial3.print("\t");
-//  Serial3.print(new_heading); Serial3.print("\t");
-//  Serial3.print(pitch); Serial3.print("\t");
-//  Serial3.println(roll);
+  Serial.print(heading); Serial.print("\t");
+  Serial.print(pitch); Serial.print("\t");
+  Serial.println(roll);
 
 }
