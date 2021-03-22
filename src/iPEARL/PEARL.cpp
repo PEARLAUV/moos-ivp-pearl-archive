@@ -556,7 +556,7 @@ bool PEARL::HandlePLIMU(string toParse)
     }
   
   if (!yValStr.empty()) {
-    dHeading = stod(yValStr) + m_heading_offset;
+    dHeading = stod(yValStr) + 180.0 + m_heading_offset;
     if (dHeading > 360.0)
       dHeading -= 360.0;
     if (dHeading < 0.0)
@@ -639,10 +639,12 @@ bool PEARL::HandlePLMOT(string toParse)
   string leftValStr = parts[1];
   string rightValStr = parts[2];
   
-  if (!leftValStr.empty())
+  if (!leftValStr.empty()) {
     arduinoThrustLeft = stod(leftValStr);
-  if (!rightValStr.empty())
+    m_Comms.Notify("REPORTED_LEFT_THRUST", arduinoThrustLeft); }
+  if (!rightValStr.empty()) {
     arduinoThrustRight = stod(rightValStr);
+    m_Comms.Notify("REPORTED_RIGHT_THRUST", arduinoThrustRight); }
     
   return true;
 }
