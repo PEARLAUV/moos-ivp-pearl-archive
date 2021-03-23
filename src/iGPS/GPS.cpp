@@ -32,6 +32,7 @@ GPS::GPS()
   m_curY              = BAD_DOUBLE;
   m_curLat            = BAD_DOUBLE;
   m_curLon            = BAD_DOUBLE;
+  m_curHeading        = BAD_DOUBLE;
 }
 
 bool GPS::OnStartUp()
@@ -185,7 +186,8 @@ void GPS::PublishMessage(gpsValueToPublish gVal)
     if (gVal.m_key == "X")          m_curX    = gVal.m_dVal;
     if (gVal.m_key == "Y")          m_curY    = gVal.m_dVal;
     if (gVal.m_key == "LATITUDE")   m_curLat  = gVal.m_dVal;
-    if (gVal.m_key == "LONGITUDE")  m_curLon  = gVal.m_dVal; }
+    if (gVal.m_key == "LONGITUDE")  m_curLon  = gVal.m_dVal;
+    if (gVal.m_key == "HEADING_GPRMC") m_curHeading = gVal.m_dVal; }
   else
     m_Comms.Notify(key, gVal.m_sVal);
 }
@@ -203,12 +205,12 @@ void GPS::HandleOneMessage(gpsValueToPublish gVal)
     return; }
 
   // Deal with heading
-  if (key == "HEADING_GPRMC") {
-    if (m_heading_source != HEADING_SOURCE_GPRMC)
-      return;
-    else {
-      key = "HEADING";
-      gVal.m_key = "HEADING"; } }
+  //if (key == "HEADING_GPRMC") {
+   // if (m_heading_source != HEADING_SOURCE_GPRMC)
+    //  return;
+   // else {
+   //   key = "HEADING";
+   //   gVal.m_key = "HEADING"; } }
 
 //   else if (key == "HEADING_COMPASS") {
 //     if (m_heading_source != HEADING_SOURCE_COMPASS)
@@ -414,6 +416,7 @@ bool GPS::buildReport()
   else {
     m_msgs << "     X, Y:     " << doubleToString(m_curX, 1) << ", " << doubleToString(m_curY, 1) << endl;
     m_msgs << "     Lat, Lon: " << doubleToString(m_curLat, 6) << ", " << doubleToString(m_curLon, 6) << endl;
+    m_msgs << "     GPS Heading: " << doubleToString(m_curHeading, 1) << endl;
     for (;it != m_counters.end(); it++)
       m_msgs << "    " << it->first << ":  " << it->second << endl; }
   

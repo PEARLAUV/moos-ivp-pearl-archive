@@ -66,6 +66,7 @@ protected:
     double          m_curY;
     double          m_curLat;
     double          m_curLon;
+    double          m_curHeading;
     
 
     // Stores number of messages processed, keyed on NMEA sentence name

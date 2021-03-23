@@ -292,11 +292,11 @@ bool PEARL::SendToFront()
     }
   else if (m_direct_thrust_mode == 4) {
     if (m_direct_thrust_up) {
-      m_direct_L += 5;
-      m_direct_R -= 5; }
+      m_direct_L += 50;
+      m_direct_R -= 50; }
     else if (m_direct_thrust_down) {
-      m_direct_L -= 5;
-      m_direct_R += 5; }
+      m_direct_L -= 50;
+      m_direct_R += 50; }
     }
   
   if (m_direct_thrust_mode > 0 ) {

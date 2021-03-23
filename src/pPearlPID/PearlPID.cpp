@@ -689,21 +689,29 @@ bool PearlPID::buildReport()
   string sAllstop      = boolToString(m_allstop_posted);
   string sSpeedFactor  = doubleToString(m_speed_factor, 1);
   string sDeadband     = doubleToString(m_deadband, 1);
+  string sCurHeading   = doubleToString(m_current_heading, 1);
+  string sCurSpeed     = doubleToString(m_current_speed, 1);
   
   m_msgs << endl << "pPearlPID Variables and Status" << endl << "-------------------------" << endl;
   
   m_msgs << "   pPearlPID Control On:   " << sControl << endl;
   m_msgs << "   ALLSTOP Commanded:      " << sAllstop << endl;
   m_msgs << "   Speed Factor:           " << sSpeedFactor << endl;
-  m_msgs << "   Desired Heading:        " << sHeading << endl;
-  m_msgs << "   Desired Speed:          " << sSpeed << endl;
-  m_msgs << "   Current Rudder:         " << sRudder << endl;
-  m_msgs << "   Current Thrust:         " << sThrust << endl;
   m_msgs << "   STATION-KEEPING:        " << sStation << endl;
   m_msgs << "   Sun-tracking Mode ON:   " << sUseSolar << endl;
   m_msgs << "   Sun Heading:            " << sSolarHeading << endl;
   m_msgs << "   Sun Heading Deadband:   +/-" << sDeadband << endl;
-  
+  m_msgs << endl;
+  m_msgs << "   Current Rudder:         " << sRudder << endl;
+  m_msgs << "   Current Thrust:         " << sThrust << endl;
+  m_msgs << endl;
+  m_msgs << "   Desired Heading:        " << sHeading << endl;
+  m_msgs << "   Current Heading:        " << sCurHeading << endl;
+  m_msgs << endl;
+  m_msgs << "   Desired Speed:          " << sSpeed << endl;
+  m_msgs << "   Current Speed:          " << sCurSpeed << endl;
+  m_msgs << endl;
+   
   
   return(true);
 }
