@@ -1,0 +1,6 @@
+21.428          IVPHELM_BHV_IDLE     pHelmIvP        station-keep,waypt_line,waypt_return 
+24.686          IVPHELM_BHV_IDLE     pHelmIvP        station-keep,waypt_line 
+24.686          IVPHELM_BHV_IDLE     pHelmIvP        station-keep,waypt_line 
+486.736         IVPHELM_BHV_IDLE     pHelmIvP        waypt_line,waypt_return 
+486.736         IVPHELM_BHV_IDLE     pHelmIvP        waypt_line,waypt_return 
+783.066         IVPHELM_BHV_IDLE     pHelmIvP        station-keep,waypt_line,waypt_return 

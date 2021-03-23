@@ -1,0 +1,105 @@
+6.275           PID_REPORT           pPearlPID       54:PID_SPEED:  (Want):0.00000 (Curr):0.01029 (Diff):-0.01029 (Delt):-0.02165 THRUST:0.00000 
+6.376           PID_REPORT           pPearlPID       55:PID_COURSE:  (Want):0.00000 (Curr):157.00000 (Diff):157.00000 RUDDER:-15.77000 
+6.376           PID_REPORT           pPearlPID       55:PID_SPEED:  (Want):0.00000 (Curr):0.01029 (Diff):-0.01029 (Delt):-0.02268 THRUST:0.00000 
+6.476           PID_REPORT           pPearlPID       56:PID_COURSE:  (Want):0.00000 (Curr):157.00000 (Diff):157.00000 RUDDER:-15.77000 
+6.476           PID_REPORT           pPearlPID       56:PID_SPEED:  (Want):0.00000 (Curr):0.01029 (Diff):-0.01029 (Delt):-0.02371 THRUST:0.00000 
+6.576           PID_REPORT           pPearlPID       57:PID_COURSE:  (Want):0.00000 (Curr):157.00000 (Diff):157.00000 RUDDER:-15.77000 
+6.576           PID_REPORT           pPearlPID       57:PID_SPEED:  (Want):0.00000 (Curr):0.01029 (Diff):-0.01029 (Delt):-0.02475 THRUST:0.00000 
+6.677           PID_REPORT           pPearlPID       58:PID_COURSE:  (Want):0.00000 (Curr):157.00000 (Diff):157.00000 RUDDER:-15.77000 
+6.677           PID_REPORT           pPearlPID       58:PID_SPEED:  (Want):0.00000 (Curr):0.01029 (Diff):-0.01029 (Delt):-0.02578 THRUST:0.00000 
+6.777           PID_REPORT           pPearlPID       59:PID_COURSE:  (Want):0.00000 (Curr):157.00000 (Diff):157.00000 RUDDER:-15.77000 
+6.777           PID_REPORT           pPearlPID       59:PID_SPEED:  (Want):0.00000 (Curr):0.01029 (Diff):-0.01029 (Delt):-0.02681 THRUST:0.00000 
+6.877           PID_REPORT           pPearlPID       60:PID_COURSE:  (Want):0.00000 (Curr):157.00000 (Diff):157.00000 RUDDER:-15.77000 
+6.877           PID_REPORT           pPearlPID       60:PID_SPEED:  (Want):0.00000 (Curr):0.01029 (Diff):-0.01029 (Delt):-0.02785 THRUST:0.00000 
+6.978           PID_REPORT           pPearlPID       61:PID_COURSE:  (Want):0.00000 (Curr):157.00000 (Diff):157.00000 RUDDER:-15.77000 
+6.978           PID_REPORT           pPearlPID       61:PID_SPEED:  (Want):0.00000 (Curr):0.01029 (Diff):-0.01029 (Delt):-0.02888 THRUST:0.00000 
+7.078           PID_REPORT           pPearlPID       62:PID_COURSE:  (Want):0.00000 (Curr):157.00000 (Diff):157.00000 RUDDER:-15.77000 
+7.078           PID_REPORT           pPearlPID       62:PID_SPEED:  (Want):0.00000 (Curr):0.01029 (Diff):-0.01029 (Delt):-0.02991 THRUST:0.00000 
+7.078           PID_REPORT           pPearlPID       62:PID_SPEED:  (Want):0.00000 (Curr):0.01029 (Diff):-0.01029 (Delt):-0.02991 THRUST:0.00000 
+7.078           PID_REPORT           pPearlPID       62:PID_SPEED:  (Want):0.00000 (Curr):0.01029 (Diff):-0.01029 (Delt):-0.02991 THRUST:0.00000 
+17.204          PID_REPORT           pPearlPID       163:PID_COURSE:  (Want):0.00000 (Curr):156.00000 (Diff):156.00000 RUDDER:-15.67000 
+17.204          PID_REPORT           pPearlPID       163:PID_SPEED:  (Want):0.00000 (Curr):0.00514 (Diff):-0.00514 (Delt):-0.07514 THRUST:0.00000 
+17.304          PID_REPORT           pPearlPID       164:PID_COURSE:  (Want):0.00000 (Curr):156.00000 (Diff):156.00000 RUDDER:-15.67000 
+17.304          PID_REPORT           pPearlPID       164:PID_SPEED:  (Want):0.00000 (Curr):0.00514 (Diff):-0.00514 (Delt):-0.07514 THRUST:0.00000 
+17.405          PID_REPORT           pPearlPID       165:PID_COURSE:  (Want):0.00000 (Curr):156.00000 (Diff):156.00000 RUDDER:-15.67000 
+17.405          PID_REPORT           pPearlPID       165:PID_SPEED:  (Want):0.00000 (Curr):0.00514 (Diff):-0.00514 (Delt):-0.07514 THRUST:0.00000 
+17.505          PID_REPORT           pPearlPID       166:PID_COURSE:  (Want):0.00000 (Curr):156.00000 (Diff):156.00000 RUDDER:-15.67000 
+17.505          PID_REPORT           pPearlPID       166:PID_SPEED:  (Want):0.00000 (Curr):0.00514 (Diff):-0.00514 (Delt):-0.07514 THRUST:0.00000 
+17.605          PID_REPORT           pPearlPID       167:PID_COURSE:  (Want):0.00000 (Curr):156.00000 (Diff):156.00000 RUDDER:-15.67000 
+17.605          PID_REPORT           pPearlPID       167:PID_SPEED:  (Want):0.00000 (Curr):0.00514 (Diff):-0.00514 (Delt):-0.07514 THRUST:0.00000 
+17.706          PID_REPORT           pPearlPID       168:PID_COURSE:  (Want):0.00000 (Curr):156.00000 (Diff):156.00000 RUDDER:-15.67000 
+17.706          PID_REPORT           pPearlPID       168:PID_SPEED:  (Want):0.00000 (Curr):0.00514 (Diff):-0.00514 (Delt):-0.07514 THRUST:0.00000 
+17.806          PID_REPORT           pPearlPID       169:PID_COURSE:  (Want):0.00000 (Curr):156.00000 (Diff):156.00000 RUDDER:-15.67000 
+17.806          PID_REPORT           pPearlPID       169:PID_SPEED:  (Want):0.00000 (Curr):0.00514 (Diff):-0.00514 (Delt):-0.07514 THRUST:0.00000 
+17.907          PID_REPORT           pPearlPID       170:PID_COURSE:  (Want):0.00000 (Curr):156.00000 (Diff):156.00000 RUDDER:-15.67000 
+17.907          PID_REPORT           pPearlPID       170:PID_SPEED:  (Want):0.00000 (Curr):0.00514 (Diff):-0.00514 (Delt):-0.07514 THRUST:0.00000 
+18.007          PID_REPORT           pPearlPID       171:PID_COURSE:  (Want):0.00000 (Curr):156.00000 (Diff):156.00000 RUDDER:-15.67000 
+18.007          PID_REPORT           pPearlPID       171:PID_SPEED:  (Want):0.00000 (Curr):0.00514 (Diff):-0.00514 (Delt):-0.07514 THRUST:0.00000 
+18.107          PID_REPORT           pPearlPID       172:PID_COURSE:  (Want):0.00000 (Curr):156.00000 (Diff):156.00000 RUDDER:-15.67000 
+18.107          PID_REPORT           pPearlPID       172:PID_SPEED:  (Want):0.00000 (Curr):0.00514 (Diff):-0.00514 (Delt):-0.07514 THRUST:0.00000 
+18.208          PID_REPORT           pPearlPID       173:PID_COURSE:  (Want):0.00000 (Curr):156.00000 (Diff):156.00000 RUDDER:-15.67000 
+18.208          PID_REPORT           pPearlPID       173:PID_SPEED:  (Want):0.00000 (Curr):0.00514 (Diff):-0.00514 (Delt):-0.07514 THRUST:0.00000 
+18.308          PID_REPORT           pPearlPID       174:PID_COURSE:  (Want):0.00000 (Curr):156.00000 (Diff):156.00000 RUDDER:-15.67000 
+18.308          PID_REPORT           pPearlPID       174:PID_SPEED:  (Want):0.00000 (Curr):0.00514 (Diff):-0.00514 (Delt):-0.07514 THRUST:0.00000 
+18.408          PID_REPORT           pPearlPID       175:PID_COURSE:  (Want):0.00000 (Curr):156.00000 (Diff):156.00000 RUDDER:-15.67000 
+18.408          PID_REPORT           pPearlPID       175:PID_SPEED:  (Want):0.00000 (Curr):0.00514 (Diff):-0.00514 (Delt):-0.07514 THRUST:0.00000 
+18.509          PID_REPORT           pPearlPID       176:PID_COURSE:  (Want):0.00000 (Curr):156.00000 (Diff):156.00000 RUDDER:-15.67000 
+18.509          PID_REPORT           pPearlPID       176:PID_SPEED:  (Want):0.00000 (Curr):0.00514 (Diff):-0.00514 (Delt):-0.07514 THRUST:0.00000 
+18.609          PID_REPORT           pPearlPID       177:PID_COURSE:  (Want):0.00000 (Curr):156.00000 (Diff):156.00000 RUDDER:-15.67000 
+18.609          PID_REPORT           pPearlPID       177:PID_SPEED:  (Want):0.00000 (Curr):0.00514 (Diff):-0.00514 (Delt):-0.07514 THRUST:0.00000 
+18.710          PID_REPORT           pPearlPID       178:PID_COURSE:  (Want):0.00000 (Curr):156.00000 (Diff):156.00000 RUDDER:-15.67000 
+18.710          PID_REPORT           pPearlPID       178:PID_SPEED:  (Want):0.00000 (Curr):0.00514 (Diff):-0.00514 (Delt):-0.07514 THRUST:0.00000 
+18.810          PID_REPORT           pPearlPID       179:PID_COURSE:  (Want):0.00000 (Curr):156.00000 (Diff):156.00000 RUDDER:-15.67000 
+18.810          PID_REPORT           pPearlPID       179:PID_SPEED:  (Want):0.00000 (Curr):0.00514 (Diff):-0.00514 (Delt):-0.07514 THRUST:0.00000 
+18.911          PID_REPORT           pPearlPID       180:PID_COURSE:  (Want):0.00000 (Curr):156.00000 (Diff):156.00000 RUDDER:-15.67000 
+18.911          PID_REPORT           pPearlPID       180:PID_SPEED:  (Want):0.00000 (Curr):0.00514 (Diff):-0.00514 (Delt):-0.07514 THRUST:0.00000 
+19.011          PID_REPORT           pPearlPID       181:PID_COURSE:  (Want):0.00000 (Curr):156.00000 (Diff):156.00000 RUDDER:-15.67000 
+19.011          PID_REPORT           pPearlPID       181:PID_SPEED:  (Want):0.00000 (Curr):0.00514 (Diff):-0.00514 (Delt):-0.07514 THRUST:0.00000 
+19.111          PID_REPORT           pPearlPID       182:PID_COURSE:  (Want):0.00000 (Curr):156.00000 (Diff):156.00000 RUDDER:-15.67000 
+19.111          PID_REPORT           pPearlPID       182:PID_SPEED:  (Want):0.00000 (Curr):0.00514 (Diff):-0.00514 (Delt):-0.07514 THRUST:0.00000 
+19.212          PID_REPORT           pPearlPID       183:PID_COURSE:  (Want):0.00000 (Curr):156.00000 (Diff):156.00000 RUDDER:-15.67000 
+19.212          PID_REPORT           pPearlPID       183:PID_SPEED:  (Want):0.00000 (Curr):0.00514 (Diff):-0.00514 (Delt):-0.07514 THRUST:0.00000 
+19.312          PID_REPORT           pPearlPID       184:PID_COURSE:  (Want):0.00000 (Curr):156.00000 (Diff):156.00000 RUDDER:-15.67000 
+19.312          PID_REPORT           pPearlPID       184:PID_SPEED:  (Want):0.00000 (Curr):0.01543 (Diff):-0.01543 (Delt):-0.08543 THRUST:0.00000 
+19.413          PID_REPORT           pPearlPID       185:PID_COURSE:  (Want):0.00000 (Curr):156.00000 (Diff):156.00000 RUDDER:-15.67000 
+19.413          PID_REPORT           pPearlPID       185:PID_SPEED:  (Want):0.00000 (Curr):0.01543 (Diff):-0.01543 (Delt):-0.08543 THRUST:0.00000 
+313.654         PID_REPORT           pPearlPID       3121:PID_COURSE:  (Want):0.00000 (Curr):0.00000 (Diff):0.00000 RUDDER:-0.07000 
+313.654         PID_REPORT           pPearlPID       3121:PID_SPEED:  (Want):0.00000 (Curr):0.33953 (Diff):-0.33953 (Delt):-0.40953 THRUST:0.00000 
+313.754         PID_REPORT           pPearlPID       3122:PID_COURSE:  (Want):0.00000 (Curr):0.00000 (Diff):0.00000 RUDDER:-0.07000 
+313.754         PID_REPORT           pPearlPID       3122:PID_SPEED:  (Want):0.00000 (Curr):0.33953 (Diff):-0.33953 (Delt):-0.40953 THRUST:0.00000 
+313.854         PID_REPORT           pPearlPID       3123:PID_COURSE:  (Want):0.00000 (Curr):359.00000 (Diff):-1.00000 RUDDER:0.13040 
+313.854         PID_REPORT           pPearlPID       3123:PID_SPEED:  (Want):0.00000 (Curr):0.33953 (Diff):-0.33953 (Delt):-0.40953 THRUST:0.00000 
+313.955         PID_REPORT           pPearlPID       3124:PID_COURSE:  (Want):0.00000 (Curr):359.00000 (Diff):-1.00000 RUDDER:0.17000 
+313.955         PID_REPORT           pPearlPID       3124:PID_SPEED:  (Want):0.00000 (Curr):0.33953 (Diff):-0.33953 (Delt):-0.40953 THRUST:0.00000 
+314.055         PID_REPORT           pPearlPID       3125:PID_COURSE:  (Want):0.00000 (Curr):358.00000 (Diff):-2.00000 RUDDER:0.27000 
+314.055         PID_REPORT           pPearlPID       3125:PID_SPEED:  (Want):0.00000 (Curr):0.33953 (Diff):-0.33953 (Delt):-0.40953 THRUST:0.00000 
+314.155         PID_REPORT           pPearlPID       3126:PID_COURSE:  (Want):0.00000 (Curr):358.00000 (Diff):-2.00000 RUDDER:0.27000 
+314.156         PID_REPORT           pPearlPID       3126:PID_SPEED:  (Want):0.00000 (Curr):0.33953 (Diff):-0.33953 (Delt):-0.40953 THRUST:0.00000 
+314.256         PID_REPORT           pPearlPID       3127:PID_COURSE:  (Want):0.00000 (Curr):358.00000 (Diff):-2.00000 RUDDER:0.27000 
+314.256         PID_REPORT           pPearlPID       3127:PID_SPEED:  (Want):0.00000 (Curr):0.33953 (Diff):-0.33953 (Delt):-0.40953 THRUST:0.00000 
+314.356         PID_REPORT           pPearlPID       3128:PID_COURSE:  (Want):0.00000 (Curr):358.00000 (Diff):-2.00000 RUDDER:0.27000 
+314.356         PID_REPORT           pPearlPID       3128:PID_SPEED:  (Want):0.00000 (Curr):0.25722 (Diff):-0.25722 (Delt):-0.32722 THRUST:0.00000 
+314.457         PID_REPORT           pPearlPID       3129:PID_COURSE:  (Want):0.00000 (Curr):359.00000 (Diff):-1.00000 RUDDER:0.17000 
+314.457         PID_REPORT           pPearlPID       3129:PID_SPEED:  (Want):0.00000 (Curr):0.25722 (Diff):-0.25722 (Delt):-0.32722 THRUST:0.00000 
+314.557         PID_REPORT           pPearlPID       3130:PID_COURSE:  (Want):0.00000 (Curr):358.00000 (Diff):-2.00000 RUDDER:0.27000 
+314.557         PID_REPORT           pPearlPID       3130:PID_SPEED:  (Want):0.00000 (Curr):0.25722 (Diff):-0.25722 (Delt):-0.32722 THRUST:0.00000 
+314.657         PID_REPORT           pPearlPID       3131:PID_COURSE:  (Want):0.00000 (Curr):359.00000 (Diff):-1.00000 RUDDER:0.17000 
+314.657         PID_REPORT           pPearlPID       3131:PID_SPEED:  (Want):0.00000 (Curr):0.25722 (Diff):-0.25722 (Delt):-0.32722 THRUST:0.00000 
+314.758         PID_REPORT           pPearlPID       3132:PID_COURSE:  (Want):0.00000 (Curr):359.00000 (Diff):-1.00000 RUDDER:0.17000 
+314.758         PID_REPORT           pPearlPID       3132:PID_SPEED:  (Want):0.00000 (Curr):0.25722 (Diff):-0.25722 (Delt):-0.32722 THRUST:0.00000 
+314.858         PID_REPORT           pPearlPID       3133:PID_COURSE:  (Want):0.00000 (Curr):359.00000 (Diff):-1.00000 RUDDER:0.17000 
+314.858         PID_REPORT           pPearlPID       3133:PID_SPEED:  (Want):0.00000 (Curr):0.25722 (Diff):-0.25722 (Delt):-0.32722 THRUST:0.00000 
+314.958         PID_REPORT           pPearlPID       3134:PID_COURSE:  (Want):0.00000 (Curr):358.00000 (Diff):-2.00000 RUDDER:0.27000 
+314.959         PID_REPORT           pPearlPID       3134:PID_SPEED:  (Want):0.00000 (Curr):0.25722 (Diff):-0.25722 (Delt):-0.32722 THRUST:0.00000 
+315.059         PID_REPORT           pPearlPID       3135:PID_COURSE:  (Want):0.00000 (Curr):358.00000 (Diff):-2.00000 RUDDER:0.27000 
+315.059         PID_REPORT           pPearlPID       3135:PID_SPEED:  (Want):0.00000 (Curr):0.25722 (Diff):-0.25722 (Delt):-0.32722 THRUST:0.00000 
+315.159         PID_REPORT           pPearlPID       3136:PID_COURSE:  (Want):0.00000 (Curr):359.00000 (Diff):-1.00000 RUDDER:0.17000 
+315.159         PID_REPORT           pPearlPID       3136:PID_SPEED:  (Want):0.00000 (Curr):0.25722 (Diff):-0.25722 (Delt):-0.32722 THRUST:0.00000 
+315.260         PID_REPORT           pPearlPID       3137:PID_COURSE:  (Want):0.00000 (Curr):359.00000 (Diff):-1.00000 RUDDER:0.17000 
+315.260         PID_REPORT           pPearlPID       3137:PID_SPEED:  (Want):0.00000 (Curr):0.25722 (Diff):-0.25722 (Delt):-0.32722 THRUST:0.00000 
+315.360         PID_REPORT           pPearlPID       3138:PID_COURSE:  (Want):0.00000 (Curr):358.00000 (Diff):-2.00000 RUDDER:0.27000 
+315.360         PID_REPORT           pPearlPID       3138:PID_SPEED:  (Want):0.00000 (Curr):0.25722 (Diff):-0.25722 (Delt):-0.32722 THRUST:0.00000 
+315.460         PID_REPORT           pPearlPID       3139:PID_COURSE:  (Want):0.00000 (Curr):358.00000 (Diff):-2.00000 RUDDER:0.27000 
+315.460         PID_REPORT           pPearlPID       3139:PID_SPEED:  (Want):0.00000 (Curr):0.25722 (Diff):-0.25722 (Delt):-0.32722 THRUST:0.00000 
+315.561         PID_REPORT           pPearlPID       3140:PID_COURSE:  (Want):0.00000 (Curr):359.00000 (Diff):-1.00000 RUDDER:0.17000 
+315.561         PID_REPORT           pPearlPID       3140:PID_SPEED:  (Want):0.00000 (Curr):0.25722 (Diff):-0.25722 (Delt):-0.32722 THRUST:0.00000 
