@@ -8,7 +8,7 @@ ProcessConfig = pLogger
   
   File		= LOG_%(VNAME)_SIMPLE
   PATH		= ./
-  SyncLog 	= true @ 0.2
+  //SyncLog 	= true @ 0.2
   AsyncLog 	= true
   FileTimeStamp = true
 

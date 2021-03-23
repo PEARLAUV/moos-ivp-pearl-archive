@@ -19,7 +19,7 @@ VEHICLE_PORT="9001"
 VEHICLE_LISTEN="9301"
 SHORE_LISTEN="9300"
 
-CRUISESPEED="0.3"  #speed to traverse waypoints in m/s
+CRUISESPEED="0.5"  #speed to traverse waypoints in m/s
 
 #--------------------------------------------------------------
 #  Part 2: Check for and handle command-line arguments
