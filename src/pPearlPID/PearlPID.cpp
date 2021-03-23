@@ -234,8 +234,8 @@ bool PearlPID::Iterate()
   }
   
   if(m_use_solar && m_station_keep && m_desired_speed < 0.01) {
-    if (abs(m_current_heading - m_solar_heading) <= (2 * m_deadband)) {
-      m_desired_heading = m_solar_heading; }
+    //if (abs(m_current_heading - m_solar_heading) <= (2 * m_deadband)) {
+    m_desired_heading = m_solar_heading;
   }
 
   double rudder = 0;
