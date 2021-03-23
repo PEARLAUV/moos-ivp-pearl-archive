@@ -1,0 +1,49 @@
+26.426          VIEW_SEGLIST         pHelmIvP:17:waypt_square pts={-40,0:-40,-30:-10,-30:-10,0},label=pearl_waypt_square,label_color=white,edge_color=white,vertex_color=dodger_blue,vertex_size=5,edge_size=1 
+26.430          VIEW_POINT           pHelmIvP:17:waypt_square x=-40,y=0,active=true,label=pearl's next waypoint,label_color=gray70,vertex_color=yellow,vertex_size=8 
+26.430          VIEW_POINT           pHelmIvP:17:waypt_square x=-40,y=0,active=false,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+26.426          VIEW_SEGLIST         pHelmIvP:17:waypt_square pts={-40,0:-40,-30:-10,-30:-10,0},label=pearl_waypt_square,label_color=white,edge_color=white,vertex_color=dodger_blue,vertex_size=5,edge_size=1 
+26.430          VIEW_POINT           pHelmIvP:17:waypt_square x=-40,y=0,active=false,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+389.585         VIEW_POINT           pHelmIvP:1466:waypt_square x=-40,y=-30,active=true,label=pearl's next waypoint,label_color=gray70,vertex_color=yellow,vertex_size=8 
+389.585         VIEW_POINT           pHelmIvP:1466:waypt_square x=-40,y=-22.89,active=true,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+390.587         VIEW_POINT           pHelmIvP:1470:waypt_square x=-40,y=-20.24,active=true,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+391.590         VIEW_POINT           pHelmIvP:1474:waypt_square x=-40,y=-17.8,active=true,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+392.591         VIEW_POINT           pHelmIvP:1478:waypt_square x=-40,y=-15.15,active=true,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+393.593         VIEW_POINT           pHelmIvP:1482:waypt_square x=-40,y=-13.03,active=true,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+394.597         VIEW_POINT           pHelmIvP:1486:waypt_square x=-40,y=-12.66,active=true,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+395.599         VIEW_POINT           pHelmIvP:1490:waypt_square x=-40,y=-12.48,active=true,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+396.601         VIEW_POINT           pHelmIvP:1494:waypt_square x=-40,y=-12.29,active=true,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+397.605         VIEW_POINT           pHelmIvP:1498:waypt_square x=-40,y=-12.11,active=true,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+398.607         VIEW_POINT           pHelmIvP:1502:waypt_square x=-40,y=-11.93,active=true,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+399.610         VIEW_POINT           pHelmIvP:1506:waypt_square x=-40,y=-11.75,active=true,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+401.619         VIEW_POINT           pHelmIvP:1514:waypt_square x=-40,y=-11.57,active=true,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+405.630         VIEW_POINT           pHelmIvP:1530:waypt_square x=-40,y=-11.58,active=true,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+406.381         VIEW_POINT           pHelmIvP:1533:waypt_square x=-40,y=-11.76,active=true,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+408.636         VIEW_POINT           pHelmIvP:1542:waypt_square x=-40,y=-11.95,active=true,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+409.640         VIEW_POINT           pHelmIvP:1546:waypt_square x=-40,y=-12.13,active=true,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+412.397         VIEW_POINT           pHelmIvP:1557:waypt_square x=-40,y=-12.31,active=true,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+413.398         VIEW_POINT           pHelmIvP:1561:waypt_square x=-40,y=-12.12,active=true,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+415.656         VIEW_POINT           pHelmIvP:1570:waypt_square x=-40,y=-11.93,active=true,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+416.408         VIEW_POINT           pHelmIvP:1573:waypt_square x=-40,y=-11.92,active=true,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+417.659         VIEW_POINT           pHelmIvP:1578:waypt_square x=-40,y=-13.4,active=true,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+418.412         VIEW_POINT           pHelmIvP:1581:waypt_square x=-40,y=-17.61,active=true,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+419.414         VIEW_POINT           pHelmIvP:1585:waypt_square x=-40,y=-24.04,active=true,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+420.416         VIEW_POINT           pHelmIvP:1589:waypt_square x=-40,y=-23.86,active=true,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+421.418         VIEW_POINT           pHelmIvP:1593:waypt_square x=-40,y=-17.05,active=true,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+422.419         VIEW_POINT           pHelmIvP:1597:waypt_square x=-40,y=-10.78,active=true,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+423.423         VIEW_POINT           pHelmIvP:1601:waypt_square x=-40,y=-10.41,active=true,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+424.425         VIEW_POINT           pHelmIvP:1605:waypt_square x=-40,y=-10.22,active=true,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+425.427         VIEW_POINT           pHelmIvP:1609:waypt_square x=-40,y=-10.03,active=true,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+426.431         VIEW_POINT           pHelmIvP:1613:waypt_square x=-40,y=-9.84,active=true,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+427.433         VIEW_POINT           pHelmIvP:1617:waypt_square x=-40,y=-9.65,active=true,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+428.436         VIEW_POINT           pHelmIvP:1621:waypt_square x=-40,y=-9.28,active=true,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+429.439         VIEW_POINT           pHelmIvP:1625:waypt_square x=-40,y=-9.09,active=true,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+430.441         VIEW_POINT           pHelmIvP:1629:waypt_square x=-40,y=-8.72,active=true,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+431.442         VIEW_POINT           pHelmIvP:1633:waypt_square x=-40,y=-8.34,active=true,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+432.446         VIEW_POINT           pHelmIvP:1637:waypt_square x=-40,y=-8.15,active=true,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+433.448         VIEW_POINT           pHelmIvP:1641:waypt_square x=-40,y=-8,active=true,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+575.067         VIEW_POINT           pHelmIvP:2206:waypt_square x=-40,y=-17.96,active=true,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+575.318         VIEW_POINT           pHelmIvP:2207:waypt_square x=-40,y=-16.53,active=true,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+576.321         VIEW_POINT           pHelmIvP:2211:waypt_square x=-40,y=-8,active=true,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+594.365         VIEW_POINT           pHelmIvP:2283:waypt_square x=-40,y=-8,active=false,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+594.365         VIEW_POINT           pHelmIvP:2283:waypt_square x=-40,y=-30,active=false,label=pearl's next waypoint,label_color=gray70,vertex_color=yellow,vertex_size=8 
+594.365         VIEW_SEGLIST         pHelmIvP:2283:waypt_square pts={-40,0:-40,-30:-10,-30:-10,0},active=false,label=pearl_waypt_square 
