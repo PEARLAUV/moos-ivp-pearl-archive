@@ -83,7 +83,7 @@ Behavior = BHV_Waypoint
 	capture_radius = 5
 	slip_radius    = 10
 
-	points      = -40,10 : -50,-15 : -30,-30 : 5,-30 : 30,-15 : 45,10 : 35,25 : 10,30 : -15,25 : -40,10     //perimeter pattern
+	points      = -40,10 : -50,-15 : -30,-25 : 5,-25 : 30,-15 : 45,10 : 35,25 : 10,30 : -15,25 : -40,10     //perimeter pattern
 	
 	repeat         = 1
 	order          = $(ORDER)
@@ -116,7 +116,7 @@ Behavior = BHV_Waypoint
 	capture_radius = 5
 	slip_radius    = 10
 
-	points      = 30,-20 : 40,10 : 10,25 : -20,-35 : -40,-20 : -30,10     //figure eight pattern
+	points      = 30,-15 : 40,10 : 10,25 : -20,-30 : -40,-20 : -30,10     //figure eight pattern
 	
 	repeat         = 1
 	order          = $(ORDER)
