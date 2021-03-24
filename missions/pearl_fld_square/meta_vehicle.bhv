@@ -36,8 +36,8 @@ Behavior = BHV_Waypoint
   endflag   = RETURN=true
   UPDATES   = WPT_UPDATE
   
-	//lead           = 8
-	//lead_damper    = 1
+	lead           = 8
+	lead_damper    = 1
 	speed          = $(SPEED)   //meters per second
 	capture_line   = true
 	capture_radius = 5
