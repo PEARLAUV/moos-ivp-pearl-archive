@@ -1,0 +1,30 @@
+28.171          VIEW_SEGLIST         pHelmIvP:10:waypt_square pts={-40,0:-40,-30:-10,-30:-10,0},label=pearl_waypt_square,label_color=white,edge_color=white,vertex_color=dodger_blue,vertex_size=5,edge_size=1 
+28.171          VIEW_POINT           pHelmIvP:10:waypt_square x=-40,y=0,active=true,label=pearl's next waypoint,label_color=gray70,vertex_color=yellow,vertex_size=8 
+28.171          VIEW_POINT           pHelmIvP:10:waypt_square x=-40,y=0,active=false,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+28.171          VIEW_SEGLIST         pHelmIvP:10:waypt_square pts={-40,0:-40,-30:-10,-30:-10,0},label=pearl_waypt_square,label_color=white,edge_color=white,vertex_color=dodger_blue,vertex_size=5,edge_size=1 
+28.171          VIEW_POINT           pHelmIvP:10:waypt_square x=-40,y=0,active=false,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+99.614          VIEW_POINT           pHelmIvP:295:waypt_square x=-40,y=-30,active=true,label=pearl's next waypoint,label_color=gray70,vertex_color=yellow,vertex_size=8 
+99.614          VIEW_POINT           pHelmIvP:295:waypt_square x=-40,y=-30,active=false,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+188.609         VIEW_POINT           pHelmIvP:650:waypt_square x=-10,y=-30,active=true,label=pearl's next waypoint,label_color=gray70,vertex_color=yellow,vertex_size=8 
+188.609         VIEW_POINT           pHelmIvP:650:waypt_square x=-10,y=-30,active=false,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+260.304         VIEW_POINT           pHelmIvP:936:waypt_square x=-10,y=0,active=true,label=pearl's next waypoint,label_color=gray70,vertex_color=yellow,vertex_size=8 
+260.304         VIEW_POINT           pHelmIvP:936:waypt_square x=-10,y=0,active=false,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+342.526         VIEW_POINT           pHelmIvP:1264:waypt_square x=-40,y=0,active=true,label=pearl's next waypoint,label_color=gray70,vertex_color=yellow,vertex_size=8 
+342.526         VIEW_POINT           pHelmIvP:1264:waypt_square x=-40,y=0,active=false,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+28.171          VIEW_SEGLIST         pHelmIvP:10:waypt_square pts={-40,0:-40,-30:-10,-30:-10,0},label=pearl_waypt_square,label_color=white,edge_color=white,vertex_color=dodger_blue,vertex_size=5,edge_size=1 
+342.526         VIEW_POINT           pHelmIvP:1264:waypt_square x=-40,y=0,active=false,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+416.480         VIEW_POINT           pHelmIvP:1559:waypt_square x=-40,y=-30,active=true,label=pearl's next waypoint,label_color=gray70,vertex_color=yellow,vertex_size=8 
+416.480         VIEW_POINT           pHelmIvP:1559:waypt_square x=-40,y=-30,active=false,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+420.991         VIEW_POLYGON         pHelmIvP:1577:station-keep radial:: x=-36.8,y=1.2,source=pearl:station-keep,pts=32,edge_size=1.00000,vertex_size=0.00000,edge_color=blue,label_color=white,vertex_color=red,label=pearl:station-keep-out,radius=10.0 
+420.991         VIEW_POLYGON         pHelmIvP:1577:station-keep radial:: x=-36.8,y=1.2,source=pearl:station-keep,pts=32,edge_size=1.00000,vertex_size=0.00000,edge_color=blue,label_color=white,vertex_color=red,label=pearl:station-keep-in,radius=5.0 
+420.991         VIEW_POINT           pHelmIvP:1577:waypt_square x=-40,y=-30,active=false,label=pearl's next waypoint,label_color=gray70,vertex_color=yellow,vertex_size=8 
+420.991         VIEW_SEGLIST         pHelmIvP:1577:waypt_square pts={-40,0:-40,-30:-10,-30:-10,0},active=false,label=pearl_waypt_square 
+421.492         VIEW_POLYGON         pHelmIvP:1579:station-keep radial:: x=-37.1,y=1.1,source=pearl:station-keep,pts=32,edge_size=1.00000,vertex_size=0.00000,edge_color=blue,label_color=white,vertex_color=red,label=pearl:station-keep-out,radius=10.0 
+421.492         VIEW_POLYGON         pHelmIvP:1579:station-keep radial:: x=-37.1,y=1.1,source=pearl:station-keep,pts=32,edge_size=1.00000,vertex_size=0.00000,edge_color=blue,label_color=white,vertex_color=red,label=pearl:station-keep-in,radius=5.0 
+420.991         VIEW_POINT           pHelmIvP:1577:waypt_square x=-40,y=-30,active=false,label=pearl's next waypoint,label_color=gray70,vertex_color=yellow,vertex_size=8 
+420.991         VIEW_SEGLIST         pHelmIvP:1577:waypt_square pts={-40,0:-40,-30:-10,-30:-10,0},active=false,label=pearl_waypt_square 
+421.492         VIEW_POLYGON         pHelmIvP:1579:station-keep radial:: x=-37.1,y=1.1,source=pearl:station-keep,pts=32,edge_size=1.00000,vertex_size=0.00000,edge_color=blue,label_color=white,vertex_color=red,label=pearl:station-keep-in,radius=5.0 
+422.493         VIEW_POLYGON         pHelmIvP:1583:station-keep radial:: x=-37.5,y=1.1,source=pearl:station-keep,pts=32,edge_size=1.00000,vertex_size=0.00000,edge_color=blue,label_color=white,vertex_color=red,label=pearl:station-keep-out,radius=10.0 
+422.493         VIEW_POLYGON         pHelmIvP:1583:station-keep radial:: x=-37.5,y=1.1,source=pearl:station-keep,pts=32,edge_size=1.00000,vertex_size=0.00000,edge_color=blue,label_color=white,vertex_color=red,label=pearl:station-keep-in,radius=5.0 
+423.495         VIEW_POLYGON         pHelmIvP:1587:station-keep radial:: x=-37.7,y=0.9,source=pearl:station-keep,pts=32,edge_size=1.00000,vertex_size=0.00000,edge_color=blue,label_color=white,vertex_color=red,label=pearl:station-keep-out,radius=10.0 
+423.495         VIEW_POLYGON         pHelmIvP:1587:station-keep radial:: x=-37.7,y=0.9,source=pearl:station-keep,pts=32,edge_size=1.00000,vertex_size=0.00000,edge_color=blue,label_color=white,vertex_color=red,label=pearl:station-keep-in,radius=5.0 
