@@ -1,0 +1,7 @@
+20.915          VIEW_SEGLIST         pHelmIvP:27:waypt_line pts={20,0},label=pearl_waypt_line,label_color=white,edge_color=white,vertex_color=dodger_blue,vertex_size=5,edge_size=1 
+20.916          VIEW_POINT           pHelmIvP:27:waypt_line x=20,y=0,active=true,label=pearl's next waypoint,label_color=gray70,vertex_color=yellow,vertex_size=8 
+20.916          VIEW_POINT           pHelmIvP:27:waypt_line x=20,y=0,active=false,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+20.915          VIEW_SEGLIST         pHelmIvP:27:waypt_line pts={20,0},label=pearl_waypt_line,label_color=white,edge_color=white,vertex_color=dodger_blue,vertex_size=5,edge_size=1 
+20.916          VIEW_POINT           pHelmIvP:27:waypt_line x=20,y=0,active=false,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
+142.949         VIEW_POINT           pHelmIvP:514:waypt_line x=20,y=0,active=false,label=pearl's next waypoint,label_color=gray70,vertex_color=yellow,vertex_size=8 
+142.949         VIEW_SEGLIST         pHelmIvP:514:waypt_line pts={20,0},active=false,label=pearl_waypt_line 
