@@ -25,7 +25,7 @@ class ModbusComms
 		
 		
 		void setMaxRetries(int max);
-		int updateRegTab(uint16_t*, uint16_t*);
+		int updateRegTab(uint16_t*, uint16_t*, uint16_t*);
 		bool getOn();
 		
 		int updateAll();
@@ -40,7 +40,7 @@ class ModbusComms
 		double getLoadPower();
 		double getBatteryTemp();
 		double getDeviceTemp();
-		double getCompTemp();
+		
 		double getBatterySOC();
 		double getBatteryNetCurr();
 		
@@ -48,7 +48,8 @@ class ModbusComms
 		modbus_t *Modbus;
 		bool on;
 		int maxRetries;
-		uint16_t regTab[48];
+		uint16_t allInfo[112];
+		uint16_t battSOC[8];
 		uint16_t netCurr[8];
 		double pvVolt;
 		double pvCurr;
@@ -64,7 +65,6 @@ class ModbusComms
 		double loadPowerH;
 		double batteryTemp;
 		double deviceTemp;
-		double compTemp;
 		double batterySOC;
 		double batteryNetCurr;
 };

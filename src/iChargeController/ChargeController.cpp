@@ -47,10 +47,9 @@ SCC::SCC()
   m_loadPower             = 0.0;
   m_batteryTemp           = 0.0;
   m_deviceTemp            = 0.0;
-  m_compTemp              = 0.0;
-  m_batterySOC            = 0.0;
   
-  m_batteryNetCurr     = 0.0;
+  m_batterySOC            = 0.0;
+  m_batteryNetCurr        = 0.0;
   
 }
 
@@ -125,20 +124,32 @@ bool SCC::Iterate()
     if (m_read_data) {
       m_reads_from_device++;
       m_scc->updateAll();
-      m_Comms.Notify("CHG_PV_VOLTAGE",m_scc->getPVVolt());
-      m_Comms.Notify("CHG_PV_CURRENT",m_scc->getPVCurr());
-      m_Comms.Notify("CHG_PV_POWER",m_scc->getPVPower());
-      m_Comms.Notify("CHG_BATTERY_VOLTAGE",m_scc->getBatteryVolt());
-      m_Comms.Notify("CHG_BATTERY_CURRENT",m_scc->getBatteryCurr());
-      m_Comms.Notify("CHG_BATTERY_POWER",m_scc->getBatteryPower());
-      m_Comms.Notify("CHG_LOAD_VOLTAGE",m_scc->getLoadVolt());
-      m_Comms.Notify("CHG_LOAD_CURRENT",m_scc->getLoadCurr());
-      m_Comms.Notify("CHG_LOAD_POWER",m_scc->getLoadPower());
-      m_Comms.Notify("CHG_BATTERY_TEMP",m_scc->getBatteryTemp());
-      m_Comms.Notify("CHG_DEVICE_TEMP",m_scc->getDeviceTemp());
-      m_Comms.Notify("CHG_COMPONENT_TEMP",m_scc->getCompTemp());
-      m_Comms.Notify("CHG_BATTERY_SOC",m_scc->getBatterySOC());
-      m_Comms.Notify("CHG_BATTER_NET_CURRENT",m_scc->getBatteryNetCurr()); } }
+      m_pvVoltage = m_scc->getPVVolt();
+      m_pvCurrent = m_scc->getPVCurr();
+      m_pvPower = m_scc->getPVPower();
+      m_batteryVoltage = m_scc->getBatteryVolt();
+      m_batteryCurrent = m_scc->getBatteryCurr();
+      m_batteryPower = m_scc->getBatteryPower();
+      m_loadVoltage = m_scc->getLoadVolt();
+      m_loadCurrent = m_scc->getLoadCurr();
+      m_loadPower = m_scc->getLoadPower();
+      m_batteryTemp = m_scc->getBatteryTemp();
+      m_deviceTemp = m_scc->getDeviceTemp();
+      m_batterySOC = m_scc->getBatterySOC();
+      m_batteryNetCurr = m_scc->getBatteryNetCurr();
+      m_Comms.Notify("CHG_PV_VOLTAGE",m_pvVoltage);
+      m_Comms.Notify("CHG_PV_CURRENT",m_pvCurrent);
+      m_Comms.Notify("CHG_PV_POWER",m_pvPower);
+      m_Comms.Notify("CHG_BATTERY_VOLTAGE",m_batteryVoltage);
+      m_Comms.Notify("CHG_BATTERY_CURRENT",m_batteryCurrent);
+      m_Comms.Notify("CHG_BATTERY_POWER",m_batteryPower);
+      m_Comms.Notify("CHG_LOAD_VOLTAGE",m_loadVoltage);
+      m_Comms.Notify("CHG_LOAD_CURRENT",m_loadCurrent);
+      m_Comms.Notify("CHG_LOAD_POWER",m_loadPower);
+      m_Comms.Notify("CHG_BATTERY_TEMP",m_batteryTemp);
+      m_Comms.Notify("CHG_DEVICE_TEMP",m_deviceTemp);
+      m_Comms.Notify("CHG_BATTERY_SOC",m_batterySOC);
+      m_Comms.Notify("CHG_BATTERY_NET_CURRENT",m_batteryNetCurr); } }
   else {
     reportConfigWarning("Unable to start Modbus connection."); }
 	
@@ -271,6 +282,20 @@ bool SCC::buildReport()
   string sMaxRudder = doubleToString(currMaxRudder, 1);
   string sReadData  = boolToString(m_read_data);
   
+  string sPVVolt    = doubleToString(m_pvVoltage, 1);
+  string sPVCurr    = doubleToString(m_pvCurrent, 1);
+  string sPVPower   = doubleToString(m_pvPower, 1);
+  string sBattVolt  = doubleToString(m_batteryVoltage, 1);
+  string sBattCurr  = doubleToString(m_batteryCurrent, 1);
+  string sBattPower = doubleToString(m_batteryPower, 1);
+  string sLoadVolt  = doubleToString(m_loadVoltage, 1);
+  string sLoadCurr  = doubleToString(m_loadCurrent, 1);
+  string sLoadPower = doubleToString(m_loadPower, 1);
+  string sBattTemp  = doubleToString(m_batteryTemp, 1);
+  string sDevTemp   = doubleToString(m_deviceTemp, 1);
+  string sBattSOC   = doubleToString(m_batterySOC, 1);
+  string sBattNet   = doubleToString(m_batteryNetCurr, 1);
+  
   m_msgs << endl << "SETUP" << endl << "-----" << endl;
   m_msgs << "     PORT (BAUDRATE):         " << m_serial_port << "(" << m_baudrate << ")" << endl;
   m_msgs << "     Publish PREFIX:          " << m_prefix << endl;
@@ -279,9 +304,21 @@ bool SCC::buildReport()
   m_msgs << endl;
 
   m_msgs << "   Reading from SCC:          " << sReadData << endl;
-  m_msgs << "   Reads from SCC:            " << m_reads_from_device << endl;
-  m_msgs << "   Current Max Thrust:        " << sMaxThrust << endl;
-  m_msgs << "   Current Max Rudder:        " << sMaxRudder << endl;
+  m_msgs << "   Number of reads from SCC:  " << m_reads_from_device << endl;
+  m_msgs << endl;
+  m_msgs << "   PV Voltage:          " << m_pvVoltage << endl;
+  m_msgs << "   PV Current:          " << m_pvCurrent << endl;
+  m_msgs << "   PV Power:            " << m_pvPower << endl;
+  m_msgs << "   Battery Voltage:     " << m_batteryVoltage << endl;
+  m_msgs << "   Battery Current:     " << m_batteryCurrent << endl;
+  m_msgs << "   Battery Power:       " << m_batteryPower << endl;
+  m_msgs << "   Load Voltage:        " << m_loadVoltage << endl;
+  m_msgs << "   Load Current:        " << m_loadCurrent << endl;
+  m_msgs << "   Load Power:          " << m_loadPower << endl;
+  m_msgs << "   Battery Temp:        " << m_batteryTemp << endl;
+  m_msgs << "   Device Temp:         " << m_deviceTemp << endl;
+  m_msgs << "   Battery SOC:         " << m_batterySOC << endl;
+  m_msgs << "   Battery Net Current: " << m_batteryNetCurr << endl;
   m_msgs << endl;
   
   return true;

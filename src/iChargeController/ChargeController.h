@@ -75,9 +75,8 @@ class SCC : public AppCastingMOOSApp
    double         m_loadPower;
    double         m_batteryTemp;
    double         m_deviceTemp;
-   double         m_compTemp;
-   double         m_batterySOC;
    
+   double         m_batterySOC;
    double         m_batteryNetCurr;
    
 };

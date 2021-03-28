@@ -35,7 +35,7 @@ ModbusComms::ModbusComms(string port, int baud)
 		on = true;
 	}
 	
-	updateRegTab(regTab, netCurr);
+	updateRegTab(allInfo, battSOC, netCurr);
 }
 
 ModbusComms::~ModbusComms()
@@ -46,7 +46,7 @@ ModbusComms::~ModbusComms()
 bool ModbusComms::getOn()
 {
 	int ret = -1;
-	ret = updateRegTab(regTab,netCurr);
+	ret = updateRegTab(allInfo, battSOC, netCurr);
 	if (ret!=-1) {
 		return true; }
 	else {
@@ -58,19 +58,20 @@ void ModbusComms::setMaxRetries(int m)
 	maxRetries = m;
 }
 
-int ModbusComms::updateRegTab(uint16_t* Tab, uint16_t* netCurr)
+int ModbusComms::updateRegTab(uint16_t* all, uint16_t* soc, uint16_t* net)
 {
-	int registers_read = -1;
-	int registerAddress = 0x3100;
-	int numBytes = 0x16;
+	int registers_read_all = -1;
+	int registers_read_soc = -1;
+	int registers_read_net = -1;
 	for(int w = 0 ; w < MAX_RETRIES ; w ++)
 	{
-		registers_read = modbus_read_registers(Modbus,registerAddress,numBytes,Tab);
-		modbus_read_registers(Modbus,0x331B,0x01,netCurr);
-		if(registers_read != -1)
+		registers_read_all = modbus_read_registers(Modbus,0x3100,0x14,all);
+		registers_read_soc = modbus_read_registers(Modbus,0x311A,0x01,soc);
+		registers_read_net = modbus_read_registers(Modbus,0x331B,0x01,net);
+		if(registers_read_all != -1)
 			break;
 	}
-	if (registers_read!=-1)
+	if (registers_read_all != -1)
 	{
 		return 1;
 	} else {
@@ -81,26 +82,26 @@ int ModbusComms::updateRegTab(uint16_t* Tab, uint16_t* netCurr)
 int ModbusComms::updateAll()
 {
 	int ret;
-	ret = updateRegTab(regTab,netCurr);
+	ret = updateRegTab(allInfo,battSOC,netCurr);
 	
-	pvVolt         = regTab[0x00]/100.0;
-	pvCurr         = regTab[0x01]/100.0;
-	pvPowerL       = regTab[0x02]/100.0;
-	pvPowerH       = regTab[0x03]/100.0;
-	batteryVolt    = regTab[0x04]/100.0;
-	batteryCurr    = regTab[0x05]/100.0;
-	batteryPowerL  = regTab[0x06]/100.0;
-	batteryPowerH  = regTab[0x07]/100.0;
-	loadVolt       = regTab[0x0C]/100.0;
-	loadCurr       = regTab[0x0D]/100.0;
-	loadPowerL     = regTab[0x0E]/100.0;
-	loadPowerH     = regTab[0x0F]/100.0;
-	batteryTemp    = regTab[0x10]/100.0;
-	deviceTemp     = regTab[0x11]/100.0;
-	compTemp       = regTab[0x12]/100.0;
-	batterySOC     = regTab[0x1A]/100.0;
+	pvVolt         = ((double) allInfo[0x00]) / 100.0;
+	pvCurr         = ((double) allInfo[0x01]) / 100.0;
+	pvPowerL       = ((double) allInfo[0x02]) / 100.0;
+	pvPowerH       = ((double) allInfo[0x03]) / 100.0;
+	batteryVolt    = ((double) allInfo[0x04]) / 100.0;
+	batteryCurr    = ((double) allInfo[0x05]) / 100.0;
+	batteryPowerL  = ((double) allInfo[0x06]) / 100.0;
+	batteryPowerH  = ((double) allInfo[0x07]) / 100.0;
+	loadVolt       = ((double) allInfo[0x08]) / 100.0;
+	loadCurr       = ((double) allInfo[0x09]) / 100.0;
+	loadPowerL     = ((double) allInfo[10]) / 100.0;
+	loadPowerH     = ((double) allInfo[11]) / 100.0;
+	batteryTemp    = ((double) allInfo[12]) / 100.0;
+	deviceTemp     = ((double) allInfo[13]) / 100.0;
 	
-	batteryNetCurr = netCurr[0x1B]/100.0;
+	batterySOC     = ((double) battSOC[0x00]) / 100.0;
+	
+	batteryNetCurr = ((double) netCurr[0x00]) / 100.0;
 	
 	return ret;	
 }
@@ -158,11 +159,6 @@ double ModbusComms::getBatteryTemp()
 double ModbusComms::getDeviceTemp()
 {
 	return deviceTemp;
-}
-
-double ModbusComms::getCompTemp()
-{
-	return compTemp;
 }
 
 double ModbusComms::getBatterySOC()
