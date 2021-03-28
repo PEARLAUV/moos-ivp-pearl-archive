@@ -11,13 +11,13 @@
 
 #include <string>
 #include "MOOS/libMOOS/Thirdparty/AppCasting/AppCastingMOOSApp.h"
-#include "SerialComms.h"
+#include "ModbusComms.h"
 
-class CHARGE : public AppCastingMOOSApp
+class SCC : public AppCastingMOOSApp
 {
  public:
-        CHARGE();
-        ~CHARGE() {};
+        SCC();
+        ~SCC() {delete m_scc;};
    bool OnNewMail(MOOSMSG_LIST &NewMail);
    bool Iterate();
    bool OnConnectToServer();
@@ -26,8 +26,9 @@ class CHARGE : public AppCastingMOOSApp
  protected:
    void RegisterForMOOSMessages();
    
-   bool SerialSetup();
+   //bool ModbusSetup();
    void GetData();
+   void PublishData();
    
    //Handle config params
    bool SetParam_PORT(std::string sVal);                //m_serial_port
@@ -38,6 +39,7 @@ class CHARGE : public AppCastingMOOSApp
    bool SetParam_MAX_RUDDER(std::string sVal);          //m_max_rudder
    
    bool SetPublishNames();
+   bool ConnectToSCC(std::string port, int baud);
    
    //MOOS file parameters
    std::string   m_serial_port;
@@ -47,8 +49,9 @@ class CHARGE : public AppCastingMOOSApp
    double        m_max_thrust;
    double        m_max_rudder;
    
-   SerialComms*  m_serial;
-   bool          m_bValidSerialConn;
+   ModbusComms   *m_scc;
+   bool          m_bValidModbusConn;
+   int           m_maxTurnOnRetries;
    
    double        currMaxThrust;
    double        currMaxRudder;
@@ -58,8 +61,24 @@ class CHARGE : public AppCastingMOOSApp
    std::string   m_pubNameMaxRudder;
    
    //Appcast details
-   unsigned int  m_msgs_from_device;
-   std::string   m_last_msg_from_device;
+   unsigned int  m_reads_from_device;
+   
+   //SCC data
+   double         m_pvVoltage;
+   double         m_pvCurrent;
+   double         m_pvPower;
+   double         m_batteryVoltage;
+   double         m_batteryCurrent;
+   double         m_batteryPower;
+   double         m_loadVoltage;
+   double         m_loadCurrent;
+   double         m_loadPower;
+   double         m_batteryTemp;
+   double         m_deviceTemp;
+   double         m_compTemp;
+   double         m_batterySOC;
+   
+   double         m_batteryNetCurr;
    
 };
 

@@ -8,6 +8,7 @@ ADD_EXECUTABLE(iChargeController ${SRC})
 
 TARGET_LINK_LIBRARIES(iChargeController
    ${MOOS_LIBRARIES}
-   SimpleSerial
    mbutil
+   pthread
+   modbus
    ${SYSTEM_LIBS} )

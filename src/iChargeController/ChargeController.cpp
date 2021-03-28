@@ -12,18 +12,18 @@
 
 using namespace std;
 
-CHARGE::CHARGE()
+SCC::SCC()
 {
   //MOOS file parameters
-  m_serial_port           = "/dev/tty";
+  m_serial_port           = "/dev/ttyXRUSB0";
   m_baudrate              = 115200;
   m_prefix                = "CHG";
   m_read_data             = false;
   m_max_thrust            = 0.0;
   m_max_rudder            = 0.0;
-  
-  m_serial                = NULL;
-  m_bValidSerialConn      = false;
+
+  m_bValidModbusConn      = false;
+  m_maxTurnOnRetries      = 10;
   
   currMaxThrust           = 0.0;
   currMaxRudder           = 0.0;
@@ -33,12 +33,28 @@ CHARGE::CHARGE()
   m_pubNameMaxRudder      = "MAX_RUDDER";
   
   //Appcast details
-  m_msgs_from_device      = 0;
-  m_last_msg_from_device  = "";
+  m_reads_from_device     = 0;
+  
+  //SCC data
+  m_pvVoltage             = 0.0; 
+  m_pvCurrent             = 0.0;
+  m_pvPower               = 0.0;
+  m_batteryVoltage        = 0.0;
+  m_batteryCurrent        = 0.0;
+  m_batteryPower          = 0.0;
+  m_loadVoltage           = 0.0;
+  m_loadCurrent           = 0.0;
+  m_loadPower             = 0.0;
+  m_batteryTemp           = 0.0;
+  m_deviceTemp            = 0.0;
+  m_compTemp              = 0.0;
+  m_batterySOC            = 0.0;
+  
+  m_batteryNetCurr     = 0.0;
   
 }
 
-bool CHARGE::OnNewMail(MOOSMSG_LIST &NewMail)
+bool SCC::OnNewMail(MOOSMSG_LIST &NewMail)
 {
   AppCastingMOOSApp::OnNewMail(NewMail);
   MOOSMSG_LIST::iterator p;
@@ -50,12 +66,12 @@ bool CHARGE::OnNewMail(MOOSMSG_LIST &NewMail)
   return UpdateMOOSVariables(NewMail);
 }
 
-void CHARGE::RegisterForMOOSMessages()
+void SCC::RegisterForMOOSMessages()
 {
   AppCastingMOOSApp::RegisterVariables();
 }
 
-bool CHARGE::OnStartUp()
+bool SCC::OnStartUp()
 {
   AppCastingMOOSApp::OnStartUp();
   STRING_LIST sParams;
@@ -80,8 +96,14 @@ bool CHARGE::OnStartUp()
       reportUnhandledConfigWarning(orig); }
 
   SetPublishNames();
-
-  //m_bValidSerialConn = SerialSetup();
+  
+  ConnectToSCC(m_serial_port,m_baudrate);
+  
+  currMaxThrust = m_max_thrust;
+	m_Comms.Notify(m_pubNameMaxThrust, currMaxThrust); 
+    
+  currMaxRudder = m_max_rudder;
+  m_Comms.Notify(m_pubNameMaxRudder, currMaxRudder);
   
   RegisterForMOOSMessages();
   MOOSPause(500);
@@ -89,56 +111,43 @@ bool CHARGE::OnStartUp()
   return true;
 }
 
-bool CHARGE::OnConnectToServer()
+bool SCC::OnConnectToServer()
 {
 	RegisterForMOOSMessages();
 	return true;
 }
 
-bool CHARGE::Iterate()
+bool SCC::Iterate()
 {
   AppCastingMOOSApp::Iterate();
-	
-  if (!m_read_data) {
-    currMaxThrust = m_max_thrust;
-	  m_Comms.Notify(m_pubNameMaxThrust, currMaxThrust); 
-    
-    currMaxRudder = m_max_rudder;
-    m_Comms.Notify(m_pubNameMaxRudder, currMaxRudder);
-    }
-
-  //else
-  //  read data from charge controller
+  
+  if (m_bValidModbusConn) {
+    if (m_read_data) {
+      m_reads_from_device++;
+      m_scc->updateAll();
+      m_Comms.Notify("CHG_PV_VOLTAGE",m_scc->getPVVolt());
+      m_Comms.Notify("CHG_PV_CURRENT",m_scc->getPVCurr());
+      m_Comms.Notify("CHG_PV_POWER",m_scc->getPVPower());
+      m_Comms.Notify("CHG_BATTERY_VOLTAGE",m_scc->getBatteryVolt());
+      m_Comms.Notify("CHG_BATTERY_CURRENT",m_scc->getBatteryCurr());
+      m_Comms.Notify("CHG_BATTERY_POWER",m_scc->getBatteryPower());
+      m_Comms.Notify("CHG_LOAD_VOLTAGE",m_scc->getLoadVolt());
+      m_Comms.Notify("CHG_LOAD_CURRENT",m_scc->getLoadCurr());
+      m_Comms.Notify("CHG_LOAD_POWER",m_scc->getLoadPower());
+      m_Comms.Notify("CHG_BATTERY_TEMP",m_scc->getBatteryTemp());
+      m_Comms.Notify("CHG_DEVICE_TEMP",m_scc->getDeviceTemp());
+      m_Comms.Notify("CHG_COMPONENT_TEMP",m_scc->getCompTemp());
+      m_Comms.Notify("CHG_BATTERY_SOC",m_scc->getBatterySOC());
+      m_Comms.Notify("CHG_BATTER_NET_CURRENT",m_scc->getBatteryNetCurr()); } }
+  else {
+    reportConfigWarning("Unable to start Modbus connection."); }
 	
   AppCastingMOOSApp::PostReport();
   
   return true;
 }
 
-bool CHARGE::SerialSetup()
-{
-  string errMsg = "";
-  m_serial = new SerialComms(m_serial_port, m_baudrate, errMsg);
-  if (m_serial->IsGoodSerialComms()) {
-    m_serial->Run();
-    string msg = "Serial port opened. ";
-    msg       += "Communicating on port ";
-    msg       += m_serial_port;
-    reportEvent(msg);
-    return true; }
-  reportConfigWarning("Unable to open serial port: " + errMsg);
-  return false;
-}
-
-void CHARGE::GetData()
-{
-  if (!m_bValidSerialConn)
-	return;
-
-  //to be done
-}
-
-bool CHARGE::SetParam_PORT(std::string sVal)
+bool SCC::SetParam_PORT(std::string sVal)
 {
   m_serial_port = sVal;
   if (m_serial_port.empty())
@@ -147,7 +156,7 @@ bool CHARGE::SetParam_PORT(std::string sVal)
   return true;
 }
 
-bool CHARGE::SetParam_BAUDRATE(std::string sVal)
+bool SCC::SetParam_BAUDRATE(std::string sVal)
 {
   if (sVal.empty())
     reportConfigWarning("Mission file parameter BAUDRATE must not be blank.");
@@ -164,7 +173,7 @@ bool CHARGE::SetParam_BAUDRATE(std::string sVal)
     return true;
 }
 
-bool CHARGE::SetParam_PREFIX(std::string sVal)
+bool SCC::SetParam_PREFIX(std::string sVal)
 {
   m_prefix = toupper(sVal);
   size_t strLen = m_prefix.length();
@@ -174,7 +183,7 @@ bool CHARGE::SetParam_PREFIX(std::string sVal)
   return true;
 }
 
-bool CHARGE::SetParam_READ_DATA(std::string sVal)
+bool SCC::SetParam_READ_DATA(std::string sVal)
 {
   sVal = removeWhite(sVal);
   if (sVal.empty())
@@ -193,7 +202,7 @@ bool CHARGE::SetParam_READ_DATA(std::string sVal)
   return true;
 }
 
-bool CHARGE::SetParam_MAX_THRUST(std::string sVal)
+bool SCC::SetParam_MAX_THRUST(std::string sVal)
 {
   stringstream ssMsg;
   if (!isNumber(sVal))
@@ -208,7 +217,7 @@ bool CHARGE::SetParam_MAX_THRUST(std::string sVal)
   return true;
 }
 
-bool CHARGE::SetParam_MAX_RUDDER(std::string sVal)
+bool SCC::SetParam_MAX_RUDDER(std::string sVal)
 {
   stringstream ssMsg;
   if (!isNumber(sVal))
@@ -223,7 +232,7 @@ bool CHARGE::SetParam_MAX_RUDDER(std::string sVal)
   return true;
 }
 
-bool CHARGE::SetPublishNames()
+bool SCC::SetPublishNames()
 {
   m_prefix = toupper(m_prefix);
   size_t strLen = m_prefix.length();
@@ -235,21 +244,32 @@ bool CHARGE::SetPublishNames()
   return true;
 }
 
-bool CHARGE::buildReport()
+bool SCC::ConnectToSCC(string port, int baud)
+{
+  m_scc = new ModbusComms(m_serial_port, m_baudrate);
+  for (int i = 0;i < m_maxTurnOnRetries; ++i)
+    if (m_scc->getOn()) {
+      m_bValidModbusConn = true;
+      break; }
+  return m_bValidModbusConn;
+  
+}
+
+bool SCC::buildReport()
 {
   m_msgs << endl << "DEVICE STATUS" << endl << "-------------" << endl;
-  if (!m_bValidSerialConn)
-    m_msgs << "*** No communications with charge controller. ***" << endl;
-  //if (m_serial->IsGoodSerialComms())
-  //  m_msgs << "Serial communicating properly on port " << m_serial_port << " at " << m_baudrate << " baud." << endl;
-  //else
-  //  m_msgs << "Serial not connected to port " << m_serial_port << " at " << m_baudrate << "baud." << endl;
-    
+  if (!m_bValidModbusConn) {
+    m_msgs << "*** No communications with solar charge controller. ***" << endl;
+    return true; }
+  else
+    m_msgs << "Communicating with charge controller properly on port " << m_serial_port << " at " << m_baudrate << " baud." << endl;
+  
   // Format doubles ahead of time
   string sMaxThr    = doubleToString(m_max_thrust, 1);
   string sMaxThrust = doubleToString(currMaxThrust, 1);
   string sMaxRud    = doubleToString(m_max_rudder, 1);
   string sMaxRudder = doubleToString(currMaxRudder, 1);
+  string sReadData  = boolToString(m_read_data);
   
   m_msgs << endl << "SETUP" << endl << "-----" << endl;
   m_msgs << "     PORT (BAUDRATE):         " << m_serial_port << "(" << m_baudrate << ")" << endl;
@@ -258,10 +278,10 @@ bool CHARGE::buildReport()
   m_msgs << "     MAX RUDDER:              " << sMaxRud << endl;
   m_msgs << endl;
 
-  m_msgs << "   Messages from device:         " << m_msgs_from_device << endl;
-  m_msgs << "   Last message from device:     " << m_last_msg_from_device << endl;
-  m_msgs << "   Current Max Thrust:           " << sMaxThrust << endl;
-  m_msgs << "   Current Max Rudder:           " << sMaxRudder << endl;
+  m_msgs << "   Reading from SCC:          " << sReadData << endl;
+  m_msgs << "   Reads from SCC:            " << m_reads_from_device << endl;
+  m_msgs << "   Current Max Thrust:        " << sMaxThrust << endl;
+  m_msgs << "   Current Max Rudder:        " << sMaxRudder << endl;
   m_msgs << endl;
   
   return true;

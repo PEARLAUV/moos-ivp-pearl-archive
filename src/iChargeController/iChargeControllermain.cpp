@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
   cout << termColor("green");
   cout << "iChargeController launching as " << run_command << endl;
   cout << termColor() << endl;
-  CHARGE CHARGE;
-  CHARGE.Run(run_command.c_str(), mission_file.c_str());
+  SCC SCC;
+  SCC.Run(run_command.c_str(), mission_file.c_str());
   return(0);
 }
