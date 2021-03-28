@@ -48,7 +48,7 @@ class ModbusComms
 		modbus_t *Modbus;
 		bool on;
 		int maxRetries;
-		uint16_t allInfo[112];
+		uint16_t allInfo[120];
 		uint16_t battSOC[8];
 		uint16_t netCurr[8];
 		double pvVolt;

@@ -65,9 +65,9 @@ int ModbusComms::updateRegTab(uint16_t* all, uint16_t* soc, uint16_t* net)
 	int registers_read_net = -1;
 	for(int w = 0 ; w < MAX_RETRIES ; w ++)
 	{
-		registers_read_all = modbus_read_registers(Modbus,0x3100,0x14,all);
-		registers_read_soc = modbus_read_registers(Modbus,0x311A,0x01,soc);
-		registers_read_net = modbus_read_registers(Modbus,0x331B,0x01,net);
+		registers_read_all = modbus_read_input_registers(Modbus,0x3100,0x14,all);
+		registers_read_soc = modbus_read_input_registers(Modbus,0x311A,0x01,soc);
+		registers_read_net = modbus_read_input_registers(Modbus,0x331B,0x01,net);
 		if(registers_read_all != -1)
 			break;
 	}
@@ -84,20 +84,20 @@ int ModbusComms::updateAll()
 	int ret;
 	ret = updateRegTab(allInfo,battSOC,netCurr);
 	
-	pvVolt         = ((double) allInfo[0x00]) / 100.0;
-	pvCurr         = ((double) allInfo[0x01]) / 100.0;
-	pvPowerL       = ((double) allInfo[0x02]) / 100.0;
-	pvPowerH       = ((double) allInfo[0x03]) / 100.0;
-	batteryVolt    = ((double) allInfo[0x04]) / 100.0;
-	batteryCurr    = ((double) allInfo[0x05]) / 100.0;
-	batteryPowerL  = ((double) allInfo[0x06]) / 100.0;
-	batteryPowerH  = ((double) allInfo[0x07]) / 100.0;
-	loadVolt       = ((double) allInfo[0x08]) / 100.0;
-	loadCurr       = ((double) allInfo[0x09]) / 100.0;
-	loadPowerL     = ((double) allInfo[10]) / 100.0;
-	loadPowerH     = ((double) allInfo[11]) / 100.0;
-	batteryTemp    = ((double) allInfo[12]) / 100.0;
-	deviceTemp     = ((double) allInfo[13]) / 100.0;
+	pvVolt         = ((double) allInfo[ 0x00 ]) / 100.0;
+	pvCurr         = ((double) allInfo[ 0x01 ]) / 100.0;
+	pvPowerL       = ((double) allInfo[ 0x02 ]) / 100.0;
+	pvPowerH       = ((double) allInfo[ 0x03 ]) / 100.0;
+	batteryVolt    = ((double) allInfo[ 0x04 ]) / 100.0;
+	batteryCurr    = ((double) allInfo[ 0x05 ]) / 100.0;
+	batteryPowerL  = ((double) allInfo[ 0x06 ]) / 100.0;
+	batteryPowerH  = ((double) allInfo[ 0x07 ]) / 100.0;
+	loadVolt       = ((double) allInfo[ 0x08 ]) / 100.0;
+	loadCurr       = ((double) allInfo[ 0x09 ]) / 100.0;
+	loadPowerL     = ((double) allInfo[ 10 ]) / 100.0;
+	loadPowerH     = ((double) allInfo[ 11 ]) / 100.0;
+	batteryTemp    = ((double) allInfo[ 12 ]) / 100.0;
+	deviceTemp     = ((double) allInfo[ 13 ]) / 100.0;
 	
 	batterySOC     = ((double) battSOC[0x00]) / 100.0;
 	
