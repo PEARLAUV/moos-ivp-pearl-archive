@@ -3,6 +3,7 @@
 //If true writes thrust commands to specified LED pins
 //If false writes thrust commands to specified motor controller pins
 bool TEST_MODE = false;
+bool DEBUG_MODE = true;
 
 //Pin assignments
 int rightMotorPin = 8;
@@ -140,6 +141,13 @@ void setup(void)
   while (!Serial3) {
     delay(1);   
   }
+  
+  if (DEBUG_MODE) {
+    Serial.begin(115200);
+    while (!Serial) {
+      delay(1);
+    }
+  }
 
   /*------Setup for IMU--------*/
   cal.begin();
@@ -203,6 +211,13 @@ void loop(void)
   roll = filter.getRoll();
   pitch = filter.getPitch();
   heading = filter.getYaw();
+  
+  new_heading = mapFloat(heading, 0, 360, 360, 0);
+  new_heading += 180;
+  if (new_heading > 360.0)
+    new_heading -= 360.0;
+  if (new_heading < 0.0)
+    new_heading += 360.0;
 
   /*--------Handle manual control if necessary--------*/
   BLUETOOTH = readSwitch(bluetoothCH, false);
@@ -297,9 +312,6 @@ void loop(void)
   }
   // reset the counter
   counter = 0;
-
-  //Euler angle NMEA string
-  new_heading = heading * -1;
   
   String PAYLOAD_EULER = String(manualControl) + "," + String(new_heading) + "," + String(pitch) + "," + String(roll);  
   String NMEA_EULER = generateNMEAString(PAYLOAD_EULER, PREFIX, ID_EULER);
@@ -317,6 +329,26 @@ void loop(void)
   String NMEA_MOTOR = generateNMEAString(PAYLOAD_MOTOR, PREFIX, ID_MOTOR);
   Serial3.println(NMEA_MOTOR);
 
+  if (DEBUG_MODE) {
+    float accx = accel.acceleration.x;
+    float accy = accel.acceleration.y;
+    float accz = accel.acceleration.z;
+    float gyrox = gyro.gyro.x;
+    float gyroy = gyro.gyro.y;
+    float gyroz = gyro.gyro.z;
+    float magx = mag.magnetic.x;
+    float magy = mag.magnetic.y;
+    float magz = mag.magnetic.z;
+    float HEADING = new_heading;
+    float PITCH   = pitch;
+    float ROLL    = roll;
+    
+//    sendToPython(&accx, &accy, &accz);
+//    sendToPython(&gyrox, &gyroy, &gyroz);
+//    sendToPython(&magx, &magy, &magz);
+    sendToPython(&HEADING, &PITCH, &ROLL);
+  }
+  
 //  Serial3.print(curLeft);Serial3.print("\t");Serial3.println(curRight);
 
 }
@@ -572,4 +604,14 @@ bool readSwitch(byte channelInput, bool defaultValue){
   int intDefaultValue = (defaultValue)? 100: 0;
   int ch = readChannel(channelInput, 0, 100, intDefaultValue);
   return (ch > 50);
+}
+
+void sendToPython(float* x, float* y, float* z)
+{
+  byte* byteX = (byte*)(x);
+  byte* byteY = (byte*)(y);
+  byte* byteZ = (byte*)(z);
+  Serial.write(byteX, 4);
+  Serial.write(byteY, 4);
+  Serial.write(byteZ, 4);
 }

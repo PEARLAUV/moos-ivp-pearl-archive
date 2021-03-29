@@ -589,7 +589,7 @@ bool PEARL::HandlePLIMU(string toParse)
     }
   
   if (!yValStr.empty()) {
-    dHeading = stod(yValStr) + 180.0 + m_heading_offset;
+    dHeading = stod(yValStr) + m_heading_offset;
     if (dHeading > 360.0)
       dHeading -= 360.0;
     if (dHeading < 0.0)
