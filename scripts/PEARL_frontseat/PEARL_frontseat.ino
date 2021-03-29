@@ -345,8 +345,8 @@ void loop(void)
     
 //    sendToPython(&accx, &accy, &accz);
 //    sendToPython(&gyrox, &gyroy, &gyroz);
-//    sendToPython(&magx, &magy, &magz);
-    sendToPython(&HEADING, &PITCH, &ROLL);
+    sendToPython(&magx, &magy, &magz);
+//    sendToPython(&HEADING, &PITCH, &ROLL);
   }
   
 //  Serial3.print(curLeft);Serial3.print("\t");Serial3.println(curRight);
