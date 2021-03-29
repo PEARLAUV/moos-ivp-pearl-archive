@@ -96,7 +96,7 @@ bool SCC::OnStartUp()
 
   SetPublishNames();
   
-  ConnectToSCC(m_serial_port,m_baudrate);
+  m_bValidModbusConn = ConnectToSCC(m_serial_port,m_baudrate);
   
   currMaxThrust = m_max_thrust;
 	m_Comms.Notify(m_pubNameMaxThrust, currMaxThrust); 
@@ -257,12 +257,13 @@ bool SCC::SetPublishNames()
 
 bool SCC::ConnectToSCC(string port, int baud)
 {
+  bool on = false;
   m_scc = new ModbusComms(m_serial_port, m_baudrate);
   for (int i = 0;i < m_maxTurnOnRetries; ++i)
     if (m_scc->getOn()) {
-      m_bValidModbusConn = true;
+      on = true;
       break; }
-  return m_bValidModbusConn;
+  return on;
   
 }
 
