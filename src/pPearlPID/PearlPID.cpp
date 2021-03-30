@@ -179,7 +179,7 @@ bool PearlPID::OnNewMail(MOOSMSG_LIST &NewMail)
     m_station_keep = true;
       }
       else if(key == "SOLAR_HEADING")
-  m_solar_heading = msg.m_dfVal;
+  m_solar_heading = round(msg.m_dfVal);
       }
   }
   if(m_max_sat_hdg_debug)
@@ -234,8 +234,10 @@ bool PearlPID::Iterate()
   }
   
   if(m_use_solar && m_station_keep && m_desired_speed < 0.01) {
-    //if (abs(m_current_heading - m_solar_heading) <= (2 * m_deadband)) {
-    m_desired_heading = m_solar_heading;
+    if (abs(m_current_heading - m_solar_heading) <= m_deadband) {
+      m_desired_heading = m_current_heading; }
+    else {
+      m_desired_heading = m_solar_heading; }
   }
 
   double rudder = 0;
