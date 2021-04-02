@@ -168,6 +168,9 @@ double ModbusComms::getBatterySOC()
 
 double ModbusComms::getBatteryNetCurr()
 {
+  if (batteryNetCurr > 327.67) {
+    batteryNetCurr -= 655.36;
+  }
 	return batteryNetCurr;
 }	
 
