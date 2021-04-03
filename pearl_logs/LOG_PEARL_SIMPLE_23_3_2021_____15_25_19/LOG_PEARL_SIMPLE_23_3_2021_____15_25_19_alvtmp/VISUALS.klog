@@ -1,5 +1,0 @@
-36.707          VIEW_SEGLIST         pHelmIvP:85:waypt_line pts={20,0},label=pearl_waypt_line,label_color=white,edge_color=white,vertex_color=dodger_blue,vertex_size=5,edge_size=1 
-36.707          VIEW_POINT           pHelmIvP:85:waypt_line x=20,y=0,active=true,label=pearl's next waypoint,label_color=gray70,vertex_color=yellow,vertex_size=8 
-36.707          VIEW_POINT           pHelmIvP:85:waypt_line x=20,y=0,active=false,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
-36.707          VIEW_SEGLIST         pHelmIvP:85:waypt_line pts={20,0},label=pearl_waypt_line,label_color=white,edge_color=white,vertex_color=dodger_blue,vertex_size=5,edge_size=1 
-36.707          VIEW_POINT           pHelmIvP:85:waypt_line x=20,y=0,active=false,label=pearl's track-point,label_color=yellow,vertex_color=yellow,vertex_size=4 
